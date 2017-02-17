@@ -1,14 +1,13 @@
 ---
-layout: post
-title: 'Mac下Golang环境搭建'
-description: '#Mac下Golang环境搭建'
-date: 2016-12-25
-comments: true
-categories:
-- Mac
+layout:     post
+title:      "Mac下Golang环境搭建"
+subtitle:   "#Mac下Golang环境搭建"
+date:       2016-12-25
+author:     "Elton"
+header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
-- Golang 
-
+    - Golang
 ---
 
 #Mac下Golang环境搭建
@@ -61,4 +60,3 @@ func main() {
 ```
 
 ![自动补全](http://www.vckai.com/static/up/image/20150505/1432354894.png)
-
