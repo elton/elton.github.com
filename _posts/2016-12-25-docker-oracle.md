@@ -45,7 +45,7 @@ $git clone https://github.com/wscherphof/oracle-12c
 5. ```$ docker run --shm-size=4g -ti --name step1 oracle-12c:step1 /bin/bash```
 6. ```# /tmp/install/install``` (大约5分钟)  
 
-	```
+	```shell
 	Tue Sep 16 08:48:00 UTC 2014
 	Starting Oracle Universal Installer...
 

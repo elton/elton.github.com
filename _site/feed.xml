@@ -5,8 +5,8 @@
     <description>关注电商全栈技术 | 郑振宇，Web &amp; Mobile Lover，Front-End &amp; Back-end Engineer，UX Designer, CTO &amp; CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 17 Feb 2017 23:58:11 +0800</pubDate>
-    <lastBuildDate>Fri, 17 Feb 2017 23:58:11 +0800</lastBuildDate>
+    <pubDate>Sat, 18 Feb 2017 00:01:15 +0800</pubDate>
+    <lastBuildDate>Sat, 18 Feb 2017 00:01:15 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -46,7 +46,7 @@ Docker version 1.12.5, build 7392c3b
   &lt;li&gt;
     &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;# /tmp/install/install&lt;/code&gt; (大约5分钟)&lt;/p&gt;
 
-    &lt;p&gt;```
+    &lt;p&gt;```shell
  Tue Sep 16 08:48:00 UTC 2014
  Starting Oracle Universal Installer…&lt;/p&gt;
 
