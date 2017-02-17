@@ -5,15 +5,15 @@
     <description>关注电商全栈技术 | 郑振宇，Web &amp; Mobile Lover，Front-End &amp; Back-end Engineer，UX Designer, CTO &amp; CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 18 Feb 2017 00:01:15 +0800</pubDate>
-    <lastBuildDate>Sat, 18 Feb 2017 00:01:15 +0800</lastBuildDate>
+    <pubDate>Sat, 18 Feb 2017 00:37:54 +0800</pubDate>
+    <lastBuildDate>Sat, 18 Feb 2017 00:37:54 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
         <title>Mac下使用Docker制作Oralce 12c镜像</title>
-        <description>&lt;h1 id=&quot;macdockeroralce-12c&quot;&gt;Mac下使用Docker制作Oralce 12c镜像&lt;/h1&gt;
+        <description>&lt;h1 id=&quot;mac下使用docker制作oralce-12c镜像&quot;&gt;Mac下使用Docker制作Oralce 12c镜像&lt;/h1&gt;
 
-&lt;h2 id=&quot;docker&quot;&gt;安装Docker&lt;/h2&gt;
+&lt;h2 id=&quot;安装docker&quot;&gt;安装Docker&lt;/h2&gt;
 
 &lt;p&gt;在&lt;a href=&quot;https://docs.docker.com/docker-for-mac/&quot;&gt;官网&lt;/a&gt;下载最新版的Docker for Mac，安装好以后，使用下面命令测试&lt;/p&gt;
 
@@ -26,17 +26,17 @@ Docker version 1.12.5, build 7392c3b
 &lt;p&gt;在浏览器中使用&lt;a href=&quot;http://localhost/&quot;&gt;http://localhost/&lt;/a&gt;查看，如果安装正确，将显示如下界面。
 &lt;img src=&quot;https://docs.docker.com/docker-for-mac/images/hello-world-nginx.png&quot; alt=&quot;nginx&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;制作镜像&lt;/h2&gt;
+&lt;h2 id=&quot;制作镜像&quot;&gt;制作镜像&lt;/h2&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;下载制作镜像要用的代码&lt;/h3&gt;
+&lt;h3 id=&quot;下载制作镜像要用的代码&quot;&gt;下载制作镜像要用的代码&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$git clone https://github.com/wscherphof/oracle-12c
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;oracle&quot;&gt;下载Oracle数据库&lt;/h3&gt;
+&lt;h3 id=&quot;下载oracle数据库&quot;&gt;下载Oracle数据库&lt;/h3&gt;
 
-&lt;h4 id=&quot;section-2&quot;&gt;第一步&lt;/h4&gt;
+&lt;h4 id=&quot;第一步&quot;&gt;第一步&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;从 &lt;a href=&quot;http://www.oracle.com/technetwork/database/enterprise-edition/downloads/database12c-linux-download-2240591.html&quot;&gt;Oracle Tech Net&lt;/a&gt; 下载 linuxamd64_12102_database_1of2.zip &amp;amp; linuxamd64_12102_database_2of2.zip&lt;/li&gt;
   &lt;li&gt;把两个zip文件放到&lt;code class=&quot;highlighter-rouge&quot;&gt;step1&lt;/code&gt;目录中&lt;/li&gt;
@@ -46,94 +46,96 @@ Docker version 1.12.5, build 7392c3b
   &lt;li&gt;
     &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;# /tmp/install/install&lt;/code&gt; (大约5分钟)&lt;/p&gt;
 
-    &lt;p&gt;```shell
- Tue Sep 16 08:48:00 UTC 2014
- Starting Oracle Universal Installer…&lt;/p&gt;
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Tue Sep 16 08:48:00 UTC 2014
+ Starting Oracle Universal Installer...
 
-    &lt;p&gt;Checking Temp space: must be greater than 500 MB.   Actual 40142 MB    Passed
+ Checking Temp space: must be greater than 500 MB.   Actual 40142 MB    Passed
  Checking swap space: must be greater than 150 MB.   Actual 1392 MB    Passed
- Preparing to launch Oracle Universal Installer from /tmp/OraInstall2014-09-16_08-48-01AM. Please wait …[root@51905aa48207 /]# You can find the log of this install session at:
+ Preparing to launch Oracle Universal Installer from /tmp/OraInstall2014-09-16_08-48-01AM. Please &lt;span class=&quot;nb&quot;&gt;wait&lt;/span&gt; ...[root@51905aa48207 /]# You can find the log of this install session at:
   /u01/app/oraInventory/logs/installActions2014-09-16_08-48-01AM.log
  The installation of Oracle Database 12c was successful.
- Please check ‘/u01/app/oraInventory/logs/silentInstall2014-09-16_08-48-01AM.log’ for more details.&lt;/p&gt;
+ Please check &lt;span class=&quot;s1&quot;&gt;'/u01/app/oraInventory/logs/silentInstall2014-09-16_08-48-01AM.log'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more details.
 
-    &lt;p&gt;As a root user, execute the following script(s):
-     1. /u01/app/oracle/product/12.1.0/dbhome_1/root.sh&lt;/p&gt;
+ As a root user, execute the following script&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
+     1. /u01/app/oracle/product/12.1.0/dbhome_1/root.sh
 
-    &lt;p&gt;Successfully Setup Software.
- As install user, execute the following script to complete the configuration.
-     1. /u01/app/oracle/product/12.1.0/dbhome_1/cfgtoollogs/configToolAllCommands RESPONSE_FILE=&lt;response_file&gt;&lt;/response_file&gt;&lt;/p&gt;
+
+
+ Successfully Setup Software.
+ As install user, execute the following script to &lt;span class=&quot;nb&quot;&gt;complete &lt;/span&gt;the configuration.
+     1. /u01/app/oracle/product/12.1.0/dbhome_1/cfgtoollogs/configToolAllCommands &lt;span class=&quot;nv&quot;&gt;RESPONSE_FILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;response_file&amp;gt;
 
   	Note:
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; 1. This script must be run on the same host from where installer was run.
- 2. This script needs a small password properties file for configuration assistants that require passwords (refer to install guide documentation).
+     1. This script must be run on the same host from where installer was run.
+     2. This script needs a small password properties file &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;configuration assistants that require passwords &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;refer to install guide documentation&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.
+
 &lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt;
-
-    &lt;p&gt;```&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; &amp;lt;enter&amp;gt;&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; # exit&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker commit step1 oracle-12c:installed&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;section-3&quot;&gt;第二步&lt;/h4&gt;
+&lt;h4 id=&quot;第二步&quot;&gt;第二步&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker build -t oracle-12c:step2 step2&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker run --shm-size=4g -ti --name step2 oracle-12c:step2 /bin/bash&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; # /tmp/create&lt;/code&gt; （大约需要15分钟）&lt;/p&gt;
 
-    &lt;p&gt;```
- Tue Sep 16 11:07:30 UTC 2014
- Creating database…&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Tue Sep 16 11:07:30 UTC 2014
+ Creating database...
 
-    &lt;p&gt;SQL*Plus: Release 12.1.0.2.0 Production on Tue Sep 16 11:07:30 2014&lt;/p&gt;
+ SQL*Plus: Release 12.1.0.2.0 Production on Tue Sep 16 11:07:30 2014
 
-    &lt;p&gt;Copyright (c) 1982, 2014, Oracle.  All rights reserved.&lt;/p&gt;
+ Copyright (c) 1982, 2014, Oracle.  All rights reserved.
 
-    &lt;p&gt;Connected to an idle instance.&lt;/p&gt;
+ Connected to an idle instance.
 
-    &lt;p&gt;File created.&lt;/p&gt;
+ File created.
 
-    &lt;p&gt;ORACLE instance started.&lt;/p&gt;
+ ORACLE instance started.
 
-    &lt;p&gt;Total System Global Area 1073741824 bytes
+ Total System Global Area 1073741824 bytes
  Fixed Size		    2932632 bytes
  Variable Size		  721420392 bytes
  Database Buffers	  343932928 bytes
- Redo Buffers		    5455872 bytes&lt;/p&gt;
+ Redo Buffers		    5455872 bytes
 
-    &lt;p&gt;Database created.&lt;/p&gt;
+ Database created.
 
-    &lt;p&gt;Tablespace created.&lt;/p&gt;
 
-    &lt;p&gt;Tablespace created.&lt;/p&gt;
+ Tablespace created.
 
-    &lt;p&gt;Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
- With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options&lt;/p&gt;
 
-    &lt;p&gt;Tue Sep 16 11:07:50 UTC 2014
- Creating password file…&lt;/p&gt;
+ Tablespace created.
 
-    &lt;p&gt;Tue Sep 16 11:07:50 UTC 2014
- Running catalog.sql…&lt;/p&gt;
+ Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+ With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
 
-    &lt;p&gt;Tue Sep 16 11:08:51 UTC 2014
- Running catproc.sql…&lt;/p&gt;
+ Tue Sep 16 11:07:50 UTC 2014
+ Creating password file...
 
-    &lt;p&gt;Tue Sep 16 11:19:38 UTC 2014
- Running pupbld.sql…&lt;/p&gt;
+ Tue Sep 16 11:07:50 UTC 2014
+ Running catalog.sql...
 
-    &lt;p&gt;Tue Sep 16 11:19:38 UTC 2014
+ Tue Sep 16 11:08:51 UTC 2014
+ Running catproc.sql...
+
+ Tue Sep 16 11:19:38 UTC 2014
+ Running pupbld.sql...
+
+ Tue Sep 16 11:19:38 UTC 2014
  Create is done; commit the container now
- ```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; # exit&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker commit step2 oracle-12c:created&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;section-4&quot;&gt;第三步&lt;/h4&gt;
+&lt;h4 id=&quot;第三步&quot;&gt;第三步&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker build -t oracle-12c step3&lt;/code&gt;&lt;br /&gt;
 之后就生成了一个名为oracle-12c的docker image了，这时候可以把其他的中间使用的image都删掉了。&lt;/li&gt;
@@ -146,7 +148,7 @@ wscherphof/oracle-linux-7   latest              a07f8cc9627f        2 years ago 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;section-5&quot;&gt;运行&lt;/h3&gt;
+&lt;h3 id=&quot;运行&quot;&gt;运行&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run --shm-size=4g -dP --name orcl oracle-12c
 989f1b41b1f00c53576ab85e773b60f2458a75c108c12d4ac3d70be4e801b563
@@ -1136,7 +1138,7 @@ SQL&amp;gt;
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;安装 &lt;strong&gt;sqlplus&lt;/strong&gt;。从Oracle网站下载Mac版本的 &lt;a href=&quot;http://www.oracle.com/technetwork/database/features/instant-client/index-097480.html&quot;&gt;客户端&lt;/a&gt;。下载&lt;code class=&quot;highlighter-rouge&quot;&gt;instantclient-basic-macos.x64-12.1.0.2.0.zip&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;instantclient-sqlplus-macos.x64-12.1.0.2.0.zip&lt;/code&gt;，把它们都解压到如&lt;code class=&quot;highlighter-rouge&quot;&gt;instantclient_12_1&lt;/code&gt;的目录中。进入&lt;code class=&quot;highlighter-rouge&quot;&gt;cd ~/instantclient_12_1&lt;/code&gt;目录， &lt;code class=&quot;highlighter-rouge&quot;&gt;ln -s libclntsh.dylib.12.1 libclntsh.dylib&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;ln -s libocci.dylib.12.1 libocci.dylib&lt;/code&gt;，设置环境变量 &lt;code class=&quot;highlighter-rouge&quot;&gt;export PATH=~/instantclient_12_1:$PATH&lt;/code&gt; &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;安装 &lt;strong&gt;sqlplus&lt;/strong&gt;。从Oracle网站下载Mac版本的 &lt;a href=&quot;http://www.oracle.com/technetwork/database/features/instant-client/index-097480.html&quot;&gt;客户端&lt;/a&gt;。下载&lt;code class=&quot;highlighter-rouge&quot;&gt;instantclient-basic-macos.x64-12.1.0.2.0.zip&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;instantclient-sqlplus-macos.x64-12.1.0.2.0.zip&lt;/code&gt;，把它们都解压到如&lt;code class=&quot;highlighter-rouge&quot;&gt;instantclient_12_1&lt;/code&gt;的目录中。进入&lt;code class=&quot;highlighter-rouge&quot;&gt;cd ~/instantclient_12_1&lt;/code&gt;目录， &lt;code class=&quot;highlighter-rouge&quot;&gt;ln -s libclntsh.dylib.12.1 libclntsh.dylib&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;ln -s libocci.dylib.12.1 libocci.dylib&lt;/code&gt;，设置环境变量 &lt;code class=&quot;highlighter-rouge&quot;&gt;export PATH=~/instantclient_12_1:$PATH&lt;/code&gt;&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -1154,20 +1156,20 @@ SQL&amp;gt;
     
       <item>
         <title>Mac下Golang环境搭建</title>
-        <description>&lt;h1 id=&quot;macgolang&quot;&gt;Mac下Golang环境搭建&lt;/h1&gt;
-&lt;p&gt;## 下载安装Homebrew&lt;/p&gt;
+        <description>&lt;h1 id=&quot;mac下golang环境搭建&quot;&gt;Mac下Golang环境搭建&lt;/h1&gt;
+&lt;h2 id=&quot;下载安装homebrew&quot;&gt;下载安装Homebrew&lt;/h2&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;golang&quot;&gt;安装Golang&lt;/h2&gt;
+&lt;h2 id=&quot;安装golang&quot;&gt;安装Golang&lt;/h2&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ brew install go
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;设置环境变量&lt;/h2&gt;
+&lt;h2 id=&quot;设置环境变量&quot;&gt;设置环境变量&lt;/h2&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;vim ~/.profile
 
@@ -1177,7 +1179,7 @@ SQL&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;gocode&quot;&gt;安装GoCode&lt;/h2&gt;
+&lt;h2 id=&quot;安装gocode&quot;&gt;安装GoCode&lt;/h2&gt;
 &lt;p&gt;为了支持后面Sublime的Go语言自动补全&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ go get github.com/nsf/gocode
@@ -1185,13 +1187,13 @@ $ go install github.com/nsf/gocode
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;sublime-text3gosublime&quot;&gt;安装Sublime Text3的GoSublime插件&lt;/h2&gt;
+&lt;h2 id=&quot;安装sublime-text3的gosublime插件&quot;&gt;安装Sublime Text3的GoSublime插件&lt;/h2&gt;
 
 &lt;p&gt;⌘ + ⇧ + P， 调用&lt;code class=&quot;highlighter-rouge&quot;&gt;pakcage control&lt;/code&gt;功能， 输入 &lt;code class=&quot;highlighter-rouge&quot;&gt;pci&lt;/code&gt;， 然后在输入&lt;code class=&quot;highlighter-rouge&quot;&gt;GoSublime&lt;/code&gt;来安装GoSublime插件。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://www.vckai.com/static/up/image/20150505/1432353719.png&quot; alt=&quot;GoSUblime&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;hello-world&quot;&gt;测试Hello World&lt;/h3&gt;
+&lt;h3 id=&quot;测试hello-world&quot;&gt;测试Hello World&lt;/h3&gt;
 
 &lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
 
@@ -1253,8 +1255,8 @@ Swift 中的闭包与 C 和 Objective-C 中的代码块（blocks）以及其他�
   &lt;li&gt;尾随（Trailing）闭包语法&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a name=&quot;closure_expressions&quot;&gt;&lt;/a&gt;
-## 闭包表达式（Closure Expressions）&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;closure_expressions&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;闭包表达式closure-expressions&quot;&gt;闭包表达式（Closure Expressions）&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;../chapter2/06_Functions.html#nested_function&quot;&gt;嵌套函数&lt;/a&gt; 是一个在较复杂函数中方便进行命名和定义自包含代码模块的方式。当然，有时候撰写小巧的没有完整定义和命名的类函数结构也是很有用处的，尤其是在您处理一些函数并需要将另外一些函数作为该函数的参数时。&lt;/p&gt;
 
@@ -1263,8 +1265,8 @@ Swift 中的闭包与 C 和 Objective-C 中的代码块（blocks）以及其他�
 下面闭包表达式的例子通过使用几次迭代展示了&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数定义和语法优化的方式。
 每一次迭代都用更简洁的方式描述了相同的功能。&lt;/p&gt;
 
-&lt;p&gt;&lt;a name=&quot;the_sorted_function&quot;&gt;&lt;/a&gt;
-### sorted 函数（The Sorted Function）&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;the_sorted_function&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;sorted-函数the-sorted-function&quot;&gt;sorted 函数（The Sorted Function）&lt;/h3&gt;
 
 &lt;p&gt;Swift 标准库提供了&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数，会根据您提供的基于输出类型排序的闭包函数将已知类型数组中的值进行排序。
 一旦排序完成，函数会返回一个与原数组大小相同的新数组，该数组中包含已经正确排序的同类型元素。&lt;/p&gt;
@@ -1302,8 +1304,8 @@ var reversed = sorted(names, backwards)
 &lt;p&gt;然而，这是一个相当冗长的方式，本质上只是写了一个单表达式函数 (a &amp;gt; b)。
 在下面的例子中，利用闭合表达式语法可以更好的构造一个内联排序闭包。&lt;/p&gt;
 
-&lt;p&gt;&lt;a name=&quot;closure_expression_syntax&quot;&gt;&lt;/a&gt;
-### 闭包表达式语法（Closure Expression Syntax）&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;closure_expression_syntax&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;闭包表达式语法closure-expression-syntax&quot;&gt;闭包表达式语法（Closure Expression Syntax）&lt;/h3&gt;
 
 &lt;p&gt;闭包表达式语法有如下一般形式：&lt;/p&gt;
 
@@ -1340,8 +1342,8 @@ var reversed = sorted(names, backwards)
 
 &lt;p&gt;这说明&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数的整体调用保持不变，一对圆括号仍然包裹住了函数中整个参数集合。而其中一个参数现在变成了内联闭包（相比于&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;版本的代码）。&lt;/p&gt;
 
-&lt;p&gt;&lt;a name=&quot;inferring_type_from_context&quot;&gt;&lt;/a&gt;
-### 根据上下文推断类型（Inferring Type From Context）&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;inferring_type_from_context&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;根据上下文推断类型inferring-type-from-context&quot;&gt;根据上下文推断类型（Inferring Type From Context）&lt;/h3&gt;
 
 &lt;p&gt;因为排序闭包函数是作为&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数的参数进行传入的，Swift可以推断其参数和返回值的类型。
 &lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;期望第二个参数是类型为&lt;code class=&quot;highlighter-rouge&quot;&gt;(String, String) -&amp;gt; Bool&lt;/code&gt;的函数，因此实际上&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型并不需要作为闭包表达式定义中的一部分。
@@ -1353,8 +1355,8 @@ var reversed = sorted(names, backwards)
 
 &lt;p&gt;实际上任何情况下，通过内联闭包表达式构造的闭包作为参数传递给函数时，都可以推断出闭包的参数和返回值类型，这意味着您几乎不需要利用完整格式构造任何内联闭包。&lt;/p&gt;
 
-&lt;p&gt;&lt;a name=&quot;implicit_returns_from_single_expression_closures&quot;&gt;&lt;/a&gt;
-### 单表达式闭包隐式返回（Implicit Return From Single-Expression Clossures）&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;implicit_returns_from_single_expression_closures&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;单表达式闭包隐式返回implicit-return-from-single-expression-clossures&quot;&gt;单表达式闭包隐式返回（Implicit Return From Single-Expression Clossures）&lt;/h3&gt;
 
 &lt;p&gt;单行表达式闭包可以通过隐藏&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;关键字来隐式返回单行表达式的结果，如上版本的例子可以改写为：&lt;/p&gt;
 
@@ -1365,8 +1367,8 @@ var reversed = sorted(names, backwards)
 &lt;p&gt;在这个例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数的第二个参数函数类型明确了闭包必须返回一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型值。
 因为闭包函数体只包含了一个单一表达式 (&lt;code class=&quot;highlighter-rouge&quot;&gt;s1 &amp;gt; s2&lt;/code&gt;)，该表达式返回&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型值，因此这里没有歧义，&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;关键字可以省略。&lt;/p&gt;
 
-&lt;p&gt;&lt;a name=&quot;shorthand_argument_names&quot;&gt;&lt;/a&gt;
-### 参数名称缩写（Shorthand Argument Names）&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;shorthand_argument_names&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;参数名称缩写shorthand-argument-names&quot;&gt;参数名称缩写（Shorthand Argument Names）&lt;/h3&gt;
 
 &lt;p&gt;Swift 自动为内联函数提供了参数名称缩写功能，您可以直接通过&lt;code class=&quot;highlighter-rouge&quot;&gt;$0&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;$1&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;$2&lt;/code&gt;来顺序调用闭包的参数。&lt;/p&gt;
 
@@ -1379,8 +1381,8 @@ var reversed = sorted(names, backwards)
 
 &lt;p&gt;在这个例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;$0&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;$1&lt;/code&gt;表示闭包中第一个和第二个&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型的参数。&lt;/p&gt;
 
-&lt;p&gt;&lt;a name=&quot;operator_functions&quot;&gt;&lt;/a&gt;
-### 运算符函数（Operator Functions）&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;operator_functions&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;运算符函数operator-functions&quot;&gt;运算符函数（Operator Functions）&lt;/h3&gt;
 
 &lt;p&gt;实际上还有一种更简短的方式来撰写上面例子中的闭包表达式。
 Swift 的&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型定义了关于大于号 (&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;) 的字符串实现，其作为一个函数接受两个&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型的参数并返回&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型的值。
@@ -1393,8 +1395,8 @@ Swift 的&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类�
 
 &lt;p&gt;更多关于运算符表达式的内容请查看 &lt;a href=&quot;../chapter2/23_Advanced_Operators.html#operator_functions&quot;&gt;运算符函数&lt;/a&gt;。&lt;/p&gt;
 
-&lt;p&gt;&lt;a name=&quot;trailing_closures&quot;&gt;&lt;/a&gt;
-## 尾随闭包（Trailing Closures）&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;trailing_closures&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;尾随闭包trailing-closures&quot;&gt;尾随闭包（Trailing Closures）&lt;/h2&gt;
 
 &lt;p&gt;如果您需要将一个很长的闭包表达式作为最后一个参数传递给函数，可以使用尾随闭包来增强函数的可读性。
 尾随闭包是一个书写在函数括号之后的闭包表达式，函数支持将其作为最后一个参数调用。&lt;/p&gt;
@@ -1489,8 +1491,8 @@ let numbers = [16, 58, 510]
 
 &lt;p&gt;上例中尾随闭包语法在函数后整洁封装了具体的闭包功能，而不再需要将整个闭包包裹在&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;函数的括号内。&lt;/p&gt;
 
-&lt;p&gt;&lt;a name=&quot;capturing_values&quot;&gt;&lt;/a&gt;
-## 捕获值（Capturing Values）&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;capturing_values&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;捕获值capturing-values&quot;&gt;捕获值（Capturing Values）&lt;/h2&gt;
 
 &lt;p&gt;闭包可以在其定义的上下文中捕获常量或变量。
 即使定义这些常量和变量的原域已经不存在，闭包仍然可以在闭包函数体内引用和修改这些值。&lt;/p&gt;
@@ -1584,8 +1586,8 @@ incrementByTen()
 Swift 使用捕获列表来打破这种强引用环。更多信息，请参考 &lt;a href=&quot;../chapter2/16_Automatic_Reference_Counting.html#strong_reference_cycles_for_closures&quot;&gt;闭包引起的循环强引用&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;a name=&quot;closures_are_reference_types&quot;&gt;&lt;/a&gt;
-## 闭包是引用类型（Closures Are Reference Types）&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;closures_are_reference_types&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;闭包是引用类型closures-are-reference-types&quot;&gt;闭包是引用类型（Closures Are Reference Types）&lt;/h2&gt;
 
 &lt;p&gt;上面的例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementBySeven&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementByTen&lt;/code&gt;是常量，但是这些常量指向的闭包仍然可以增加其捕获的变量值。
 这是因为函数和闭包都是引用类型。&lt;/p&gt;
@@ -1741,7 +1743,7 @@ alsoIncrementByTen()
   &lt;li&gt;尾随（Trailing）闭包语法&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;举例&lt;/h3&gt;
+&lt;h3 id=&quot;举例&quot;&gt;举例&lt;/h3&gt;
 &lt;p&gt;如下面例子，把数组中的String排序&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let names = [&quot;Chris&quot;,&quot;Alex&quot;, &quot;Ewa&quot;, &quot;Barry&quot;, &quot;Daniella&quot;]
@@ -1758,7 +1760,7 @@ var reversed = sorted(names, backwards)
 &lt;/div&gt;
 &lt;p&gt;下面开始逐步简化了&lt;/p&gt;
 
-&lt;h6 id=&quot;closure-expression&quot;&gt;使用闭包表达式（Closure Expression）&lt;/h6&gt;
+&lt;h6 id=&quot;使用闭包表达式closure-expression&quot;&gt;使用闭包表达式（Closure Expression）&lt;/h6&gt;
 &lt;p&gt;语法形式如下：&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(parameters)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;returnType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  
@@ -1772,14 +1774,14 @@ var reversed = sorted(names, backwards)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h6 id=&quot;inferring-type-from-context&quot;&gt;根据上下文推断类型（Inferring Type From Context）&lt;/h6&gt;
+&lt;h6 id=&quot;根据上下文推断类型inferring-type-from-context&quot;&gt;根据上下文推断类型（Inferring Type From Context）&lt;/h6&gt;
 &lt;p&gt;因为排序闭包函数是作为sort函数的参数进行传入的，Swift可以推断其参数和返回值的类型。 sort期望第二个参数是类型为(String, String) -&amp;gt; Bool的函数，因此实际上String,String和Bool类型并不需要作为闭包表达式定义中的一部分。 因为所有的类型都可以被正确推断，返回箭头 (-&amp;gt;) 和围绕在参数周围的括号也可以被省略：&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { s1, s2 in return s1 &amp;gt; s2 })
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h5 id=&quot;implicit-return-from-single-expression-clossures&quot;&gt;单表达式闭包隐式返回（Implicit Return From Single-Expression Clossures）&lt;/h5&gt;
+&lt;h5 id=&quot;单表达式闭包隐式返回implicit-return-from-single-expression-clossures&quot;&gt;单表达式闭包隐式返回（Implicit Return From Single-Expression Clossures）&lt;/h5&gt;
 &lt;p&gt;单行表达式闭包可以通过隐藏return关键字来隐式返回单行表达式的结果，如上版本的例子可以改写为：&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { s1, s2 in s1 &amp;gt; s2 })
@@ -1787,7 +1789,7 @@ var reversed = sorted(names, backwards)
 &lt;/div&gt;
 &lt;p&gt;在这个例子中，sort函数的第二个参数函数类型明确了闭包必须返回一个Bool类型值。因为闭包函数体只包含了一个单一表达式 (s1 &amp;gt; s2)，该表达式返回Bool类型值，因此这里没有歧义，return关键字可以省略。&lt;/p&gt;
 
-&lt;h5 id=&quot;shorthand-argument-names&quot;&gt;参数名称缩写（Shorthand Argument Names）&lt;/h5&gt;
+&lt;h5 id=&quot;参数名称缩写shorthand-argument-names&quot;&gt;参数名称缩写（Shorthand Argument Names）&lt;/h5&gt;
 &lt;p&gt;Swift 自动为内联函数提供了参数名称缩写功能，您可以直接通过$0,$1,$2来顺序调用闭包的参数。&lt;/p&gt;
 
 &lt;p&gt;如果您在闭包表达式中使用参数名称缩写，您可以在闭包参数列表中省略对其的定义，并且对应参数名称缩写的类型会通过函数类型进行推断。 in关键字也同样可以被省略，因为此时闭包表达式完全由闭包函数体构成：&lt;/p&gt;
@@ -1796,7 +1798,7 @@ var reversed = sorted(names, backwards)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h5 id=&quot;operator-functions&quot;&gt;运算符函数（Operator Functions）&lt;/h5&gt;
+&lt;h5 id=&quot;运算符函数operator-functions&quot;&gt;运算符函数（Operator Functions）&lt;/h5&gt;
 &lt;p&gt;实际上还有一种更简短的方式来撰写上面例子中的闭包表达式。 Swift 的String类型定义了关于大于号 (&amp;gt;) 的字符串实现，其作为一个函数接受两个String类型的参数并返回Bool类型的值。而这正好与sort函数的第二个参数需要的函数类型相符合。因此，您可以简单地传递一个大于号，Swift可以自动推断出您想使用大于号的字符串函数实现：&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, &amp;gt;)
@@ -1804,7 +1806,7 @@ var reversed = sorted(names, backwards)
 &lt;/div&gt;
 &lt;p&gt;怎么样，够简洁吧！&lt;/p&gt;
 
-&lt;h3 id=&quot;trailing-closures&quot;&gt;尾随闭包（Trailing Closures）&lt;/h3&gt;
+&lt;h3 id=&quot;尾随闭包trailing-closures&quot;&gt;尾随闭包（Trailing Closures）&lt;/h3&gt;
 &lt;p&gt;如果您需要将一个很长的闭包表达式作为最后一个参数传递给函数，可以使用尾随闭包来增强函数的可读性。尾随闭包是一个书写在函数括号之后的闭包表达式，函数支持将其作为最后一个参数调用。&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func someFunctionThatTakesAClosure(closure:() -&amp;gt; ()) {  
@@ -1854,7 +1856,7 @@ let strings = numbers.map {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;capturing-values&quot;&gt;捕获值（Capturing Values）&lt;/h3&gt;
+&lt;h3 id=&quot;捕获值capturing-values&quot;&gt;捕获值（Capturing Values）&lt;/h3&gt;
 &lt;p&gt;闭包可以在其定义的上下文中捕获常量或变量。即使定义这些常量和变量的原域已经不存在，闭包仍然可以在闭包函数体内引用和修改这些值。&lt;/p&gt;
 
 &lt;p&gt;Swift最简单的闭包形式是嵌套函数，也就是定义在其他函数的函数体内的函数。 嵌套函数可以捕获其外部函数所有的参数以及定义的常量和变量。&lt;/p&gt;
@@ -1886,7 +1888,7 @@ incrementByTen()
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;closures-are-reference-types&quot;&gt;闭包是引用类型（Closures Are Reference Types）&lt;/h3&gt;
+&lt;h3 id=&quot;闭包是引用类型closures-are-reference-types&quot;&gt;闭包是引用类型（Closures Are Reference Types）&lt;/h3&gt;
 &lt;p&gt;上面的例子中，incrementBySeven和incrementByTen是常量，但是这些常量指向的闭包仍然可以增加其捕获的变量值。这是因为函数和闭包都是引用类型。&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let alsoIncrementByTen = incrementByTen  
@@ -1921,7 +1923,7 @@ alsoIncrementByTen()
 
 &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：修饰键（如⌘）后跟多个按键的情况表示在按住修饰键的情况下依次按下相应键。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;打开/前往&lt;/h3&gt;
+&lt;h3 id=&quot;打开前往&quot;&gt;打开/前往&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;⌘T&lt;/strong&gt;
 前往文件&lt;/p&gt;
@@ -1947,7 +1949,7 @@ python 控制台&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;⌘⇧N&lt;/strong&gt;
 新建窗口&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;编辑&lt;/h3&gt;
+&lt;h3 id=&quot;编辑&quot;&gt;编辑&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;⌘L&lt;/strong&gt;
 选择行 (重复按下将下一行加入选择)&lt;/p&gt;
@@ -2017,7 +2019,7 @@ python 控制台&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;⌘⌥ .&lt;/strong&gt;
 闭合当前标签&lt;/p&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;查找/替换&lt;/h3&gt;
+&lt;h3 id=&quot;查找替换&quot;&gt;查找/替换&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;⌘F&lt;/strong&gt;
 查找&lt;/p&gt;
@@ -2034,7 +2036,7 @@ python 控制台&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;⌘⇧F&lt;/strong&gt;
 在所有打开的文件中进行查找&lt;/p&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;拆分窗口/标签页&lt;/h3&gt;
+&lt;h3 id=&quot;拆分窗口标签页&quot;&gt;拆分窗口/标签页&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;⌘⌥1&lt;/strong&gt;
 单列&lt;/p&gt;
@@ -2054,7 +2056,7 @@ python 控制台&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;⌘[1,2,3…]&lt;/strong&gt;
 选择相应标签页&lt;/p&gt;
 
-&lt;h3 id=&quot;section-4&quot;&gt;书签&lt;/h3&gt;
+&lt;h3 id=&quot;书签&quot;&gt;书签&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;⌘F2&lt;/strong&gt;
 添加/去除书签&lt;/p&gt;
@@ -2068,7 +2070,7 @@ python 控制台&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;⌘⇧F2&lt;/strong&gt;
 清除书签&lt;/p&gt;
 
-&lt;h3 id=&quot;section-5&quot;&gt;标记&lt;/h3&gt;
+&lt;h3 id=&quot;标记&quot;&gt;标记&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;⌘K space&lt;/strong&gt;
 设置标记&lt;/p&gt;
