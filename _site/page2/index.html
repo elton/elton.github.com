@@ -189,25 +189,6 @@
             ">
     			
 <div class="post-preview">
-    <a href="/linux/2013/06/07/ubuntu-raring-souce-list/">
-        <h2 class="post-title">
-            让ubuntu使用国内的源
-        </h2>
-        
-        <div class="post-content-preview">
-            如果你安装了ubuntu 13.04，但是没有选择中文语言，你默认的源将会是us的。这样速度不太理想，如果你想使用国内源，请替换/etc/apt/source.list文件为下面的内容：
-
-deb http://cn.archive.ubuntu.com/ubuntu/ raring main restricted universe multiverse
-deb http://cn.arch...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Elton Zheng Blog on June 7, 2013
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/mac/2013/05/30/Add-Recent-Or-Favorite-Items-Stack-To-The-Dock/">
         <h2 class="post-title">
             给Mac OSX的Dock上加入最近打开的应用功能
@@ -429,6 +410,33 @@ func f(a float64) float64...
     </a>
     <p class="post-meta">
         Posted by Elton Zheng Blog on April 17, 2013
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/java/2013/04/10/spring-static/">
+        <h2 class="post-title">
+            SPRING-MVC访问静态文件
+        </h2>
+        
+        <div class="post-content-preview">
+            
+问题
+如何你的DispatcherServlet拦截 .do这样的URL，就不存在访问不到静态资源的问题。如果你的DispatcherServlet拦截“/”，拦截了所有的请求，同时对.js,*.jpg的访问也就被拦截了。
+
+目的
+可以正常访问静态文件，不要找不到静态文件报404。
+
+解决方案
+激活Tomcat的defaultServlet来处理静态文件
+Xml代码
+
+&lt;servle...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Elton Zheng Blog on April 10, 2013
     </p>
 </div>
 <hr>
@@ -1628,8 +1636,6 @@ func f(a float64) float64...
                                 <a href="/tags/#Idea" title="Idea" rel="2">
                                     Idea
                                 </a>
-                            
-                        
                             
                         
                             

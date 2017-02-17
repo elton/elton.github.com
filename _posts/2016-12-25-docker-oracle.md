@@ -1,26 +1,26 @@
 ---
-layout: post
-title: 'Mac下使用Docker制作Oralce 12c镜像'
-description: '使用Docker容器来制作安装和配置Oracle 12c，并安装示例数据库'
-date: 2016-12-25
-comments: true
-categories:
-- Mac
+layout: 		post
+title: 			"Mac下使用Docker制作Oralce 12c镜像"
+subtitle: 	"使用Docker容器来制作安装和配置Oracle 12c，并安装示例数据库"
+date: 			2016-12-25
+author:     "Elton"
+header-img: "img/post-bg-2015.jpg"
+catalog: true
 tags:
-- docker 
-- Oracle
+		- docker
+		- Oracle
 
 ---
 
-#Mac下使用Docker制作Oralce 12c镜像
+# Mac下使用Docker制作Oralce 12c镜像
 
-##安装Docker
+## 安装Docker
 
 在[官网](https://docs.docker.com/docker-for-mac/)下载最新版的Docker for Mac，安装好以后，使用下面命令测试
-	
-```
+
+```shell
 $ docker --version
-Docker version 1.12.5, build 7392c3b	
+Docker version 1.12.5, build 7392c3b
 
 $ docker run -d -p 80:80 --name webserver nginx
 ```
@@ -28,17 +28,17 @@ $ docker run -d -p 80:80 --name webserver nginx
 ![nginx](https://docs.docker.com/docker-for-mac/images/hello-world-nginx.png)
 
 
-##制作镜像
+## 制作镜像
 
-###下载制作镜像要用的代码  
+### 下载制作镜像要用的代码  
 
 ```
 $git clone https://github.com/wscherphof/oracle-12c
 ```
 
-###下载Oracle数据库
+### 下载Oracle数据库
 
-####第一步
+#### 第一步
 1. 从 [Oracle Tech Net](http://www.oracle.com/technetwork/database/enterprise-edition/downloads/database12c-linux-download-2240591.html) 下载 linuxamd64\_12102\_database\_1of2.zip & linuxamd64\_12102\_database\_2of2.zip
 2. 把两个zip文件放到```step1```目录中
 3. 进入 cd ```oracle-12c```目录
@@ -49,33 +49,33 @@ $git clone https://github.com/wscherphof/oracle-12c
 	```
 	Tue Sep 16 08:48:00 UTC 2014
 	Starting Oracle Universal Installer...
-	
+
 	Checking Temp space: must be greater than 500 MB.   Actual 40142 MB    Passed
 	Checking swap space: must be greater than 150 MB.   Actual 1392 MB    Passed
 	Preparing to launch Oracle Universal Installer from /tmp/OraInstall2014-09-16_08-48-01AM. Please wait ...[root@51905aa48207 /]# You can find the log of this install session at:
 	 /u01/app/oraInventory/logs/installActions2014-09-16_08-48-01AM.log
 	The installation of Oracle Database 12c was successful.
 	Please check '/u01/app/oraInventory/logs/silentInstall2014-09-16_08-48-01AM.log' for more details.
-	
+
 	As a root user, execute the following script(s):
 		1. /u01/app/oracle/product/12.1.0/dbhome_1/root.sh
-	
-	
-	
+
+
+
 	Successfully Setup Software.
 	As install user, execute the following script to complete the configuration.
 		1. /u01/app/oracle/product/12.1.0/dbhome_1/cfgtoollogs/configToolAllCommands RESPONSE_FILE=<response_file>
-	
+
 	 	Note:
-		1. This script must be run on the same host from where installer was run. 
+		1. This script must be run on the same host from where installer was run.
 		2. This script needs a small password properties file for configuration assistants that require passwords (refer to install guide documentation).
-	
+
 	```
 7. ` <enter>`
-8. ` # exit` 
+8. ` # exit`
 9. `$ docker commit step1 oracle-12c:installed`
 
-####第二步
+#### 第二步
 1. `$ docker build -t oracle-12c:step2 step2`
 2. `$ docker run --shm-size=4g -ti --name step2 oracle-12c:step2 /bin/bash`
 3. ` # /tmp/create` （大约需要15分钟）
@@ -83,53 +83,53 @@ $git clone https://github.com/wscherphof/oracle-12c
 	```
 	Tue Sep 16 11:07:30 UTC 2014
 	Creating database...
-	
+
 	SQL*Plus: Release 12.1.0.2.0 Production on Tue Sep 16 11:07:30 2014
-	
+
 	Copyright (c) 1982, 2014, Oracle.  All rights reserved.
-	
+
 	Connected to an idle instance.
-	
+
 	File created.
-	
+
 	ORACLE instance started.
-	
+
 	Total System Global Area 1073741824 bytes
 	Fixed Size		    2932632 bytes
 	Variable Size		  721420392 bytes
 	Database Buffers	  343932928 bytes
 	Redo Buffers		    5455872 bytes
-	
+
 	Database created.
-	
-	
+
+
 	Tablespace created.
-	
-	
+
+
 	Tablespace created.
-	
+
 	Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
 	With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
-	
+
 	Tue Sep 16 11:07:50 UTC 2014
 	Creating password file...
-	
+
 	Tue Sep 16 11:07:50 UTC 2014
 	Running catalog.sql...
-	
+
 	Tue Sep 16 11:08:51 UTC 2014
 	Running catproc.sql...
-	
+
 	Tue Sep 16 11:19:38 UTC 2014
 	Running pupbld.sql...
-	
+
 	Tue Sep 16 11:19:38 UTC 2014
 	Create is done; commit the container now
 	```
 4. ` # exit`
 5. `$ docker commit step2 oracle-12c:created`
 
-####第三步
+#### 第三步
 1. `$ docker build -t oracle-12c step3`  
 之后就生成了一个名为oracle-12c的docker image了，这时候可以把其他的中间使用的image都删掉了。
 
@@ -140,15 +140,15 @@ oracle-12c                  latest              17c7e6958ec3        12 hours ago
 wscherphof/oracle-linux-7   latest              a07f8cc9627f        2 years ago         437.4 MB
 ```
 
-###运行
+### 运行
 
 ```
 $ docker run --shm-size=4g -dP --name orcl oracle-12c
 989f1b41b1f00c53576ab85e773b60f2458a75c108c12d4ac3d70be4e801b563
 ```
 
-* 默认密码 
- 
+* 默认密码
+
 username | password
 -------- | -------------------
 sys      | change\_on\_install
@@ -161,7 +161,7 @@ $ docker port orcl 1521
 0.0.0.0:32770
 ```
 
-这样就可以使用 ```sqlplus``` [^1] 的命令连接Oracle 
+这样就可以使用 ```sqlplus``` [^1] 的命令连接Oracle
 
 [^1]: 安装 **sqlplus**。从Oracle网站下载Mac版本的 [客户端](http://www.oracle.com/technetwork/database/features/instant-client/index-097480.html)。下载```instantclient-basic-macos.x64-12.1.0.2.0.zip```和```instantclient-sqlplus-macos.x64-12.1.0.2.0.zip```，把它们都解压到如```instantclient_12_1```的目录中。进入```cd ~/instantclient_12_1```目录， ```ln -s libclntsh.dylib.12.1 libclntsh.dylib```，```ln -s libocci.dylib.12.1 libocci.dylib```，设置环境变量 ```export PATH=~/instantclient_12_1:$PATH```
 
@@ -178,7 +178,7 @@ Connected to:
 Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
 With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
 
-SQL> 
+SQL>
 ```
 
 ###进入容器
@@ -191,8 +191,8 @@ docker exec -it orcl /bin/bash
 ###安装Sample数据库
 默认情况下，sample数据库和对应的用户都没有创建。
 
-```
-# 进入容器
+```shell
+#进入容器
 $ docker exec -it orcl /bin/bash
 
 #安装git
@@ -218,10 +218,10 @@ $ sqlplus sys/change_on_install@localhost/orcl as sysdb
 
 #执行安装脚本
 #格式为SQL> @?/demo/schema/mksample <SYSTEM_password> <SYS_password>
- 		<HR_password> <OE_password> <PM_password> <IX_password> 
-		<SH_password> <BI_password> EXAMPLE TEMP 
+ 		<HR_password> <OE_password> <PM_password> <IX_password>
+		<SH_password> <BI_password> EXAMPLE TEMP
 		$ORACLE_HOME/demo/schema/log/ localhost:1521/pdb
-		
+
 SQL> @?/demo/schema/mksample manager change_on_install hr oe pm ix sh bi users temp $ORACLE_HOME/demo/schema/log/ localhost:1521/orcl
 
 #最后可以看到执行结果
@@ -1110,10 +1110,6 @@ SH     TIMES_PK                           1826       1826
 
 61 rows selected.
 
-SQL> 
+SQL>
 
 ```
-
-
-
-

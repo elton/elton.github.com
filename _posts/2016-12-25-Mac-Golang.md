@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Mac下Golang环境搭建"
-subtitle:   "#Mac下Golang环境搭建"
+subtitle:   "Mac下Golang环境搭建"
 date:       2016-12-25
 author:     "Elton"
 header-img: "img/post-bg-2015.jpg"
