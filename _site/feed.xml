@@ -5,130 +5,139 @@
     <description>关注电商全栈技术 | 郑振宇，Web &amp; Mobile Lover，Front-End &amp; Back-end Engineer，UX Designer, CTO &amp; CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 17 Feb 2017 23:48:42 +0800</pubDate>
-    <lastBuildDate>Fri, 17 Feb 2017 23:48:42 +0800</lastBuildDate>
+    <pubDate>Fri, 17 Feb 2017 23:58:11 +0800</pubDate>
+    <lastBuildDate>Fri, 17 Feb 2017 23:58:11 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
         <title>Mac下使用Docker制作Oralce 12c镜像</title>
-        <description>&lt;p&gt;#Mac下使用Docker制作Oralce 12c镜像&lt;/p&gt;
+        <description>&lt;h1 id=&quot;macdockeroralce-12c&quot;&gt;Mac下使用Docker制作Oralce 12c镜像&lt;/h1&gt;
 
-&lt;p&gt;##安装Docker&lt;/p&gt;
+&lt;h2 id=&quot;docker&quot;&gt;安装Docker&lt;/h2&gt;
 
 &lt;p&gt;在&lt;a href=&quot;https://docs.docker.com/docker-for-mac/&quot;&gt;官网&lt;/a&gt;下载最新版的Docker for Mac，安装好以后，使用下面命令测试&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker --version
-Docker version 1.12.5, build 7392c3b	
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker --version
+Docker version 1.12.5, build 7392c3b
 
-$ docker run -d -p 80:80 --name webserver nginx
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker run -d -p 80:80 --name webserver nginx
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;在浏览器中使用&lt;a href=&quot;http://localhost/&quot;&gt;http://localhost/&lt;/a&gt;查看，如果安装正确，将显示如下界面。
 &lt;img src=&quot;https://docs.docker.com/docker-for-mac/images/hello-world-nginx.png&quot; alt=&quot;nginx&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;##制作镜像&lt;/p&gt;
+&lt;h2 id=&quot;section&quot;&gt;制作镜像&lt;/h2&gt;
 
-&lt;p&gt;###下载制作镜像要用的代码&lt;/p&gt;
+&lt;h3 id=&quot;section-1&quot;&gt;下载制作镜像要用的代码&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$git clone https://github.com/wscherphof/oracle-12c
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;###下载Oracle数据库&lt;/p&gt;
+&lt;h3 id=&quot;oracle&quot;&gt;下载Oracle数据库&lt;/h3&gt;
 
-&lt;p&gt;####第一步
-1. 从 &lt;a href=&quot;http://www.oracle.com/technetwork/database/enterprise-edition/downloads/database12c-linux-download-2240591.html&quot;&gt;Oracle Tech Net&lt;/a&gt; 下载 linuxamd64_12102_database_1of2.zip &amp;amp; linuxamd64_12102_database_2of2.zip
-2. 把两个zip文件放到&lt;code class=&quot;highlighter-rouge&quot;&gt;step1&lt;/code&gt;目录中
-3. 进入 cd &lt;code class=&quot;highlighter-rouge&quot;&gt;oracle-12c&lt;/code&gt;目录
-4. &lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker build -t oracle-12c:step1 step1&lt;/code&gt;
-5. &lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker run --shm-size=4g -ti --name step1 oracle-12c:step1 /bin/bash&lt;/code&gt;
-6. &lt;code class=&quot;highlighter-rouge&quot;&gt;# /tmp/install/install&lt;/code&gt; (大约5分钟)&lt;/p&gt;
+&lt;h4 id=&quot;section-2&quot;&gt;第一步&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;从 &lt;a href=&quot;http://www.oracle.com/technetwork/database/enterprise-edition/downloads/database12c-linux-download-2240591.html&quot;&gt;Oracle Tech Net&lt;/a&gt; 下载 linuxamd64_12102_database_1of2.zip &amp;amp; linuxamd64_12102_database_2of2.zip&lt;/li&gt;
+  &lt;li&gt;把两个zip文件放到&lt;code class=&quot;highlighter-rouge&quot;&gt;step1&lt;/code&gt;目录中&lt;/li&gt;
+  &lt;li&gt;进入 cd &lt;code class=&quot;highlighter-rouge&quot;&gt;oracle-12c&lt;/code&gt;目录&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker build -t oracle-12c:step1 step1&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker run --shm-size=4g -ti --name step1 oracle-12c:step1 /bin/bash&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;# /tmp/install/install&lt;/code&gt; (大约5分钟)&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```
-Tue Sep 16 08:48:00 UTC 2014
-Starting Oracle Universal Installer...
+    &lt;p&gt;```
+ Tue Sep 16 08:48:00 UTC 2014
+ Starting Oracle Universal Installer…&lt;/p&gt;
 
-Checking Temp space: must be greater than 500 MB.   Actual 40142 MB    Passed
-Checking swap space: must be greater than 150 MB.   Actual 1392 MB    Passed
-Preparing to launch Oracle Universal Installer from /tmp/OraInstall2014-09-16_08-48-01AM. Please wait ...[root@51905aa48207 /]# You can find the log of this install session at:
- /u01/app/oraInventory/logs/installActions2014-09-16_08-48-01AM.log
-The installation of Oracle Database 12c was successful.
-Please check '/u01/app/oraInventory/logs/silentInstall2014-09-16_08-48-01AM.log' for more details.
+    &lt;p&gt;Checking Temp space: must be greater than 500 MB.   Actual 40142 MB    Passed
+ Checking swap space: must be greater than 150 MB.   Actual 1392 MB    Passed
+ Preparing to launch Oracle Universal Installer from /tmp/OraInstall2014-09-16_08-48-01AM. Please wait …[root@51905aa48207 /]# You can find the log of this install session at:
+  /u01/app/oraInventory/logs/installActions2014-09-16_08-48-01AM.log
+ The installation of Oracle Database 12c was successful.
+ Please check ‘/u01/app/oraInventory/logs/silentInstall2014-09-16_08-48-01AM.log’ for more details.&lt;/p&gt;
 
-As a root user, execute the following script(s):
-	1. /u01/app/oracle/product/12.1.0/dbhome_1/root.sh
+    &lt;p&gt;As a root user, execute the following script(s):
+     1. /u01/app/oracle/product/12.1.0/dbhome_1/root.sh&lt;/p&gt;
 
+    &lt;p&gt;Successfully Setup Software.
+ As install user, execute the following script to complete the configuration.
+     1. /u01/app/oracle/product/12.1.0/dbhome_1/cfgtoollogs/configToolAllCommands RESPONSE_FILE=&lt;response_file&gt;&lt;/response_file&gt;&lt;/p&gt;
 
-
-Successfully Setup Software.
-As install user, execute the following script to complete the configuration.
-	1. /u01/app/oracle/product/12.1.0/dbhome_1/cfgtoollogs/configToolAllCommands RESPONSE_FILE=&amp;lt;response_file&amp;gt;
-
- 	Note:
-	1. This script must be run on the same host from where installer was run. 
-	2. This script needs a small password properties file for configuration assistants that require passwords (refer to install guide documentation).
-
-``` 7. ` &amp;lt;enter&amp;gt;` 8. ` # exit`  9. `$ docker commit step1 oracle-12c:installed`
+  	Note:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; 1. This script must be run on the same host from where installer was run.
+ 2. This script needs a small password properties file for configuration assistants that require passwords (refer to install guide documentation).
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+    &lt;/div&gt;
 
-&lt;p&gt;####第二步
-1. &lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker build -t oracle-12c:step2 step2&lt;/code&gt;
-2. &lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker run --shm-size=4g -ti --name step2 oracle-12c:step2 /bin/bash&lt;/code&gt;
-3. ` # /tmp/create` （大约需要15分钟）&lt;/p&gt;
+    &lt;p&gt;```&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; &amp;lt;enter&amp;gt;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; # exit&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker commit step1 oracle-12c:installed&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;```
-Tue Sep 16 11:07:30 UTC 2014
-Creating database...
+&lt;h4 id=&quot;section-3&quot;&gt;第二步&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker build -t oracle-12c:step2 step2&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker run --shm-size=4g -ti --name step2 oracle-12c:step2 /bin/bash&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; # /tmp/create&lt;/code&gt; （大约需要15分钟）&lt;/p&gt;
 
-SQL*Plus: Release 12.1.0.2.0 Production on Tue Sep 16 11:07:30 2014
+    &lt;p&gt;```
+ Tue Sep 16 11:07:30 UTC 2014
+ Creating database…&lt;/p&gt;
 
-Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+    &lt;p&gt;SQL*Plus: Release 12.1.0.2.0 Production on Tue Sep 16 11:07:30 2014&lt;/p&gt;
 
-Connected to an idle instance.
+    &lt;p&gt;Copyright (c) 1982, 2014, Oracle.  All rights reserved.&lt;/p&gt;
 
-File created.
+    &lt;p&gt;Connected to an idle instance.&lt;/p&gt;
 
-ORACLE instance started.
+    &lt;p&gt;File created.&lt;/p&gt;
 
-Total System Global Area 1073741824 bytes
-Fixed Size		    2932632 bytes
-Variable Size		  721420392 bytes
-Database Buffers	  343932928 bytes
-Redo Buffers		    5455872 bytes
+    &lt;p&gt;ORACLE instance started.&lt;/p&gt;
 
-Database created.
+    &lt;p&gt;Total System Global Area 1073741824 bytes
+ Fixed Size		    2932632 bytes
+ Variable Size		  721420392 bytes
+ Database Buffers	  343932928 bytes
+ Redo Buffers		    5455872 bytes&lt;/p&gt;
 
+    &lt;p&gt;Database created.&lt;/p&gt;
 
-Tablespace created.
+    &lt;p&gt;Tablespace created.&lt;/p&gt;
 
+    &lt;p&gt;Tablespace created.&lt;/p&gt;
 
-Tablespace created.
+    &lt;p&gt;Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+ With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options&lt;/p&gt;
 
-Disconnected from Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
-With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+    &lt;p&gt;Tue Sep 16 11:07:50 UTC 2014
+ Creating password file…&lt;/p&gt;
 
-Tue Sep 16 11:07:50 UTC 2014
-Creating password file...
+    &lt;p&gt;Tue Sep 16 11:07:50 UTC 2014
+ Running catalog.sql…&lt;/p&gt;
 
-Tue Sep 16 11:07:50 UTC 2014
-Running catalog.sql...
+    &lt;p&gt;Tue Sep 16 11:08:51 UTC 2014
+ Running catproc.sql…&lt;/p&gt;
 
-Tue Sep 16 11:08:51 UTC 2014
-Running catproc.sql...
+    &lt;p&gt;Tue Sep 16 11:19:38 UTC 2014
+ Running pupbld.sql…&lt;/p&gt;
 
-Tue Sep 16 11:19:38 UTC 2014
-Running pupbld.sql...
+    &lt;p&gt;Tue Sep 16 11:19:38 UTC 2014
+ Create is done; commit the container now
+ ```&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; # exit&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker commit step2 oracle-12c:created&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
-Tue Sep 16 11:19:38 UTC 2014
-Create is done; commit the container now
-``` 4. ` # exit` 5. `$ docker commit step2 oracle-12c:created`
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;####第三步
-1. &lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker build -t oracle-12c step3&lt;/code&gt;&lt;br /&gt;
-之后就生成了一个名为oracle-12c的docker image了，这时候可以把其他的中间使用的image都删掉了。&lt;/p&gt;
+&lt;h4 id=&quot;section-4&quot;&gt;第三步&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker build -t oracle-12c step3&lt;/code&gt;&lt;br /&gt;
+之后就生成了一个名为oracle-12c的docker image了，这时候可以把其他的中间使用的image都删掉了。&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker images
 REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
@@ -137,7 +146,7 @@ wscherphof/oracle-linux-7   latest              a07f8cc9627f        2 years ago 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;###运行&lt;/p&gt;
+&lt;h3 id=&quot;section-5&quot;&gt;运行&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run --shm-size=4g -dP --name orcl oracle-12c
 989f1b41b1f00c53576ab85e773b60f2458a75c108c12d4ac3d70be4e801b563
@@ -188,7 +197,7 @@ Connected to:
 Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
 With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
 
-SQL&amp;gt; 
+SQL&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -202,39 +211,39 @@ SQL&amp;gt;
 &lt;p&gt;###安装Sample数据库
 默认情况下，sample数据库和对应的用户都没有创建。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 进入容器
-$ docker exec -it orcl /bin/bash
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#进入容器&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; -it orcl /bin/bash
 
-#安装git
-$ yum install git
+&lt;span class=&quot;c&quot;&gt;#安装git&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;yum install git
 
-#进入demo schema目录
-$ cd /u01/app/oracle/product/12.1.0/dbhome_1/demo/schema/
+&lt;span class=&quot;c&quot;&gt;#进入demo schema目录&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /u01/app/oracle/product/12.1.0/dbhome_1/demo/schema/
 
-#下载Sample schema
-$ git clone https://github.com/oracle/db-sample-schemas.git .
+&lt;span class=&quot;c&quot;&gt;#下载Sample schema&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git clone https://github.com/oracle/db-sample-schemas.git .
 
-#替换下载脚本中的目录
-$ perl -p -i.bak -e 's#__SUB__CWD__#'$(pwd)'#g' *.sql */*.sql */*.dat
+&lt;span class=&quot;c&quot;&gt;#替换下载脚本中的目录&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;perl -p -i.bak -e &lt;span class=&quot;s1&quot;&gt;'s#__SUB__CWD__#'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'#g'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sql &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sql &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.dat
 
-#创建log目录
-$ mkdir log
+&lt;span class=&quot;c&quot;&gt;#创建log目录&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;mkdir log
 
-#更改权限
-$ chown -R oracle:oinstall .
+&lt;span class=&quot;c&quot;&gt;#更改权限&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;chown -R oracle:oinstall .
 
-#连接数据库
-$ sqlplus sys/change_on_install@localhost/orcl as sysdb
+&lt;span class=&quot;c&quot;&gt;#连接数据库&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sqlplus sys/change_on_install@localhost/orcl as sysdb
 
-#执行安装脚本
-#格式为SQL&amp;gt; @?/demo/schema/mksample &amp;lt;SYSTEM_password&amp;gt; &amp;lt;SYS_password&amp;gt;
- 		&amp;lt;HR_password&amp;gt; &amp;lt;OE_password&amp;gt; &amp;lt;PM_password&amp;gt; &amp;lt;IX_password&amp;gt; 
-		&amp;lt;SH_password&amp;gt; &amp;lt;BI_password&amp;gt; EXAMPLE TEMP 
-		$ORACLE_HOME/demo/schema/log/ localhost:1521/pdb
-		
-SQL&amp;gt; @?/demo/schema/mksample manager change_on_install hr oe pm ix sh bi users temp $ORACLE_HOME/demo/schema/log/ localhost:1521/orcl
+&lt;span class=&quot;c&quot;&gt;#执行安装脚本&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#格式为SQL&amp;gt; @?/demo/schema/mksample &amp;lt;SYSTEM_password&amp;gt; &amp;lt;SYS_password&amp;gt;&lt;/span&gt;
+ 		&amp;lt;HR_password&amp;gt; &amp;lt;OE_password&amp;gt; &amp;lt;PM_password&amp;gt; &amp;lt;IX_password&amp;gt;
+		&amp;lt;SH_password&amp;gt; &amp;lt;BI_password&amp;gt; EXAMPLE TEMP
+		&lt;span class=&quot;nv&quot;&gt;$ORACLE_HOME&lt;/span&gt;/demo/schema/log/ localhost:1521/pdb
 
-#最后可以看到执行结果
+&lt;span class=&quot;gp&quot;&gt;SQL&amp;gt; &lt;/span&gt;@?/demo/schema/mksample manager change_on_install hr oe pm ix sh bi users temp &lt;span class=&quot;nv&quot;&gt;$ORACLE_HOME&lt;/span&gt;/demo/schema/log/ localhost:1521/orcl
+
+&lt;span class=&quot;c&quot;&gt;#最后可以看到执行结果&lt;/span&gt;
 All named objects and stati
 
 OWNER  OBJECT_TYPE          OBJECT_NAME                    SUBOBJECT_NAME   STATUS
@@ -281,43 +290,43 @@ HR     TABLE                REGIONS                                         VALI
 HR     TRIGGER              SECURE_EMPLOYEES                                VALID
 HR     TRIGGER              UPDATE_JOB_HISTORY                              VALID
 HR     VIEW                 EMP_DETAILS_VIEW                                VALID
-IX     EVALUATION CONTEXT   AQ$_ORDERS_QUEUETABLE_V                         VALID
-IX     EVALUATION CONTEXT   AQ$_STREAMS_QUEUE_TABLE_V                       VALID
-IX     INDEX                AQ$_STREAMS_QUEUE_TABLE_Y                       VALID
-IX     QUEUE                AQ$_ORDERS_QUEUETABLE_E                         VALID
-IX     QUEUE                AQ$_STREAMS_QUEUE_TABLE_E                       VALID
+IX     EVALUATION CONTEXT   AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_V&lt;/span&gt;                         VALID
+IX     EVALUATION CONTEXT   AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_V&lt;/span&gt;                       VALID
+IX     INDEX                AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_Y&lt;/span&gt;                       VALID
+IX     QUEUE                AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_E&lt;/span&gt;                         VALID
+IX     QUEUE                AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_E&lt;/span&gt;                       VALID
 IX     QUEUE                ORDERS_QUEUE                                    VALID
 IX     QUEUE                STREAMS_QUEUE                                   VALID
 IX     RULE SET             ORDERS_QUEUE_N                                  VALID
 IX     RULE SET             ORDERS_QUEUE_R                                  VALID
 IX     RULE SET             STREAMS_QUEUE_N                                 VALID
 IX     RULE SET             STREAMS_QUEUE_R                                 VALID
-IX     SEQUENCE             AQ$_ORDERS_QUEUETABLE_N                         VALID
-IX     SEQUENCE             AQ$_STREAMS_QUEUE_TABLE_N                       VALID
-IX     TABLE                AQ$_ORDERS_QUEUETABLE_G                         VALID
-IX     TABLE                AQ$_ORDERS_QUEUETABLE_H                         VALID
-IX     TABLE                AQ$_ORDERS_QUEUETABLE_I                         VALID
-IX     TABLE                AQ$_ORDERS_QUEUETABLE_L                         VALID
-IX     TABLE                AQ$_ORDERS_QUEUETABLE_S                         VALID
-IX     TABLE                AQ$_ORDERS_QUEUETABLE_T                         VALID
-IX     TABLE                AQ$_STREAMS_QUEUE_TABLE_C                       VALID
-IX     TABLE                AQ$_STREAMS_QUEUE_TABLE_G                       VALID
-IX     TABLE                AQ$_STREAMS_QUEUE_TABLE_H                       VALID
-IX     TABLE                AQ$_STREAMS_QUEUE_TABLE_I                       VALID
-IX     TABLE                AQ$_STREAMS_QUEUE_TABLE_L                       VALID
-IX     TABLE                AQ$_STREAMS_QUEUE_TABLE_S                       VALID
-IX     TABLE                AQ$_STREAMS_QUEUE_TABLE_T                       VALID
+IX     SEQUENCE             AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_N&lt;/span&gt;                         VALID
+IX     SEQUENCE             AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_N&lt;/span&gt;                       VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_G&lt;/span&gt;                         VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_H&lt;/span&gt;                         VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_I&lt;/span&gt;                         VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_L&lt;/span&gt;                         VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_S&lt;/span&gt;                         VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_T&lt;/span&gt;                         VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_C&lt;/span&gt;                       VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_G&lt;/span&gt;                       VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_H&lt;/span&gt;                       VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_I&lt;/span&gt;                       VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_L&lt;/span&gt;                       VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_S&lt;/span&gt;                       VALID
+IX     TABLE                AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_T&lt;/span&gt;                       VALID
 IX     TABLE                ORDERS_QUEUETABLE                               VALID
 IX     TABLE                STREAMS_QUEUE_TABLE                             VALID
 IX     TYPE                 ORDER_EVENT_TYP                                 VALID
-IX     VIEW                 AQ$ORDERS_QUEUETABLE                            VALID
-IX     VIEW                 AQ$ORDERS_QUEUETABLE_R                          VALID
-IX     VIEW                 AQ$ORDERS_QUEUETABLE_S                          VALID
-IX     VIEW                 AQ$STREAMS_QUEUE_TABLE                          VALID
-IX     VIEW                 AQ$STREAMS_QUEUE_TABLE_R                        VALID
-IX     VIEW                 AQ$STREAMS_QUEUE_TABLE_S                        VALID
-IX     VIEW                 AQ$_ORDERS_QUEUETABLE_F                         VALID
-IX     VIEW                 AQ$_STREAMS_QUEUE_TABLE_F                       VALID
+IX     VIEW                 AQ&lt;span class=&quot;nv&quot;&gt;$ORDERS_QUEUETABLE&lt;/span&gt;                            VALID
+IX     VIEW                 AQ&lt;span class=&quot;nv&quot;&gt;$ORDERS_QUEUETABLE_R&lt;/span&gt;                          VALID
+IX     VIEW                 AQ&lt;span class=&quot;nv&quot;&gt;$ORDERS_QUEUETABLE_S&lt;/span&gt;                          VALID
+IX     VIEW                 AQ&lt;span class=&quot;nv&quot;&gt;$STREAMS_QUEUE_TABLE&lt;/span&gt;                          VALID
+IX     VIEW                 AQ&lt;span class=&quot;nv&quot;&gt;$STREAMS_QUEUE_TABLE_R&lt;/span&gt;                        VALID
+IX     VIEW                 AQ&lt;span class=&quot;nv&quot;&gt;$STREAMS_QUEUE_TABLE_S&lt;/span&gt;                        VALID
+IX     VIEW                 AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_F&lt;/span&gt;                         VALID
+IX     VIEW                 AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_F&lt;/span&gt;                       VALID
 OE     FUNCTION             GET_PHONE_NUMBER_F                              VALID
 OE     INDEX                ACTION_TABLE_MEMBERS                            VALID
 OE     INDEX                INVENTORY_IX                                    VALID
@@ -358,22 +367,22 @@ OE     TABLE                PROMOTIONS                                      VALI
 OE     TABLE                PURCHASEORDER                                   VALID
 OE     TABLE                SUBCATEGORY_REF_LIST_NESTEDTAB                  VALID
 OE     TRIGGER              INSERT_ORD_LINE                                 VALID
-OE     TRIGGER              PURCHASEORDER$xd                                VALID
+OE     TRIGGER              PURCHASEORDER&lt;span class=&quot;nv&quot;&gt;$xd&lt;/span&gt;                                VALID
 OE     TYPE                 ACTIONS_T                                       VALID
 OE     TYPE                 ACTION_T                                        VALID
 OE     TYPE                 ACTION_V                                        VALID
-OE     TYPE                 CATALOG_TYP                    $VSN_1           VALID
+OE     TYPE                 CATALOG_TYP                    &lt;span class=&quot;nv&quot;&gt;$VSN_1&lt;/span&gt;           VALID
 OE     TYPE                 CATALOG_TYP                                     VALID
-OE     TYPE                 CATEGORY_TYP                   $VSN_1           VALID
+OE     TYPE                 CATEGORY_TYP                   &lt;span class=&quot;nv&quot;&gt;$VSN_1&lt;/span&gt;           VALID
 OE     TYPE                 CATEGORY_TYP                                    VALID
-OE     TYPE                 COMPOSITE_CATEGORY_TYP         $VSN_1           VALID
+OE     TYPE                 COMPOSITE_CATEGORY_TYP         &lt;span class=&quot;nv&quot;&gt;$VSN_1&lt;/span&gt;           VALID
 OE     TYPE                 COMPOSITE_CATEGORY_TYP                          VALID
 OE     TYPE                 CORPORATE_CUSTOMER_TYP                          VALID
 OE     TYPE                 CUSTOMER_TYP                                    VALID
 OE     TYPE                 CUST_ADDRESS_TYP                                VALID
 OE     TYPE                 INVENTORY_LIST_TYP                              VALID
 OE     TYPE                 INVENTORY_TYP                                   VALID
-OE     TYPE                 LEAF_CATEGORY_TYP              $VSN_1           VALID
+OE     TYPE                 LEAF_CATEGORY_TYP              &lt;span class=&quot;nv&quot;&gt;$VSN_1&lt;/span&gt;           VALID
 OE     TYPE                 LEAF_CATEGORY_TYP                               VALID
 OE     TYPE                 LINEITEMS_T                                     VALID
 OE     TYPE                 LINEITEM_T                                      VALID
@@ -704,11 +713,11 @@ SH     VIEW                 PROFITS                                         VALI
 
 Data types used
 
-OWNER  DATA_TYPE                           DATA_TYPE_OWNER  DAT   COUNT(*)
+OWNER  DATA_TYPE                           DATA_TYPE_OWNER  DAT   COUNT&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 ------ ----------------------------------- ---------------- --- ----------
 PM     ADHEADER_TYP                        PM                            1
 IX     ANYDATA                             SYS                           7
-IX     AQ$_SIG_PROP                        SYS                           4
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_SIG_PROP&lt;/span&gt;                        SYS                           4
 PM     BFILE                                                             1
 PM     BLOB                                                              2
 HR     CHAR                                                              3
@@ -720,7 +729,7 @@ HR     DATE                                                              3
 IX     DATE                                                              6
 OE     DATE                                                              1
 SH     DATE                                                             19
-OE     INTERVAL YEAR(2) TO MONTH                                         2
+OE     INTERVAL YEAR&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; TO MONTH                                         2
 PM     NCLOB                                                             1
 HR     NUMBER                                                           21
 IX     NUMBER                                                          107
@@ -732,10 +741,10 @@ IX     ORDER_EVENT_TYP                     IX                            3
 IX     RAW                                                              32
 IX     ROWID                                                             6
 PM     TEXTDOC_TAB                         PM                            1
-IX     TIMESTAMP(6)                                                     25
-OE     TIMESTAMP(6) WITH LOCAL TIME ZONE                                 1
-IX     TIMESTAMP(6) WITH TIME ZONE                                       8
-IX     TIMESTAMP(9)                                                      2
+IX     TIMESTAMP&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;6&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;                                                     25
+OE     TIMESTAMP&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;6&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; WITH LOCAL TIME ZONE                                 1
+IX     TIMESTAMP&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;6&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; WITH TIME ZONE                                       8
+IX     TIMESTAMP&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;9&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;                                                      2
 HR     VARCHAR2                                                         24
 IX     VARCHAR2                                                        128
 OE     VARCHAR2                                                         13
@@ -754,9 +763,9 @@ OE     PURCHASEORDER                  OE               OBJECT-RELATIONAL
 1 row selected.
 
 
-All objects named 'SYS%' (LOBs etc)
+All objects named &lt;span class=&quot;s1&quot;&gt;'SYS%'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;LOBs etc&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
-OWNER  OBJECT_TYPE          STATUS     COUNT(*)
+OWNER  OBJECT_TYPE          STATUS     COUNT&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 ------ -------------------- -------- ----------
 IX     INDEX                VALID            16
 OE     INDEX                VALID            19
@@ -771,7 +780,7 @@ IX     TABLE                VALID             2
 
 All constraints
 
-OWNER  CONSTRAINT_TYPE      STATUS   VALIDATED        GENERATED          COUNT(*)
+OWNER  CONSTRAINT_TYPE      STATUS   VALIDATED        GENERATED          COUNT&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 ------ -------------------- -------- ---------------- ---------------- ----------
 IX     Check or Not Null    ENABLED  VALIDATED        GENERATED NAME            4
 OE     Check or Not Null    ENABLED  VALIDATED        GENERATED NAME            2
@@ -932,7 +941,7 @@ SH     PRODUCTS                       SELECT                    BI
 SH     PROMOTIONS                     SELECT                    BI
 SH     SALES                          SELECT                    BI
 SH     TIMES                          SELECT                    BI
-SYS    AQ$_UNFLUSHED_DEQUEUES         SELECT                    IX
+SYS    AQ&lt;span class=&quot;nv&quot;&gt;$_UNFLUSHED_DEQUEUES&lt;/span&gt;         SELECT                    IX
 SYS    DATA_FILE_DIR                  READ                      SH
 SYS    DBMS_APPLY_ADM                 EXECUTE                   IX
 SYS    DBMS_AQ                        EXECUTE                   IX
@@ -962,7 +971,7 @@ SYS    SUBDIR                         WRITE                     OE
 
 Space usage
 
-OWNER  SEGMENT_TYPE         SUM(BYTES)
+OWNER  SEGMENT_TYPE         SUM&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;BYTES&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 ------ -------------------- ----------
 HR     INDEX                   1245184
 HR     TABLE                    393216
@@ -1005,19 +1014,19 @@ HR     JOBS                                   19
 HR     JOB_HISTORY                            10
 HR     LOCATIONS                              23
 HR     REGIONS                                 4
-IX     AQ$_ORDERS_QUEUETABLE_G                 0
-IX     AQ$_ORDERS_QUEUETABLE_H                 2
-IX     AQ$_ORDERS_QUEUETABLE_I                 2
-IX     AQ$_ORDERS_QUEUETABLE_L                 2
-IX     AQ$_ORDERS_QUEUETABLE_S                 4
-IX     AQ$_ORDERS_QUEUETABLE_T                 0
-IX     AQ$_STREAMS_QUEUE_TABLE_C               0
-IX     AQ$_STREAMS_QUEUE_TABLE_G               0
-IX     AQ$_STREAMS_QUEUE_TABLE_H               0
-IX     AQ$_STREAMS_QUEUE_TABLE_I               0
-IX     AQ$_STREAMS_QUEUE_TABLE_L               0
-IX     AQ$_STREAMS_QUEUE_TABLE_S               1
-IX     AQ$_STREAMS_QUEUE_TABLE_T               0
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_G&lt;/span&gt;                 0
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_H&lt;/span&gt;                 2
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_I&lt;/span&gt;                 2
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_L&lt;/span&gt;                 2
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_S&lt;/span&gt;                 4
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_ORDERS_QUEUETABLE_T&lt;/span&gt;                 0
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_C&lt;/span&gt;               0
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_G&lt;/span&gt;               0
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_H&lt;/span&gt;               0
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_I&lt;/span&gt;               0
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_L&lt;/span&gt;               0
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_S&lt;/span&gt;               1
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_T&lt;/span&gt;               0
 IX     ORDERS_QUEUETABLE
 IX     STREAMS_QUEUE_TABLE
 IX     SYS_IOT_OVER_19986                      0
@@ -1052,7 +1061,7 @@ SH     TIMES                                1826
 50 rows selected.
 
 
-Index cardinality (without  LOB indexes)
+Index cardinality &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;without  LOB indexes&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
 OWNER  INDEX_NAME                DISTINCT_KEYS   NUM_ROWS
 ------ ------------------------- ------------- ----------
@@ -1075,7 +1084,7 @@ HR     LOC_COUNTRY_IX                       14         23
 HR     LOC_ID_PK                            23         23
 HR     LOC_STATE_PROVINCE_IX                17         17
 HR     REG_ID_PK                             4          4
-IX     AQ$_STREAMS_QUEUE_TABLE_Y             0          0
+IX     AQ&lt;span class=&quot;nv&quot;&gt;$_STREAMS_QUEUE_TABLE_Y&lt;/span&gt;             0          0
 OE     ACTION_TABLE_MEMBERS                132        132
 OE     INVENTORY_IX                       1112       1112
 OE     INV_PRODUCT_IX                      208       1112
@@ -1120,11 +1129,10 @@ SH     TIMES_PK                           1826       1826
 
 61 rows selected.
 
-SQL&amp;gt; 
+SQL&amp;gt;
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
@@ -1134,15 +1142,13 @@ SQL&amp;gt;
 &lt;/div&gt;
 </description>
         <pubDate>Sun, 25 Dec 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/mac/2016/12/25/docker-oracle/</link>
-        <guid isPermaLink="true">http://localhost:4000/mac/2016/12/25/docker-oracle/</guid>
+        <link>http://localhost:4000/2016/12/25/docker-oracle/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/12/25/docker-oracle/</guid>
         
         <category>docker</category>
         
         <category>Oracle</category>
         
-        
-        <category>Mac</category>
         
       </item>
     

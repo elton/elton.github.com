@@ -7,9 +7,8 @@ author:     "Elton"
 header-img: "img/post-bg-2015.jpg"
 catalog: true
 tags:
-		- docker
-		- Oracle
-
+    - docker
+    - Oracle
 ---
 
 # Mac下使用Docker制作Oralce 12c镜像
