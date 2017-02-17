@@ -5,8 +5,8 @@
     <description>关注电商全栈技术 | 郑振宇，Web &amp; Mobile Lover，Front-End &amp; Back-end Engineer，UX Designer, CTO &amp; CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 18 Feb 2017 00:44:06 +0800</pubDate>
-    <lastBuildDate>Sat, 18 Feb 2017 00:44:06 +0800</lastBuildDate>
+    <pubDate>Sat, 18 Feb 2017 00:55:36 +0800</pubDate>
+    <lastBuildDate>Sat, 18 Feb 2017 00:55:36 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
@@ -1213,6 +1213,922 @@ $ go install github.com/nsf/gocode
         
         <category>Golang</category>
         
+        
+      </item>
+    
+      <item>
+        <title>Swift中的闭包(Closures)</title>
+        <description>&lt;p&gt;本页包含内容：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#closure_expressions&quot;&gt;闭包表达式（Closure Expressions）&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#trailing_closures&quot;&gt;尾随闭包（Trailing Closures）&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#capturing_values&quot;&gt;值捕获（Capturing Values）&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#closures_are_reference_types&quot;&gt;闭包是引用类型（Closures Are Reference Types）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;闭包是自包含的函数代码块，可以在代码中被传递和使用。
+Swift 中的闭包与 C 和 Objective-C 中的代码块（blocks）以及其他一些编程语言中的 lambdas 函数比较相似。&lt;/p&gt;
+
+&lt;p&gt;闭包可以捕获和存储其所在上下文中任意常量和变量的引用。
+这就是所谓的闭合并包裹着这些常量和变量，俗称闭包。Swift 会为您管理在捕获过程中涉及到的所有内存操作。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意：
+如果您不熟悉捕获（capturing）这个概念也不用担心，您可以在 &lt;a href=&quot;#capturing_values&quot;&gt;值捕获&lt;/a&gt; 章节对其进行详细了解。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在&lt;a href=&quot;../chapter2/06_Functions.html&quot;&gt;函数&lt;/a&gt; 章节中介绍的全局和嵌套函数实际上也是特殊的闭包，闭包采取如下三种形式之一：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;全局函数是一个有名字但不会捕获任何值的闭包&lt;/li&gt;
+  &lt;li&gt;嵌套函数是一个有名字并可以捕获其封闭函数域内值的闭包&lt;/li&gt;
+  &lt;li&gt;闭包表达式是一个利用轻量级语法所写的可以捕获其上下文中变量或常量值的匿名闭包&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Swift 的闭包表达式拥有简洁的风格，并鼓励在常见场景中进行语法优化，主要优化如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;利用上下文推断参数和返回值类型&lt;/li&gt;
+  &lt;li&gt;隐式返回单表达式闭包，即单表达式闭包可以省略&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;关键字&lt;/li&gt;
+  &lt;li&gt;参数名称缩写&lt;/li&gt;
+  &lt;li&gt;尾随（Trailing）闭包语法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name=&quot;closure_expressions&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;闭包表达式closure-expressions&quot;&gt;闭包表达式（Closure Expressions）&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;../chapter2/06_Functions.html#nested_function&quot;&gt;嵌套函数&lt;/a&gt; 是一个在较复杂函数中方便进行命名和定义自包含代码模块的方式。当然，有时候撰写小巧的没有完整定义和命名的类函数结构也是很有用处的，尤其是在您处理一些函数并需要将另外一些函数作为该函数的参数时。&lt;/p&gt;
+
+&lt;p&gt;闭包表达式是一种利用简洁语法构建内联闭包的方式。
+闭包表达式提供了一些语法优化，使得撰写闭包变得简单明了。
+下面闭包表达式的例子通过使用几次迭代展示了&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数定义和语法优化的方式。
+每一次迭代都用更简洁的方式描述了相同的功能。&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;the_sorted_function&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;sorted-函数the-sorted-function&quot;&gt;sorted 函数（The Sorted Function）&lt;/h3&gt;
+
+&lt;p&gt;Swift 标准库提供了&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数，会根据您提供的基于输出类型排序的闭包函数将已知类型数组中的值进行排序。
+一旦排序完成，函数会返回一个与原数组大小相同的新数组，该数组中包含已经正确排序的同类型元素。&lt;/p&gt;
+
+&lt;p&gt;下面的闭包表达式示例使用&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数对一个&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型的数组进行字母逆序排序，以下是初始数组值：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let names = [&quot;Chris&quot;, &quot;Alex&quot;, &quot;Ewa&quot;, &quot;Barry&quot;, &quot;Daniella&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数需要传入两个参数：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;已知类型的数组&lt;/li&gt;
+  &lt;li&gt;闭包函数，该闭包函数需要传入与数组类型相同的两个值，并返回一个布尔类型值来告诉&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数当排序结束后传入的第一个参数排在第二个参数前面还是后面。如果第一个参数值出现在第二个参数值前面，排序闭包函数需要返回&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;，反之返回&lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;该例子对一个&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型的数组进行排序，因此排序闭包函数类型需为&lt;code class=&quot;highlighter-rouge&quot;&gt;(String, String) -&amp;gt; Bool&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;提供排序闭包函数的一种方式是撰写一个符合其类型要求的普通函数，并将其作为&lt;code class=&quot;highlighter-rouge&quot;&gt;sort&lt;/code&gt;函数的第二个参数传入：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func backwards(s1: String, s2: String) -&amp;gt; Bool {
+    return s1 &amp;gt; s2
+}
+var reversed = sorted(names, backwards)
+// reversed 为 [&quot;Ewa&quot;, &quot;Daniella&quot;, &quot;Chris&quot;, &quot;Barry&quot;, &quot;Alex&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果第一个字符串 (&lt;code class=&quot;highlighter-rouge&quot;&gt;s1&lt;/code&gt;) 大于第二个字符串 (&lt;code class=&quot;highlighter-rouge&quot;&gt;s2&lt;/code&gt;)，&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;函数返回&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;，表示在新的数组中&lt;code class=&quot;highlighter-rouge&quot;&gt;s1&lt;/code&gt;应该出现在&lt;code class=&quot;highlighter-rouge&quot;&gt;s2&lt;/code&gt;前。
+对于字符串中的字符来说，“大于” 表示 “按照字母顺序较晚出现”。
+这意味着字母&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;B&quot;&lt;/code&gt;大于字母&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;A&quot;&lt;/code&gt;，字符串&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Tom&quot;&lt;/code&gt;大于字符串&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Tim&quot;&lt;/code&gt;。
+其将进行字母逆序排序，&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Barry&quot;&lt;/code&gt;将会排在&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Alex&quot;&lt;/code&gt;之后。&lt;/p&gt;
+
+&lt;p&gt;然而，这是一个相当冗长的方式，本质上只是写了一个单表达式函数 (a &amp;gt; b)。
+在下面的例子中，利用闭合表达式语法可以更好的构造一个内联排序闭包。&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;closure_expression_syntax&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;闭包表达式语法closure-expression-syntax&quot;&gt;闭包表达式语法（Closure Expression Syntax）&lt;/h3&gt;
+
+&lt;p&gt;闭包表达式语法有如下一般形式：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(parameters)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;returnType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;statements&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;闭包表达式语法可以使用常量、变量和&lt;code class=&quot;highlighter-rouge&quot;&gt;inout&lt;/code&gt;类型作为参数，不提供默认值。
+也可以在参数列表的最后使用可变参数。
+元组也可以作为参数和返回值。&lt;/p&gt;
+
+&lt;p&gt;下面的例子展示了之前&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;函数对应的闭包表达式版本的代码：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { (s1: String, s2: String) -&amp;gt; Bool in
+    return s1 &amp;gt; s2
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;需要注意的是内联闭包参数和返回值类型声明与&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;函数类型声明相同。
+在这两种方式中，都写成了&lt;code class=&quot;highlighter-rouge&quot;&gt;(s1: String, s2: String) -&amp;gt; Bool&lt;/code&gt;。
+然而在内联闭包表达式中，函数和返回值类型都写在大括号内，而不是大括号外。&lt;/p&gt;
+
+&lt;p&gt;闭包的函数体部分由关键字&lt;code class=&quot;highlighter-rouge&quot;&gt;in&lt;/code&gt;引入。
+该关键字表示闭包的参数和返回值类型定义已经完成，闭包函数体即将开始。&lt;/p&gt;
+
+&lt;p&gt;因为这个闭包的函数体部分如此短以至于可以将其改写成一行代码：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { (s1: String, s2: String) -&amp;gt; Bool in return s1 &amp;gt; s2 } )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这说明&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数的整体调用保持不变，一对圆括号仍然包裹住了函数中整个参数集合。而其中一个参数现在变成了内联闭包（相比于&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;版本的代码）。&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;inferring_type_from_context&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;根据上下文推断类型inferring-type-from-context&quot;&gt;根据上下文推断类型（Inferring Type From Context）&lt;/h3&gt;
+
+&lt;p&gt;因为排序闭包函数是作为&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数的参数进行传入的，Swift可以推断其参数和返回值的类型。
+&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;期望第二个参数是类型为&lt;code class=&quot;highlighter-rouge&quot;&gt;(String, String) -&amp;gt; Bool&lt;/code&gt;的函数，因此实际上&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型并不需要作为闭包表达式定义中的一部分。
+因为所有的类型都可以被正确推断，返回箭头 (&lt;code class=&quot;highlighter-rouge&quot;&gt;-&amp;gt;&lt;/code&gt;) 和围绕在参数周围的括号也可以被省略：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { s1, s2 in return s1 &amp;gt; s2 } )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;实际上任何情况下，通过内联闭包表达式构造的闭包作为参数传递给函数时，都可以推断出闭包的参数和返回值类型，这意味着您几乎不需要利用完整格式构造任何内联闭包。&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;implicit_returns_from_single_expression_closures&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;单表达式闭包隐式返回implicit-return-from-single-expression-clossures&quot;&gt;单表达式闭包隐式返回（Implicit Return From Single-Expression Clossures）&lt;/h3&gt;
+
+&lt;p&gt;单行表达式闭包可以通过隐藏&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;关键字来隐式返回单行表达式的结果，如上版本的例子可以改写为：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { s1, s2 in s1 &amp;gt; s2 } )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在这个例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数的第二个参数函数类型明确了闭包必须返回一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型值。
+因为闭包函数体只包含了一个单一表达式 (&lt;code class=&quot;highlighter-rouge&quot;&gt;s1 &amp;gt; s2&lt;/code&gt;)，该表达式返回&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型值，因此这里没有歧义，&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;关键字可以省略。&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;shorthand_argument_names&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;参数名称缩写shorthand-argument-names&quot;&gt;参数名称缩写（Shorthand Argument Names）&lt;/h3&gt;
+
+&lt;p&gt;Swift 自动为内联函数提供了参数名称缩写功能，您可以直接通过&lt;code class=&quot;highlighter-rouge&quot;&gt;$0&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;$1&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;$2&lt;/code&gt;来顺序调用闭包的参数。&lt;/p&gt;
+
+&lt;p&gt;如果您在闭包表达式中使用参数名称缩写，您可以在闭包参数列表中省略对其的定义，并且对应参数名称缩写的类型会通过函数类型进行推断。
+&lt;code class=&quot;highlighter-rouge&quot;&gt;in&lt;/code&gt;关键字也同样可以被省略，因为此时闭包表达式完全由闭包函数体构成：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { $0 &amp;gt; $1 } )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在这个例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;$0&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;$1&lt;/code&gt;表示闭包中第一个和第二个&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型的参数。&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;operator_functions&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;运算符函数operator-functions&quot;&gt;运算符函数（Operator Functions）&lt;/h3&gt;
+
+&lt;p&gt;实际上还有一种更简短的方式来撰写上面例子中的闭包表达式。
+Swift 的&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型定义了关于大于号 (&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;) 的字符串实现，其作为一个函数接受两个&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型的参数并返回&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型的值。
+而这正好与&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数的第二个参数需要的函数类型相符合。
+因此，您可以简单地传递一个大于号，Swift可以自动推断出您想使用大于号的字符串函数实现：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, &amp;gt;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;更多关于运算符表达式的内容请查看 &lt;a href=&quot;../chapter2/23_Advanced_Operators.html#operator_functions&quot;&gt;运算符函数&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;trailing_closures&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;尾随闭包trailing-closures&quot;&gt;尾随闭包（Trailing Closures）&lt;/h2&gt;
+
+&lt;p&gt;如果您需要将一个很长的闭包表达式作为最后一个参数传递给函数，可以使用尾随闭包来增强函数的可读性。
+尾随闭包是一个书写在函数括号之后的闭包表达式，函数支持将其作为最后一个参数调用。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func someFunctionThatTakesAClosure(closure: () -&amp;gt; ()) {
+    // 函数体部分
+}
+
+// 以下是不使用尾随闭包进行函数调用
+someFunctionThatTakesAClosure({
+    // 闭包主体部分
+})
+
+// 以下是使用尾随闭包进行函数调用
+someFunctionThatTakesAClosure() {
+  // 闭包主体部分
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意：
+如果函数只需要闭包表达式一个参数，当您使用尾随闭包时，您甚至可以把&lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt;省略掉。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在上例中作为&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数参数的字符串排序闭包可以改写为：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names) { $0 &amp;gt; $1 }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;当闭包非常长以至于不能在一行中进行书写时，尾随闭包变得非常有用。
+举例来说，Swift 的&lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt;类型有一个&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;方法，其获取一个闭包表达式作为其唯一参数。
+数组中的每一个元素调用一次该闭包函数，并返回该元素所映射的值(也可以是不同类型的值)。
+具体的映射方式和返回值类型由闭包来指定。&lt;/p&gt;
+
+&lt;p&gt;当提供给数组闭包函数后，&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;方法将返回一个新的数组，数组中包含了与原数组一一对应的映射后的值。&lt;/p&gt;
+
+&lt;p&gt;下例介绍了如何在&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;方法中使用尾随闭包将&lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt;类型数组&lt;code class=&quot;highlighter-rouge&quot;&gt;[16,58,510]&lt;/code&gt;转换为包含对应&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型的数组&lt;code class=&quot;highlighter-rouge&quot;&gt;[&quot;OneSix&quot;, &quot;FiveEight&quot;, &quot;FiveOneZero&quot;]&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let digitNames = [
+    0: &quot;Zero&quot;, 1: &quot;One&quot;, 2: &quot;Two&quot;,   3: &quot;Three&quot;, 4: &quot;Four&quot;,
+    5: &quot;Five&quot;, 6: &quot;Six&quot;, 7: &quot;Seven&quot;, 8: &quot;Eight&quot;, 9: &quot;Nine&quot;
+]
+let numbers = [16, 58, 510]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如上代码创建了一个数字位和它们名字映射的英文版本字典。
+同时定义了一个准备转换为字符串的整型数组。&lt;/p&gt;
+
+&lt;p&gt;您现在可以通过传递一个尾随闭包给&lt;code class=&quot;highlighter-rouge&quot;&gt;numbers&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;方法来创建对应的字符串版本数组。
+需要注意的时调用&lt;code class=&quot;highlighter-rouge&quot;&gt;numbers.map&lt;/code&gt;不需要在&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;后面包含任何括号，因为其只需要传递闭包表达式这一个参数，并且该闭包表达式参数通过尾随方式进行撰写：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let strings = numbers.map {
+    (var number) -&amp;gt; String in
+    var output = &quot;&quot;
+    while number &amp;gt; 0 {
+        output = digitNames[number % 10]! + output
+        number /= 10
+    }
+    return output
+}
+// strings 常量被推断为字符串类型数组，即 String[]
+// 其值为 [&quot;OneSix&quot;, &quot;FiveEight&quot;, &quot;FiveOneZero&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;在数组中为每一个元素调用了闭包表达式。
+您不需要指定闭包的输入参数&lt;code class=&quot;highlighter-rouge&quot;&gt;number&lt;/code&gt;的类型，因为可以通过要映射的数组类型进行推断。&lt;/p&gt;
+
+&lt;p&gt;闭包&lt;code class=&quot;highlighter-rouge&quot;&gt;number&lt;/code&gt;参数被声明为一个变量参数（变量的具体描述请参看&lt;a href=&quot;../chapter2/06_Functions.html#constant_and_variable_parameters&quot;&gt;常量参数和变量参数&lt;/a&gt;），因此可以在闭包函数体内对其进行修改。闭包表达式制定了返回类型为&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;，以表明存储映射值的新数组类型为&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;闭包表达式在每次被调用的时候创建了一个字符串并返回。
+其使用求余运算符 (number % 10) 计算最后一位数字并利用&lt;code class=&quot;highlighter-rouge&quot;&gt;digitNames&lt;/code&gt;字典获取所映射的字符串。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意：
+字典&lt;code class=&quot;highlighter-rouge&quot;&gt;digitNames&lt;/code&gt;下标后跟着一个叹号 (!)，因为字典下标返回一个可选值 (optional value)，表明即使该 key 不存在也不会查找失败。
+在上例中，它保证了&lt;code class=&quot;highlighter-rouge&quot;&gt;number % 10&lt;/code&gt;可以总是作为一个&lt;code class=&quot;highlighter-rouge&quot;&gt;digitNames&lt;/code&gt;字典的有效下标 key。
+因此叹号可以用于强制解析 (force-unwrap) 存储在可选下标项中的&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型值。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;从&lt;code class=&quot;highlighter-rouge&quot;&gt;digitNames&lt;/code&gt;字典中获取的字符串被添加到输出的前部，逆序建立了一个字符串版本的数字。
+（在表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;number % 10&lt;/code&gt;中，如果number为16，则返回6，58返回8，510返回0）。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;number&lt;/code&gt;变量之后除以10。
+因为其是整数，在计算过程中未除尽部分被忽略。
+因此 16变成了1，58变成了5，510变成了51。&lt;/p&gt;
+
+&lt;p&gt;整个过程重复进行，直到&lt;code class=&quot;highlighter-rouge&quot;&gt;number /= 10&lt;/code&gt;为0，这时闭包会将字符串输出，而&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;函数则会将字符串添加到所映射的数组中。&lt;/p&gt;
+
+&lt;p&gt;上例中尾随闭包语法在函数后整洁封装了具体的闭包功能，而不再需要将整个闭包包裹在&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;函数的括号内。&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;capturing_values&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;捕获值capturing-values&quot;&gt;捕获值（Capturing Values）&lt;/h2&gt;
+
+&lt;p&gt;闭包可以在其定义的上下文中捕获常量或变量。
+即使定义这些常量和变量的原域已经不存在，闭包仍然可以在闭包函数体内引用和修改这些值。&lt;/p&gt;
+
+&lt;p&gt;Swift最简单的闭包形式是嵌套函数，也就是定义在其他函数的函数体内的函数。
+嵌套函数可以捕获其外部函数所有的参数以及定义的常量和变量。&lt;/p&gt;
+
+&lt;p&gt;下例为一个叫做&lt;code class=&quot;highlighter-rouge&quot;&gt;makeIncrementor&lt;/code&gt;的函数，其包含了一个叫做&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;嵌套函数。
+嵌套函数&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;从上下文中捕获了两个值，&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;。
+之后&lt;code class=&quot;highlighter-rouge&quot;&gt;makeIncrementor&lt;/code&gt;将&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;作为闭包返回。
+每次调用&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;时，其会以&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;作为增量增加&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;的值。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func makeIncrementor(forIncrement amount: Int) -&amp;gt; () -&amp;gt; Int {
+    var runningTotal = 0
+    func incrementor() -&amp;gt; Int {
+        runningTotal += amount
+        return runningTotal
+    }
+    return incrementor
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;makeIncrementor&lt;/code&gt;返回类型为&lt;code class=&quot;highlighter-rouge&quot;&gt;() -&amp;gt; Int&lt;/code&gt;。
+这意味着其返回的是一个函数，而不是一个简单类型值。
+该函数在每次调用时不接受参数只返回一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt;类型的值。
+关于函数返回其他函数的内容，请查看&lt;a href=&quot;../chapter2/06_Functions.html#function_types_as_return_types&quot;&gt;函数类型作为返回类型&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;makeIncrementor&lt;/code&gt;函数定义了一个整型变量&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;(初始为0) 用来存储当前跑步总数。
+该值通过&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;返回。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;makeIncrementor&lt;/code&gt;有一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt;类型的参数，其外部命名为&lt;code class=&quot;highlighter-rouge&quot;&gt;forIncrement&lt;/code&gt;， 内部命名为&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;，表示每次&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;被调用时&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;将要增加的量。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;函数用来执行实际的增加操作。
+该函数简单地使&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;增加&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;，并将其返回。&lt;/p&gt;
+
+&lt;p&gt;如果我们单独看这个函数，会发现看上去不同寻常：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func incrementor() -&amp;gt; Int {
+    runningTotal += amount
+    return runningTotal
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;函数并没有获取任何参数，但是在函数体内访问了&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;变量。这是因为其通过捕获在包含它的函数体内已经存在的&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;变量而实现。&lt;/p&gt;
+
+&lt;p&gt;由于没有修改&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;变量，&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;实际上捕获并存储了该变量的一个副本，而该副本随着&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;一同被存储。&lt;/p&gt;
+
+&lt;p&gt;然而，因为每次调用该函数的时候都会修改&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;的值，&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;捕获了当前&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;变量的引用，而不是仅仅复制该变量的初始值。捕获一个引用保证了当&lt;code class=&quot;highlighter-rouge&quot;&gt;makeIncrementor&lt;/code&gt;结束时候并不会消失，也保证了当下一次执行&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;函数时，&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;可以继续增加。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意：
+Swift 会决定捕获引用还是拷贝值。
+您不需要标注&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;或者&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;来声明在嵌入的&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;函数中的使用方式。
+Swift 同时也处理&lt;code class=&quot;highlighter-rouge&quot;&gt;runingTotal&lt;/code&gt;变量的内存管理操作，如果不再被&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;函数使用，则会被清除。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;下面代码为一个使用&lt;code class=&quot;highlighter-rouge&quot;&gt;makeIncrementor&lt;/code&gt;的例子：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let incrementByTen = makeIncrementor(forIncrement: 10)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;该例子定义了一个叫做&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementByTen&lt;/code&gt;的常量，该常量指向一个每次调用会加10的&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;函数。
+调用这个函数多次可以得到以下结果：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;incrementByTen()
+// 返回的值为10
+incrementByTen()
+// 返回的值为20
+incrementByTen()
+// 返回的值为30
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果您创建了另一个&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;，其会有一个属于自己的独立的&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;变量的引用。
+下面的例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementBySevne&lt;/code&gt;捕获了一个新的&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;变量，该变量和&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementByTen&lt;/code&gt;中捕获的变量没有任何联系：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let incrementBySeven = makeIncrementor(forIncrement: 7)
+incrementBySeven()
+// 返回的值为7
+incrementByTen()
+// 返回的值为40
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意：
+如果您将闭包赋值给一个类实例的属性，并且该闭包通过指向该实例或其成员来捕获了该实例，您将创建一个在闭包和实例间的强引用环。
+Swift 使用捕获列表来打破这种强引用环。更多信息，请参考 &lt;a href=&quot;../chapter2/16_Automatic_Reference_Counting.html#strong_reference_cycles_for_closures&quot;&gt;闭包引起的循环强引用&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a name=&quot;closures_are_reference_types&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;闭包是引用类型closures-are-reference-types&quot;&gt;闭包是引用类型（Closures Are Reference Types）&lt;/h2&gt;
+
+&lt;p&gt;上面的例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementBySeven&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementByTen&lt;/code&gt;是常量，但是这些常量指向的闭包仍然可以增加其捕获的变量值。
+这是因为函数和闭包都是引用类型。&lt;/p&gt;
+
+&lt;p&gt;无论您将函数/闭包赋值给一个常量还是变量，您实际上都是将常量/变量的值设置为对应函数/闭包的引用。
+上面的例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementByTen&lt;/code&gt;指向闭包的引用是一个常量，而并非闭包内容本身。&lt;/p&gt;
+
+&lt;p&gt;这也意味着如果您将闭包赋值给了两个不同的常量/变量，两个值都会指向同一个闭包：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let alsoIncrementByTen = incrementByTen
+alsoIncrementByTen()
+// 返回的值为50
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Tue, 09 Sep 2014 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/mac/2014/09/09/Swift-Closures/</link>
+        <guid isPermaLink="true">http://localhost:4000/mac/2014/09/09/Swift-Closures/</guid>
+        
+        <category>Swift</category>
+        
+        <category>Closures</category>
+        
+        
+        <category>Mac</category>
+        
+      </item>
+    
+      <item>
+        <title>Mac系统修改Intellij Idea默认JDK版本</title>
+        <description>&lt;p&gt;Intellij IDEA 默认情况下，使用的jdk的版本是1.6，当第一次启动IDEA的时候，如果系统中未安装jdk，则系统会自动到苹果官网下载jdk安装文件。如果你的系统已经安装了jdk1.7或是更高的版本，同样首次打开IDEA的时候要求你安装苹果官网jdk1.6。&lt;/p&gt;
+
+&lt;p&gt;为了免去多余的jdk安装，解决办法如下：&lt;/p&gt;
+
+&lt;p&gt;到/Applications下找到IntelliJ IDEA 13，右键－&amp;gt;显示包内容－&amp;gt;Contents-&amp;gt;Info.plist，利用文本编辑器或是默认的xcode打开该文件，找到下列代码&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;key&amp;gt;JVMVersion&amp;lt;/key&amp;gt;
+&amp;lt;string&amp;gt;1.6*&amp;lt;/string&amp;gt;
+
+将&amp;lt;string&amp;gt;1.6*&amp;lt;/string&amp;gt;改为&amp;lt;string&amp;gt;1.7*&amp;lt;/string&amp;gt;保存。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;此时idea使用的jdk就是1.7及以上的版本了。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 24 Aug 2014 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/java/2014/08/24/Change-Default-Java-Version-of-Intellij-IDEA/</link>
+        <guid isPermaLink="true">http://localhost:4000/java/2014/08/24/Change-Default-Java-Version-of-Intellij-IDEA/</guid>
+        
+        <category>Idea</category>
+        
+        <category>JDK</category>
+        
+        <category>Version</category>
+        
+        
+        <category>Java</category>
+        
+      </item>
+    
+      <item>
+        <title>Mac系统修改Intellij Idea默认JDK版本</title>
+        <description>&lt;p&gt;Intellij IDEA 默认情况下，使用的jdk的版本是1.6，当第一次启动IDEA的时候，如果系统中未安装jdk，则系统会自动到苹果官网下载jdk安装文件。如果你的系统已经安装了jdk1.7或是更高的版本，同样首次打开IDEA的时候要求你安装苹果官网jdk1.6。&lt;/p&gt;
+
+&lt;p&gt;为了免去多余的jdk安装，解决办法如下：&lt;/p&gt;
+
+&lt;p&gt;到/Applications下找到IntelliJ IDEA 13，右键－&amp;gt;显示包内容－&amp;gt;Contents-&amp;gt;Info.plist，利用文本编辑器或是默认的xcode打开该文件，找到下列代码&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;key&amp;gt;JVMVersion&amp;lt;/key&amp;gt;
+&amp;lt;string&amp;gt;1.6*&amp;lt;/string&amp;gt;
+
+将&amp;lt;string&amp;gt;1.6*&amp;lt;/string&amp;gt;改为&amp;lt;string&amp;gt;1.7*&amp;lt;/string&amp;gt;保存。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;此时idea使用的jdk就是1.7及以上的版本了。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 24 Aug 2014 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/java/2014/08/24/MySQL-Replication/</link>
+        <guid isPermaLink="true">http://localhost:4000/java/2014/08/24/MySQL-Replication/</guid>
+        
+        <category>Idea</category>
+        
+        <category>JDK</category>
+        
+        <category>Version</category>
+        
+        
+        <category>Java</category>
+        
+      </item>
+    
+      <item>
+        <title>Mac OSX下设置IntelliJ IDEA环境变量</title>
+        <description>&lt;p&gt;配置InelliJ时候，发现自己在~/.profile中设置的环境变量都不好用，比如&lt;strong&gt;M2_HOME&lt;/strong&gt;, 后来找到了一个方法，只有这么设置，才能在GUI环境下使用环境变量，之前profile中的，只有在命令行中才有用&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;launchctl setenv MYPATH myvar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 17 Jul 2014 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/mac/2014/07/17/setting-environment-variables/</link>
+        <guid isPermaLink="true">http://localhost:4000/mac/2014/07/17/setting-environment-variables/</guid>
+        
+        <category>Environment</category>
+        
+        <category>Variable</category>
+        
+        
+        <category>Mac</category>
+        
+      </item>
+    
+      <item>
+        <title>Google最新免费字体 Noto Fonts</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/assets/media/google_noto_fonts.png&quot; alt=&quot;Google Noto Fonts&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Google最新公布了适合于几乎全世界所有国家的一个开源字体&lt;a href=&quot;http://www.google.com/get/noto/&quot;&gt;Google Noto Fonts&lt;/a&gt;， 设计目标是可以广泛用于多种用途的计算机字体，比如用于手机、平板、或者桌面的用户界面、网页浏览或者电子书阅读等等。&lt;/p&gt;
+
+&lt;p&gt;大家觉得怎么样？好看么？&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://www.google.com/get/noto/images/samples/noto-sans-hans_zh-Hans_350_normal.png&quot; alt=&quot;Google Noto Fonts&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 16 Jul 2014 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E6%9C%AA%E5%88%86%E7%B1%BB/2014/07/16/Google-Noto-Fonts/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%9C%AA%E5%88%86%E7%B1%BB/2014/07/16/Google-Noto-Fonts/</guid>
+        
+        <category>Google</category>
+        
+        <category>Noto</category>
+        
+        
+        <category>未分类</category>
+        
+      </item>
+    
+      <item>
+        <title>Swift之闭包</title>
+        <description>&lt;p&gt;&lt;img src=&quot;https://devimages.apple.com.edgekey.net/home/images/home-hero-swift-hero.png&quot; alt=&quot;Swift programming language&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/swift/&quot;&gt;Swift&lt;/a&gt; 是一门由&lt;a href=&quot;https://www.apple.com&quot;&gt;Apple&lt;/a&gt; 公司开发的用于iOS和OSX设备上的开发语言，吸收了很多现代开发语言的优势。 今天看了官方的关于闭包部分的文档，感觉很不错，记录一下。&lt;/p&gt;
+
+&lt;p&gt;闭包是自包含的函数代码块，可以在代码中被传递和使用。 Swift 中的闭包与 C 和 Objective-C 中的代码块（blocks）以及其他一些编程语言中的 lambdas 函数比较相似。&lt;/p&gt;
+
+&lt;p&gt;闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量，俗称闭包。Swift 会为您管理在捕获过程中涉及到的所有内存操作。&lt;/p&gt;
+
+&lt;p&gt;Swift 的闭包表达式拥有简洁的风格，并鼓励在常见场景中进行语法优化，主要优化如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;利用上下文推断参数和返回值类型&lt;/li&gt;
+  &lt;li&gt;隐式返回单表达式闭包，即单表达式闭包可以省略return关键字&lt;/li&gt;
+  &lt;li&gt;参数名称缩写&lt;/li&gt;
+  &lt;li&gt;尾随（Trailing）闭包语法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;举例&quot;&gt;举例&lt;/h3&gt;
+&lt;p&gt;如下面例子，把数组中的String排序&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let names = [&quot;Chris&quot;,&quot;Alex&quot;, &quot;Ewa&quot;, &quot;Barry&quot;, &quot;Daniella&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;使用sorted函数&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func backwards(s1: String, s2: String)-&amp;gt; Bool {  
+   return s1 &amp;gt; s2  
+}  
+var reversed = sorted(names, backwards)  
+// reversed 为 [&quot;Ewa&quot;,&quot;Daniella&quot;, &quot;Chris&quot;, &quot;Barry&quot;, &quot;Alex&quot;]  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;下面开始逐步简化了&lt;/p&gt;
+
+&lt;h6 id=&quot;使用闭包表达式closure-expression&quot;&gt;使用闭包表达式（Closure Expression）&lt;/h6&gt;
+&lt;p&gt;语法形式如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(parameters)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;returnType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  
+   &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;statements&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;则上面的代码可以简化成如下形式：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, {(s1:String, s2:String) -&amp;gt; Bool in return s1 &amp;gt; s2})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h6 id=&quot;根据上下文推断类型inferring-type-from-context&quot;&gt;根据上下文推断类型（Inferring Type From Context）&lt;/h6&gt;
+&lt;p&gt;因为排序闭包函数是作为sort函数的参数进行传入的，Swift可以推断其参数和返回值的类型。 sort期望第二个参数是类型为(String, String) -&amp;gt; Bool的函数，因此实际上String,String和Bool类型并不需要作为闭包表达式定义中的一部分。 因为所有的类型都可以被正确推断，返回箭头 (-&amp;gt;) 和围绕在参数周围的括号也可以被省略：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { s1, s2 in return s1 &amp;gt; s2 })
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;单表达式闭包隐式返回implicit-return-from-single-expression-clossures&quot;&gt;单表达式闭包隐式返回（Implicit Return From Single-Expression Clossures）&lt;/h5&gt;
+&lt;p&gt;单行表达式闭包可以通过隐藏return关键字来隐式返回单行表达式的结果，如上版本的例子可以改写为：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { s1, s2 in s1 &amp;gt; s2 })
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;在这个例子中，sort函数的第二个参数函数类型明确了闭包必须返回一个Bool类型值。因为闭包函数体只包含了一个单一表达式 (s1 &amp;gt; s2)，该表达式返回Bool类型值，因此这里没有歧义，return关键字可以省略。&lt;/p&gt;
+
+&lt;h5 id=&quot;参数名称缩写shorthand-argument-names&quot;&gt;参数名称缩写（Shorthand Argument Names）&lt;/h5&gt;
+&lt;p&gt;Swift 自动为内联函数提供了参数名称缩写功能，您可以直接通过$0,$1,$2来顺序调用闭包的参数。&lt;/p&gt;
+
+&lt;p&gt;如果您在闭包表达式中使用参数名称缩写，您可以在闭包参数列表中省略对其的定义，并且对应参数名称缩写的类型会通过函数类型进行推断。 in关键字也同样可以被省略，因为此时闭包表达式完全由闭包函数体构成：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { $0 &amp;gt; $1 })
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;运算符函数operator-functions&quot;&gt;运算符函数（Operator Functions）&lt;/h5&gt;
+&lt;p&gt;实际上还有一种更简短的方式来撰写上面例子中的闭包表达式。 Swift 的String类型定义了关于大于号 (&amp;gt;) 的字符串实现，其作为一个函数接受两个String类型的参数并返回Bool类型的值。而这正好与sort函数的第二个参数需要的函数类型相符合。因此，您可以简单地传递一个大于号，Swift可以自动推断出您想使用大于号的字符串函数实现：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, &amp;gt;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;怎么样，够简洁吧！&lt;/p&gt;
+
+&lt;h3 id=&quot;尾随闭包trailing-closures&quot;&gt;尾随闭包（Trailing Closures）&lt;/h3&gt;
+&lt;p&gt;如果您需要将一个很长的闭包表达式作为最后一个参数传递给函数，可以使用尾随闭包来增强函数的可读性。尾随闭包是一个书写在函数括号之后的闭包表达式，函数支持将其作为最后一个参数调用。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func someFunctionThatTakesAClosure(closure:() -&amp;gt; ()) {  
+   // 函数体部分  
+}  
+   
+// 以下是不使用尾随闭包进行函数调用  
+   
+someFunctionThatTakesAClosure({  
+   // 闭包主体部分  
+    })  
+   
+// 以下是使用尾随闭包进行函数调用  
+   
+someFunctionThatTakesAClosure() {  
+   // 闭包主体部分  
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt; 如果函数只需要闭包表达式一个参数，当您使用尾随闭包时，您甚至可以把()省略掉。&lt;/p&gt;
+
+&lt;p&gt;在上例中作为sort函数参数的字符串排序闭包可以改写为：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names) { $0 &amp;gt; $1 }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;当闭包非常长以至于不能在一行中进行书写时，尾随闭包变得非常有用&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let digitNames = [
+    0: &quot;Zero&quot;, 1: &quot;One&quot;, 2: &quot;Two&quot;,   3: &quot;Three&quot;, 4: &quot;Four&quot;,
+    5: &quot;Five&quot;, 6: &quot;Six&quot;, 7: &quot;Seven&quot;, 8:&quot;Eight&quot;, 9: &quot;Nine&quot;
+]
+let numbers = [16, 58, 510]
+
+let strings = numbers.map {
+    (var number) -&amp;gt; String in
+    var output = &quot;&quot;
+    while number &amp;gt; 0 {
+        output = digitNames[number%10]! + output
+        number /= 10
+    }
+    return output
+}
+// strings 常量被推断为字符串类型数组，即String[]  
+// 其值为[&quot;OneSix&quot;, &quot;FiveEight&quot;, &quot;FiveOneZero&quot;]  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;捕获值capturing-values&quot;&gt;捕获值（Capturing Values）&lt;/h3&gt;
+&lt;p&gt;闭包可以在其定义的上下文中捕获常量或变量。即使定义这些常量和变量的原域已经不存在，闭包仍然可以在闭包函数体内引用和修改这些值。&lt;/p&gt;
+
+&lt;p&gt;Swift最简单的闭包形式是嵌套函数，也就是定义在其他函数的函数体内的函数。 嵌套函数可以捕获其外部函数所有的参数以及定义的常量和变量。&lt;/p&gt;
+
+&lt;p&gt;下例为一个叫做makeIncrementor的函数，其包含了一个叫做incrementor嵌套函数。嵌套函数incrementor从上下文中捕获了两个值，runningTotal和amount。之后makeIncrementor将incrementor作为闭包返回。每次调用incrementor时，其会以amount作为增量增加runningTotal的值。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func makeIncrementor(forIncrement amount:Int) -&amp;gt; () -&amp;gt; Int {  
+   var runningTotal = 0  
+   func incrementor() -&amp;gt; Int {  
+       runningTotal += amount  
+       return runningTotal  
+    }  
+   return incrementor  
+} 
+
+let incrementByTen =makeIncrementor(forIncrement: 10)  
+incrementByTen()  
+// 返回的值为10  
+incrementByTen()  
+// 返回的值为20  
+incrementByTen()  
+// 返回的值为30 
+
+let incrementBySeven =makeIncrementor(forIncrement: 7)  
+incrementBySeven()  
+// 返回的值为7  
+incrementByTen()  
+// 返回的值为40 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;闭包是引用类型closures-are-reference-types&quot;&gt;闭包是引用类型（Closures Are Reference Types）&lt;/h3&gt;
+&lt;p&gt;上面的例子中，incrementBySeven和incrementByTen是常量，但是这些常量指向的闭包仍然可以增加其捕获的变量值。这是因为函数和闭包都是引用类型。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let alsoIncrementByTen = incrementByTen  
+alsoIncrementByTen()  
+// 返回的值为50  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Mon, 14 Jul 2014 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/mac/2014/07/14/swift-Closures/</link>
+        <guid isPermaLink="true">http://localhost:4000/mac/2014/07/14/swift-Closures/</guid>
+        
+        <category>Swift</category>
+        
+        <category>Closures</category>
+        
+        
+        <category>Mac</category>
+        
+      </item>
+    
+      <item>
+        <title>Sublime Text 2 实用快捷键[Mac OS X]</title>
+        <description>&lt;p&gt;From: &lt;a href=&quot;http://lucifr.com/2011/09/10/sublime-text-2-useful-shortcuts/&quot;&gt;http://lucifr.com/2011/09/10/sublime-text-2-useful-shortcuts/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gist.github.com/lucasfais&quot;&gt;lucasfais&lt;/a&gt; 总结了一些非常实用的 [Sublime Text][4] 2 [快捷键][5]，Lucifr 将它们翻译成了[中文][6]，以方便查阅。&lt;/p&gt;
+
+&lt;p&gt;[4]: http://lucifr.com/tags/sublime-text/ (Tag Archive for “sublime text” - Lucifr)
+   [5]: https://gist.github.com/1207002/
+   [6]: https://gist.github.com/1208100&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：修饰键（如⌘）后跟多个按键的情况表示在按住修饰键的情况下依次按下相应键。&lt;/p&gt;
+
+&lt;h3 id=&quot;打开前往&quot;&gt;打开/前往&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘T&lt;/strong&gt;
+前往文件&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌃P&lt;/strong&gt;
+前往项目&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘R&lt;/strong&gt;
+前往 method&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧P&lt;/strong&gt;
+命令提示&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃G&lt;/strong&gt;
+前往行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KB&lt;/strong&gt;
+开关侧栏&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃ `&lt;/strong&gt;
+python 控制台&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧N&lt;/strong&gt;
+新建窗口&lt;/p&gt;
+
+&lt;h3 id=&quot;编辑&quot;&gt;编辑&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘L&lt;/strong&gt;
+选择行 (重复按下将下一行加入选择)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘D&lt;/strong&gt;
+选择词 (重复按下时多重选择相同的词进行多重编辑)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃⇧M&lt;/strong&gt;
+选择括号内的内容&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧↩&lt;/strong&gt;
+在当前行前插入新行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘↩&lt;/strong&gt;
+在当前行后插入新行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃⇧K&lt;/strong&gt;
+删除行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KK&lt;/strong&gt;
+从光标处删除至行尾&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘K⌫&lt;/strong&gt;
+从光标处删除至行首&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧D&lt;/strong&gt;
+复制(多)行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘J&lt;/strong&gt;
+合并(多)行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KU&lt;/strong&gt;
+改为大写&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KL&lt;/strong&gt;
+改为小写&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘ /&lt;/strong&gt;
+注释&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥ /&lt;/strong&gt;
+块注释&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘Y&lt;/strong&gt;
+恢复或重复&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧V&lt;/strong&gt;
+粘贴并自动缩进&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃ space&lt;/strong&gt;
+自动完成(重复按下选择下一个提示)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃M&lt;/strong&gt;
+跳转至对应的括号&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘U&lt;/strong&gt;
+软撤销（可撤销光标移动）&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧U&lt;/strong&gt;
+软重做（可重做光标移动）&lt;/p&gt;
+
+&lt;h3 id=&quot;xmlhtml&quot;&gt;XML/HTML&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧A&lt;/strong&gt;
+选择标签内的内容&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥ .&lt;/strong&gt;
+闭合当前标签&lt;/p&gt;
+
+&lt;h3 id=&quot;查找替换&quot;&gt;查找/替换&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘F&lt;/strong&gt;
+查找&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥F&lt;/strong&gt;
+替换&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥G&lt;/strong&gt;
+查找下一个符合当前所选的内容&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌃G&lt;/strong&gt;
+查找所有符合当前所选的内容进行多重编辑&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧F&lt;/strong&gt;
+在所有打开的文件中进行查找&lt;/p&gt;
+
+&lt;h3 id=&quot;拆分窗口标签页&quot;&gt;拆分窗口/标签页&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥1&lt;/strong&gt;
+单列&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥2&lt;/strong&gt;
+双列&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥5&lt;/strong&gt;
+网格 (4组)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃[1,2,3,4]&lt;/strong&gt;
+焦点移动至相应组&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃⇧[1,2,3,4]&lt;/strong&gt;
+将当前文件移动至相应组&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘[1,2,3…]&lt;/strong&gt;
+选择相应标签页&lt;/p&gt;
+
+&lt;h3 id=&quot;书签&quot;&gt;书签&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘F2&lt;/strong&gt;
+添加/去除书签&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;F2&lt;/strong&gt;
+下一个书签&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⇧F2&lt;/strong&gt;
+前一个书签&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧F2&lt;/strong&gt;
+清除书签&lt;/p&gt;
+
+&lt;h3 id=&quot;标记&quot;&gt;标记&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘K space&lt;/strong&gt;
+设置标记&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KW&lt;/strong&gt;
+从光标位置删除至标记&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KA&lt;/strong&gt;
+从光标位置选择至标记&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KG&lt;/strong&gt;
+清除标记&lt;/p&gt;
+
+&lt;p&gt;This is a Chinese version of &lt;a href=&quot;https://gist.github.com/lucasfais&quot;&gt;lucasfais&lt;/a&gt;’s &lt;a href=&quot;https://gist.github.com/1207002/&quot;&gt;Sublime Text 2 – Useful Shortcuts (Mac OS X)&lt;/a&gt; translated by Lucifr&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 29 Oct 2013 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/mac/2013/10/29/sublime-text-2-useful-shortcuts/</link>
+        <guid isPermaLink="true">http://localhost:4000/mac/2013/10/29/sublime-text-2-useful-shortcuts/</guid>
+        
+        <category>sublime</category>
+        
+        <category>shortcut</category>
+        
+        
+        <category>Mac</category>
+        
+      </item>
+    
+      <item>
+        <title>让ubuntu使用国内的源</title>
+        <description>&lt;p&gt;如果你安装了ubuntu 13.04，但是没有选择中文语言，你默认的源将会是us的。这样速度不太理想，如果你想使用国内源，请替换/etc/apt/source.list文件为下面的内容：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;deb http://cn.archive.ubuntu.com/ubuntu/ raring main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ raring-security main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ raring-updates main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ raring main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ raring-backports main restricted universe multiverse
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 07 Jun 2013 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/linux/2013/06/07/ubuntu-raring-souce-list/</link>
+        <guid isPermaLink="true">http://localhost:4000/linux/2013/06/07/ubuntu-raring-souce-list/</guid>
+        
+        <category>ubuntu</category>
+        
+        <category>raring</category>
+        
+        <category>source list</category>
+        
+        
+        <category>Linux</category>
         
       </item>
     
