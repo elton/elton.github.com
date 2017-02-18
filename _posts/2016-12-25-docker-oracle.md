@@ -17,7 +17,7 @@ tags:
 
 在[官网](https://docs.docker.com/docker-for-mac/)下载最新版的Docker for Mac，安装好以后，使用下面命令测试
 
-```shell
+```Shell
 $ docker --version
 Docker version 1.12.5, build 7392c3b
 

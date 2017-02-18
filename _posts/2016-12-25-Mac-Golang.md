@@ -19,13 +19,13 @@ tags:
 
 ## 安装Golang
 
-```
+```Shell
 $ brew install go
 ```
 
 ## 设置环境变量
 
-```bash
+```Shell
 $ vim ~/.profile
 
 export GOOROOT=/usr/local/opt/go/libexec/
@@ -49,7 +49,7 @@ $ go install github.com/nsf/gocode
 
 ### 测试Hello World
 
-```go
+```Go
 package main
 
 import "fmt"
