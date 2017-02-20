@@ -5,9 +5,60 @@
     <description>关注电商全栈技术 | 郑振宇，Web &amp; Mobile Lover，Front-End &amp; Back-end Engineer，UX Designer, CTO &amp; CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 18 Feb 2017 14:55:32 +0800</pubDate>
-    <lastBuildDate>Sat, 18 Feb 2017 14:55:32 +0800</lastBuildDate>
+    <pubDate>Sat, 18 Feb 2017 16:50:59 +0800</pubDate>
+    <lastBuildDate>Sat, 18 Feb 2017 16:50:59 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>极限</title>
+        <description>&lt;h1 id=&quot;极限&quot;&gt;极限&lt;/h1&gt;
+&lt;h2 id=&quot;自变量趋于有限值时函数的极限&quot;&gt;自变量趋于有限值时函数的极限&lt;/h2&gt;
+&lt;p&gt;首先考虑自变量 $x 趋向 x_0$的过程中函数值的变化趋势。设函数 $f 在 x_0$ 附近有定义，如果在 $x 趋于x_0$的过程中，函数值$f(x)$无限地接近于常数 $A$，即$f (x) - A趋于 0$，就称 $A 是f (x)当x \to x_0$时的极限，它的精确数学描述如以下定义。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;定义 如果对任意给定的 $\varepsilon &amp;gt; 0$，总存在 $\delta &amp;gt;0$ ，使得 $0 &amp;lt;| x - x_0|&amp;lt;\delta$ 时成立 &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+|f(x) - A| &lt; \varepsilon %]]&gt;&lt;/script&gt;
+则称 $f (x)在 x \to x_0时以 A 为极限$，记作
+&lt;script type=&quot;math/tex&quot;&gt;\lim_{x\to x_0} f(x) = A&lt;/script&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;$\lim_{x\to x_0} f(x) = A$ 有十分直观的几何解释：对任意给定的正数 $\varepsilon$ ，作一个介于直线 $ y = A + \varepsilon$ 与 $ y = A - \varepsilon$ 之间的条形区域。相应于这个区域，存在以 $x_0$ 为中心的区间 $(x_0 - \varepsilon,  x_0 + \varepsilon)$,函数 $f$ 的图象上，横坐标位于该区间但又非 $x_0$的点，将落在上述条形区域中(见下图)
+&lt;img src=&quot;https://ooo.0o0.ooo/2017/02/18/58a803bceb165.png&quot; alt=&quot;2017-02-18 16.12.56&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;gnuplot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;output:&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;html&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;iz5j0klu&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;terminal&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;svg&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;x*sin(1/x)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;font&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;,20&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;unset&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;unset&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-3&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;yrange&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-3&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;zeroaxis&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;lt&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;lw&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;xtics&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;ytics&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;samples&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-10&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;x*sin(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/x)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 18 Feb 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/02/18/limit/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/02/18/limit/</guid>
+        
+        <category>limit</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Latex Math</title>
+        <description>&lt;h1 id=&quot;使用latex输入数学公式&quot;&gt;使用LaTeX输入数学公式&lt;/h1&gt;
+</description>
+        <pubDate>Sat, 18 Feb 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/02/18/latex-math/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/02/18/latex-math/</guid>
+        
+        
+      </item>
     
       <item>
         <title>Mac下使用Docker制作Oralce 12c镜像</title>
@@ -1904,227 +1955,6 @@ alsoIncrementByTen()
         
         
         <category>Mac</category>
-        
-      </item>
-    
-      <item>
-        <title>Sublime Text 2 实用快捷键[Mac OS X]</title>
-        <description>&lt;p&gt;From: &lt;a href=&quot;http://lucifr.com/2011/09/10/sublime-text-2-useful-shortcuts/&quot;&gt;http://lucifr.com/2011/09/10/sublime-text-2-useful-shortcuts/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://gist.github.com/lucasfais&quot;&gt;lucasfais&lt;/a&gt; 总结了一些非常实用的 [Sublime Text][4] 2 [快捷键][5]，Lucifr 将它们翻译成了[中文][6]，以方便查阅。&lt;/p&gt;
-
-&lt;p&gt;[4]: http://lucifr.com/tags/sublime-text/ (Tag Archive for “sublime text” - Lucifr)
-   [5]: https://gist.github.com/1207002/
-   [6]: https://gist.github.com/1208100&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：修饰键（如⌘）后跟多个按键的情况表示在按住修饰键的情况下依次按下相应键。&lt;/p&gt;
-
-&lt;h3 id=&quot;打开前往&quot;&gt;打开/前往&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘T&lt;/strong&gt;
-前往文件&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⌃P&lt;/strong&gt;
-前往项目&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘R&lt;/strong&gt;
-前往 method&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⇧P&lt;/strong&gt;
-命令提示&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌃G&lt;/strong&gt;
-前往行&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘KB&lt;/strong&gt;
-开关侧栏&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌃ `&lt;/strong&gt;
-python 控制台&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⇧N&lt;/strong&gt;
-新建窗口&lt;/p&gt;
-
-&lt;h3 id=&quot;编辑&quot;&gt;编辑&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘L&lt;/strong&gt;
-选择行 (重复按下将下一行加入选择)&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘D&lt;/strong&gt;
-选择词 (重复按下时多重选择相同的词进行多重编辑)&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌃⇧M&lt;/strong&gt;
-选择括号内的内容&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⇧↩&lt;/strong&gt;
-在当前行前插入新行&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘↩&lt;/strong&gt;
-在当前行后插入新行&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌃⇧K&lt;/strong&gt;
-删除行&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘KK&lt;/strong&gt;
-从光标处删除至行尾&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘K⌫&lt;/strong&gt;
-从光标处删除至行首&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⇧D&lt;/strong&gt;
-复制(多)行&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘J&lt;/strong&gt;
-合并(多)行&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘KU&lt;/strong&gt;
-改为大写&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘KL&lt;/strong&gt;
-改为小写&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘ /&lt;/strong&gt;
-注释&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⌥ /&lt;/strong&gt;
-块注释&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘Y&lt;/strong&gt;
-恢复或重复&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⇧V&lt;/strong&gt;
-粘贴并自动缩进&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌃ space&lt;/strong&gt;
-自动完成(重复按下选择下一个提示)&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌃M&lt;/strong&gt;
-跳转至对应的括号&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘U&lt;/strong&gt;
-软撤销（可撤销光标移动）&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⇧U&lt;/strong&gt;
-软重做（可重做光标移动）&lt;/p&gt;
-
-&lt;h3 id=&quot;xmlhtml&quot;&gt;XML/HTML&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⇧A&lt;/strong&gt;
-选择标签内的内容&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⌥ .&lt;/strong&gt;
-闭合当前标签&lt;/p&gt;
-
-&lt;h3 id=&quot;查找替换&quot;&gt;查找/替换&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘F&lt;/strong&gt;
-查找&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⌥F&lt;/strong&gt;
-替换&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⌥G&lt;/strong&gt;
-查找下一个符合当前所选的内容&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⌃G&lt;/strong&gt;
-查找所有符合当前所选的内容进行多重编辑&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⇧F&lt;/strong&gt;
-在所有打开的文件中进行查找&lt;/p&gt;
-
-&lt;h3 id=&quot;拆分窗口标签页&quot;&gt;拆分窗口/标签页&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⌥1&lt;/strong&gt;
-单列&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⌥2&lt;/strong&gt;
-双列&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⌥5&lt;/strong&gt;
-网格 (4组)&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌃[1,2,3,4]&lt;/strong&gt;
-焦点移动至相应组&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌃⇧[1,2,3,4]&lt;/strong&gt;
-将当前文件移动至相应组&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘[1,2,3…]&lt;/strong&gt;
-选择相应标签页&lt;/p&gt;
-
-&lt;h3 id=&quot;书签&quot;&gt;书签&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘F2&lt;/strong&gt;
-添加/去除书签&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;F2&lt;/strong&gt;
-下一个书签&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⇧F2&lt;/strong&gt;
-前一个书签&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘⇧F2&lt;/strong&gt;
-清除书签&lt;/p&gt;
-
-&lt;h3 id=&quot;标记&quot;&gt;标记&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘K space&lt;/strong&gt;
-设置标记&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘KW&lt;/strong&gt;
-从光标位置删除至标记&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘KA&lt;/strong&gt;
-从光标位置选择至标记&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;⌘KG&lt;/strong&gt;
-清除标记&lt;/p&gt;
-
-&lt;p&gt;This is a Chinese version of &lt;a href=&quot;https://gist.github.com/lucasfais&quot;&gt;lucasfais&lt;/a&gt;’s &lt;a href=&quot;https://gist.github.com/1207002/&quot;&gt;Sublime Text 2 – Useful Shortcuts (Mac OS X)&lt;/a&gt; translated by Lucifr&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 29 Oct 2013 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/mac/2013/10/29/sublime-text-2-useful-shortcuts/</link>
-        <guid isPermaLink="true">http://localhost:4000/mac/2013/10/29/sublime-text-2-useful-shortcuts/</guid>
-        
-        <category>sublime</category>
-        
-        <category>shortcut</category>
-        
-        
-        <category>Mac</category>
-        
-      </item>
-    
-      <item>
-        <title>让ubuntu使用国内的源</title>
-        <description>&lt;p&gt;如果你安装了ubuntu 13.04，但是没有选择中文语言，你默认的源将会是us的。这样速度不太理想，如果你想使用国内源，请替换/etc/apt/source.list文件为下面的内容：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;deb http://cn.archive.ubuntu.com/ubuntu/ raring main restricted universe multiverse
-deb http://cn.archive.ubuntu.com/ubuntu/ raring-security main restricted universe multiverse
-deb http://cn.archive.ubuntu.com/ubuntu/ raring-updates main restricted universe multiverse
-deb http://cn.archive.ubuntu.com/ubuntu/ raring-proposed main restricted universe multiverse
-deb http://cn.archive.ubuntu.com/ubuntu/ raring-backports main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ raring main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ raring-security main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ raring-updates main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ raring-proposed main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ raring-backports main restricted universe multiverse
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Fri, 07 Jun 2013 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/linux/2013/06/07/ubuntu-raring-souce-list/</link>
-        <guid isPermaLink="true">http://localhost:4000/linux/2013/06/07/ubuntu-raring-souce-list/</guid>
-        
-        <category>ubuntu</category>
-        
-        <category>raring</category>
-        
-        <category>source list</category>
-        
-        
-        <category>Linux</category>
         
       </item>
     
