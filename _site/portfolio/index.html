@@ -9,7 +9,7 @@
     <meta name="description" content="关注电商全栈技术 | 郑振宇，Web & Mobile Lover，Front-End & Back-end Engineer，UX Designer, CTO & CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。">
     <meta name="keywords"  content="郑振宇, Elton郑振宇, Elton, 鬼栈, @Elton郑振宇, @eltonzheng, 郑振宇的博客, Elton Blog, 博客, 个人网站, 互联网, 前端, 设计, 产品">
     <meta name="theme-color" content="#000000">
-
+    
     <title>Portfolio - 郑振宇的博客 | Elton Zheng Blog</title>
 
     <!-- Web App Manifest -->
@@ -17,7 +17,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/img/favicon.ico">
-
+    
     <!-- Canonical URL -->
     <link rel="canonical" href="http://localhost:4000/portfolio/">
 
@@ -52,18 +52,13 @@
 
     <!-- ga & ba script hoook -->
     <script></script>
-    <!-- MathJax 支持 -->
-    <script type="text/javascript"
-            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
 </head>
 
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
 
-    
-<!-- Navigation -->
+    <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -74,7 +69,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Elton Blog</a>
+            <a class="navbar-brand" href="/">Elton's Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -142,11 +137,11 @@
     /**
      * Since Fastclick is used to delegate 'touchstart' globally
      * to hack 300ms delay in iOS by performing a fake 'click',
-     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
      * $toggle/$collapse will break global delegation.
-     *
+     * 
      * Instead, we use a 'e.target' filter to prevent handler
-     * added to document close HuxNav.
+     * added to document close HuxNav.  
      *
      * Also, we use 'click' instead of 'touchstart' as compromise
      */
@@ -171,10 +166,8 @@
 	<body>
 		<div class="container" style="margin:0;padding:0;width:100%;">
 			<header>
-				<img width="190" height="190" src="images/hux_avatar.png">
+				<img width="175" height="175" style="border-radius:50%;" src="/img/avatar-hux.jpg">
 				<h1>Hux</h1>
-				<p>A student major in Web & Mobile,<br>
-					focus on UI Development, UX Design and Motion Graphic.</p>
 			</header>
 			<div class="main">
 				<ul class="cbp_tmtimeline">
@@ -281,7 +274,7 @@
 									<span class="fa fa-css3"></span>
 									<span><b>JS</b></span>
 									<span class="i-jquery"></span>
-									<span class="link"><a target="_blank" href="http://www.tudou.com/programs/view/Xa-pGW55N4g/">Github</a></span>
+									<span class="link"><a target="_blank" href="https://github.com/Huxpro/jquery.HSlider">Github</a></span>
 								</li>
 							</ul>
 						</div>
@@ -350,43 +343,9 @@
 							</ul>
 						</div>
 					</li>
-					
-					<li>
-						<div class="cbp_tmlabel">
-			                <!-- 多说评论框 start -->
-			                <div class="comment">
-			                    <div class="ds-thread"
-									data-thread-key="elton/portfolio"
-			                        data-title="Portfolio"
-			                        data-url="http://localhost:4000/portfolio/" >
-			                    </div>
-			                </div>
-			                <!-- 多说评论框 end -->
-						</div>
-					</li> 
-					
 				</ul>
 			</div>
 		</div>
-		
-		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-		<script type="text/javascript">
-		    // dynamic User by Hux
-		    var _user = 'elton';
-
-		    // duoshuo comment query.
-		    var duoshuoQuery = {short_name: _user };
-		    (function() {
-		        var ds = document.createElement('script');
-		        ds.type = 'text/javascript';ds.async = true;
-		        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		        ds.charset = 'UTF-8';
-		        (document.getElementsByTagName('head')[0]
-		         || document.getElementsByTagName('body')[0]).appendChild(ds);
-		    })();
-		</script>
-		<!-- 多说公共JS代码 end -->
-		
 	</body>
 </html>
 
@@ -453,16 +412,25 @@
                     </li>
                     
                     
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/eltonzheng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Elton Blog 2017
+                    Copyright &copy; Elton's Blog 2017
                     <br>
-                    <!-- Theme by <a href="http://huangxuan.me">Hux</a> |
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
                     <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="100px" height="20px"
                         src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
-                    </iframe> -->
+                    </iframe>
                 </p>
             </div>
         </div>
@@ -473,6 +441,7 @@
 <script src="/js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
 <script src="/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
@@ -480,16 +449,8 @@
 
 <!-- Service Worker -->
 
-<script type="text/javascript">
-    if(navigator.serviceWorker){
-        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
-        navigator.serviceWorker
-            .register('/sw.js')
-            .then((registration) => {console.log('Service Worker Registered. ', registration)})
-            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
-    }
-</script>
-
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
 
 
 <!-- async load function -->
@@ -570,8 +531,11 @@
 
 
 
-
 <!-- Side Catalog -->
+
+
+
+<!-- Multi-Lingual -->
 
 
 

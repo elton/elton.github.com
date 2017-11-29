@@ -9,7 +9,7 @@
     <meta name="description" content="关注电商全栈技术 | 郑振宇，Web & Mobile Lover，Front-End & Back-end Engineer，UX Designer, CTO & CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。">
     <meta name="keywords"  content="郑振宇, Elton郑振宇, Elton, 鬼栈, @Elton郑振宇, @eltonzheng, 郑振宇的博客, Elton Blog, 博客, 个人网站, 互联网, 前端, 设计, 产品">
     <meta name="theme-color" content="#000000">
-
+    
     <title>郑振宇的博客 | Elton Zheng Blog</title>
 
     <!-- Web App Manifest -->
@@ -17,7 +17,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/img/favicon.ico">
-
+    
     <!-- Canonical URL -->
     <link rel="canonical" href="http://localhost:4000/">
 
@@ -52,18 +52,13 @@
 
     <!-- ga & ba script hoook -->
     <script></script>
-    <!-- MathJax 支持 -->
-    <script type="text/javascript"
-            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
 </head>
 
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
 
-    
-<!-- Navigation -->
+    <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -74,7 +69,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Elton Blog</a>
+            <a class="navbar-brand" href="/">Elton's Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -142,11 +137,11 @@
     /**
      * Since Fastclick is used to delegate 'touchstart' globally
      * to hack 300ms delay in iOS by performing a fake 'click',
-     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
      * $toggle/$collapse will break global delegation.
-     *
+     * 
      * Instead, we use a 'e.target' filter to prevent handler
-     * added to document close HuxNav.
+     * added to document close HuxNav.  
      *
      * Also, we use 'click' instead of 'touchstart' as compromise
      */
@@ -164,7 +159,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
                 <div class="site-heading">
-                    <h1>Elton Blog</h1>
+                    <h1>Elton's Blog</h1>
                     <!--<hr class="small">-->
                     <span class="subheading">一生想做浪漫极客</span>
                 </div>
@@ -189,39 +184,24 @@
             ">
     			
 <div class="post-preview">
-    <a href="/2017/02/18/limit/">
+    <a href="/2017/02/20/kubernets-key-concepts/">
         <h2 class="post-title">
-            极限
+            理解Kubernetes核心概念
         </h2>
         
+        <h3 class="post-subtitle">
+            十分钟带你理解Kubernetes核心概念
+        </h3>
+        
         <div class="post-content-preview">
-            极限
-自变量趋于有限值时函数的极限
-首先考虑自变量 $x 趋向 x_0$的过程中函数值的变化趋势。设函数 $f 在 x_0$ 附近有定义，如果在 $x 趋于x_0$的过程中，函数值$f(x)$无限地接近于常数 $A$，即$f (x) - A趋于 0$，就称 $A 是f (x)当x \to x_0$时的极限，它的精确数学描述如以下定义。
+            什么是Kubernetes？
 
-
-  定义 如果对任意给定的 $\varepsilon...
+  Kubernetes 是 Google 团队发起并维护的基于Docker的开源容器集群管理系统。建于 Docker 之上的 Kubernetes 可以构建一个容器的调度服务，其目的是让用户透过Kubernetes集群来进行云端容器集群的管理，而无需用户进行复杂的设置工作。系统会自动选取合适的工作节点来执行具体的容器集群调度处理工作。
+  其核心概念是Con...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Elton on February 18, 2017
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2017/02/18/latex-math/">
-        <h2 class="post-title">
-            Latex Math
-        </h2>
-        
-        <div class="post-content-preview">
-            使用LaTeX输入数学公式
-
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Elton Blog on February 18, 2017
+        Posted by Elton on February 20, 2017
     </p>
 </div>
 <hr>
@@ -274,7 +254,6 @@ $ docker run -d -p 80:80 --name webserver nginx
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 
-
 安装Golang
 
 $ brew install go
@@ -284,7 +263,7 @@ $ brew install go
 
 $ vim ~/.profile
 
-export GOO...
+export GOOR...
         </div>
     </a>
     <p class="post-meta">
@@ -314,7 +293,7 @@ Swift 中的闭包与 C 和 Objective-C 中的代码块（block...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Elton Blog on September 9, 2014
+        Posted by Elton's Blog on September 9, 2014
     </p>
 </div>
 <hr>
@@ -334,7 +313,7 @@ Swift 中的闭包与 C 和 Objective-C 中的代码块（block...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Elton Blog on August 24, 2014
+        Posted by Elton's Blog on August 24, 2014
     </p>
 </div>
 <hr>
@@ -354,7 +333,7 @@ Swift 中的闭包与 C 和 Objective-C 中的代码块（block...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Elton Blog on August 24, 2014
+        Posted by Elton's Blog on August 24, 2014
     </p>
 </div>
 <hr>
@@ -371,11 +350,10 @@ Swift 中的闭包与 C 和 Objective-C 中的代码块（block...
 launchctl setenv MYPATH myvar
 
 
-
         </div>
     </a>
     <p class="post-meta">
-        Posted by Elton Blog on July 17, 2014
+        Posted by Elton's Blog on July 17, 2014
     </p>
 </div>
 <hr>
@@ -398,7 +376,7 @@ Google最新公布了适合于几乎全世界所有国家的一个开源字体Go
         </div>
     </a>
     <p class="post-meta">
-        Posted by Elton Blog on July 16, 2014
+        Posted by Elton's Blog on July 16, 2014
     </p>
 </div>
 <hr>
@@ -420,7 +398,27 @@ Swift 是一门由Apple 公司开发的用于iOS和OSX设备上的开发语言�
         </div>
     </a>
     <p class="post-meta">
-        Posted by Elton Blog on July 14, 2014
+        Posted by Elton's Blog on July 14, 2014
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/mac/2013/10/29/sublime-text-2-useful-shortcuts/">
+        <h2 class="post-title">
+            Sublime Text 2 实用快捷键[Mac OS X]
+        </h2>
+        
+        <div class="post-content-preview">
+            From: http://lucifr.com/2011/09/10/sublime-text-2-useful-shortcuts/
+
+lucasfais 总结了一些非常实用的 [Sublime Text][4] 2 [快捷键][5]，Lucifr 将它们翻译成了[中文][6]，以方便查阅。
+
+[4]: http://lucifr.com/tags/sublime-text/ (Tag A...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Elton's Blog on October 29, 2013
     </p>
 </div>
 <hr>
@@ -450,7 +448,7 @@ Swift 是一门由Apple 公司开发的用于iOS和OSX设备上的开发语言�
                 <!-- Featured Tags -->
                 
                 <section>
-                    <hr class="hidden-sm hidden-xs" />
+                    <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                         
@@ -1624,6 +1622,10 @@ Swift 是一门由Apple 公司开发的用于iOS和OSX设备上的开发语言�
                         
                             
                         
+                            
+                        
+                            
+                        
                     </div>
                 </section>
                 
@@ -1691,6 +1693,15 @@ Swift 是一门由Apple 公司开发的用于iOS和OSX设备上的开发语言�
                                 </a>
                             </li>
                             
+                            
+                            <li>
+                                <a target="_blank" href="https://www.linkedin.com/in/eltonzheng">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
                             
                         </ul>
                     </div>
@@ -1765,16 +1776,25 @@ Swift 是一门由Apple 公司开发的用于iOS和OSX设备上的开发语言�
                     </li>
                     
                     
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/eltonzheng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Elton Blog 2017
+                    Copyright &copy; Elton's Blog 2017
                     <br>
-                    <!-- Theme by <a href="http://huangxuan.me">Hux</a> |
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
                     <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="100px" height="20px"
                         src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
-                    </iframe> -->
+                    </iframe>
                 </p>
             </div>
         </div>
@@ -1785,6 +1805,7 @@ Swift 是一门由Apple 公司开发的用于iOS和OSX设备上的开发语言�
 <script src="/js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
 <script src="/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
@@ -1792,16 +1813,8 @@ Swift 是一门由Apple 公司开发的用于iOS和OSX设备上的开发语言�
 
 <!-- Service Worker -->
 
-<script type="text/javascript">
-    if(navigator.serviceWorker){
-        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
-        navigator.serviceWorker
-            .register('/sw.js')
-            .then((registration) => {console.log('Service Worker Registered. ', registration)})
-            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
-    }
-</script>
-
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
 
 
 <!-- async load function -->
@@ -1882,8 +1895,11 @@ Swift 是一门由Apple 公司开发的用于iOS和OSX设备上的开发语言�
 
 
 
-
 <!-- Side Catalog -->
+
+
+
+<!-- Multi-Lingual -->
 
 
 

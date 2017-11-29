@@ -5,7 +5,9 @@ subtitle: 	"使用Docker容器来制作安装和配置Oracle 12c，并安装示�
 date: 			2016-12-25
 author:     "Elton"
 header-img: "img/post-bg-2015.jpg"
+header-mask:  0.3
 catalog: true
+multilingual: false
 tags:
     - docker
     - Oracle

@@ -1,61 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Elton Blog</title>
+    <title>Elton's Blog</title>
     <description>关注电商全栈技术 | 郑振宇，Web &amp; Mobile Lover，Front-End &amp; Back-end Engineer，UX Designer, CTO &amp; CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 18 Feb 2017 16:50:59 +0800</pubDate>
-    <lastBuildDate>Sat, 18 Feb 2017 16:50:59 +0800</lastBuildDate>
-    <generator>Jekyll v3.3.1</generator>
+    <pubDate>Thu, 30 Nov 2017 01:28:18 +0800</pubDate>
+    <lastBuildDate>Thu, 30 Nov 2017 01:28:18 +0800</lastBuildDate>
+    <generator>Jekyll v3.6.2</generator>
     
       <item>
-        <title>极限</title>
-        <description>&lt;h1 id=&quot;极限&quot;&gt;极限&lt;/h1&gt;
-&lt;h2 id=&quot;自变量趋于有限值时函数的极限&quot;&gt;自变量趋于有限值时函数的极限&lt;/h2&gt;
-&lt;p&gt;首先考虑自变量 $x 趋向 x_0$的过程中函数值的变化趋势。设函数 $f 在 x_0$ 附近有定义，如果在 $x 趋于x_0$的过程中，函数值$f(x)$无限地接近于常数 $A$，即$f (x) - A趋于 0$，就称 $A 是f (x)当x \to x_0$时的极限，它的精确数学描述如以下定义。&lt;/p&gt;
+        <title>理解Kubernetes核心概念</title>
+        <description>&lt;h2 id=&quot;什么是kubernetes&quot;&gt;什么是Kubernetes？&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Kubernetes 是 Google 团队发起并维护的基于Docker的开源容器集群管理系统。建于 Docker 之上的 Kubernetes 可以构建一个容器的调度服务，其目的是让用户透过Kubernetes集群来进行云端容器集群的管理，而无需用户进行复杂的设置工作。系统会自动选取合适的工作节点来执行具体的容器集群调度处理工作。&lt;/li&gt;
+  &lt;li&gt;其核心概念是&lt;code class=&quot;highlighter-rouge&quot;&gt;Container Pod（容器仓）&lt;/code&gt;。一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Pod&lt;/code&gt;是有一组工作于同一物理工作节点的容器构成的。这些组容器拥有相同的网络命名空间VIP以及存储配额，可以根据实际情况对每一个Pod进行端口映射。此外，Kubernetes工作节点会由主系统进行管理，节点包含了能够运行Docker容器所用到的服务。&lt;/li&gt;
+  &lt;li&gt;Kubernetes不仅仅支持Docker，还支持Rocket，这是另一种容器技术。&lt;/li&gt;
+&lt;/ul&gt;
 
+&lt;p&gt;使用Kubernetes可以：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;自动化容器的部署和复制&lt;/li&gt;
+  &lt;li&gt;随时扩展或收缩容器规模&lt;/li&gt;
+  &lt;li&gt;将容器组织成组，并且提供容器间的负载均衡&lt;/li&gt;
+  &lt;li&gt;很容易地升级应用程序容器的新版本&lt;/li&gt;
+  &lt;li&gt;提供容器弹性，如果容器失效就替换它，等等…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;实际上，使用Kubernetes只需一个部署文件，使用一条命令就可以部署多层容器（前端，后台等）的完整集群：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Shell&quot;&gt;$ kubectl create -f single-config-file.yaml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;集群&quot;&gt;集群&lt;/h2&gt;
+&lt;p&gt;集群是一组节点，这些节点可以是物理服务器或者虚拟机，之上安装了Kubernetes平台。下图展示这样的集群。注意该图为了强调核心概念有所简化。&lt;a href=&quot;http://kubernetes.io/v1.1/docs/design/architecture.html&quot;&gt;这里&lt;/a&gt;可以看到一个典型的Kubernetes架构图。
+&lt;img src=&quot;http://dockerone.com/uploads/article/20151230/d56441427680948fb56a00af57bda690.png&quot; alt=&quot;Kubernetes架构图&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上图可以看到如下组件，使用特别的图标表示Service和Label：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Pod&lt;/li&gt;
+  &lt;li&gt;Container（容器）&lt;/li&gt;
+  &lt;li&gt;Label(&lt;img src=&quot;http://omerio.com/wp-content/uploads/2015/12/label.png&quot; alt=&quot;label&quot; /&gt;)（标签）&lt;/li&gt;
+  &lt;li&gt;Replication Controller（复制控制器）&lt;/li&gt;
+  &lt;li&gt;Service（&lt;img src=&quot;http://omerio.com/wp-content/uploads/2015/12/service.png&quot; alt=&quot;Service&quot; /&gt;）（服务）&lt;/li&gt;
+  &lt;li&gt;Node（节点）&lt;/li&gt;
+  &lt;li&gt;Kubernetes Master（Kubernetes主节点）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pod&quot;&gt;Pod&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://kubernetes.io/v1.1/docs/user-guide/pods.html&quot;&gt;Pod&lt;/a&gt;（上图绿色方框）安排在节点上，包含一组容器和卷。同一个Pod里的容器共享同一个网络命名空间，可以使用localhost互相通信。Pod是短暂的，不是持续性实体。你可能会有这些问题：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;如果Pod是短暂的，那么我怎么才能持久化容器数据使其能够跨重启而存在呢？ 是的，Kubernetes支持卷的概念，因此可以使用持久化的卷类型。&lt;/li&gt;
+  &lt;li&gt;是否手动创建Pod，如果想要创建同一个容器的多份拷贝，需要一个个分别创建出来么？可以手动创建单个Pod，但是也可以使用Replication Controller使用Pod模板创建出多份拷贝，下文会详细介绍。&lt;/li&gt;
+  &lt;li&gt;如果Pod是短暂的，那么重启时IP地址可能会改变，那么怎么才能从前端容器正确可靠地指向后台容器呢？这时可以使用Service，下文会详细介绍。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;lable&quot;&gt;Lable&lt;/h2&gt;
+&lt;p&gt;正如图所示，一些Pod有Label（&lt;img src=&quot;http://omerio.com/wp-content/uploads/2015/12/label.png&quot; alt=&quot;label&quot; /&gt;）。一个Label是attach到Pod的一对键/值对，用来传递用户定义的属性。比如，你可能创建了一个”tier”和“app”标签，通过Label（tier=frontend, app=myapp）来标记前端Pod容器，使用Label（tier=backend, app=myapp）标记后台Pod。然后可以使用Selectors选择带有特定Label的Pod，并且将Service或者Replication Controller应用到上面&lt;/p&gt;
+
+&lt;h2 id=&quot;replication-controller&quot;&gt;Replication Controller&lt;/h2&gt;
 &lt;blockquote&gt;
-  &lt;p&gt;定义 如果对任意给定的 $\varepsilon &amp;gt; 0$，总存在 $\delta &amp;gt;0$ ，使得 $0 &amp;lt;| x - x_0|&amp;lt;\delta$ 时成立 &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
-|f(x) - A| &lt; \varepsilon %]]&gt;&lt;/script&gt;
-则称 $f (x)在 x \to x_0时以 A 为极限$，记作
-&lt;script type=&quot;math/tex&quot;&gt;\lim_{x\to x_0} f(x) = A&lt;/script&gt;&lt;/p&gt;
+  &lt;p&gt;是否手动创建Pod，如果想要创建同一个容器的多份拷贝，需要一个个分别创建出来么，能否将Pods划到逻辑组里？&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;$\lim_{x\to x_0} f(x) = A$ 有十分直观的几何解释：对任意给定的正数 $\varepsilon$ ，作一个介于直线 $ y = A + \varepsilon$ 与 $ y = A - \varepsilon$ 之间的条形区域。相应于这个区域，存在以 $x_0$ 为中心的区间 $(x_0 - \varepsilon,  x_0 + \varepsilon)$,函数 $f$ 的图象上，横坐标位于该区间但又非 $x_0$的点，将落在上述条形区域中(见下图)
-&lt;img src=&quot;https://ooo.0o0.ooo/2017/02/18/58a803bceb165.png&quot; alt=&quot;2017-02-18 16.12.56&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Replication Controller确保任意时间都有指定数量的Pod“副本”在运行。如果为某个Pod创建了Replication Controller并且指定3个副本，它会创建3个Pod，并且持续监控它们。如果某个Pod不响应，那么Replication Controller会替换它，保持总数为3.如下面的动画所示：
+&lt;img src=&quot;http://dockerone.com/uploads/article/20151230/5e2bad1a25e33e2d155da81da1d3a54b.gif&quot; alt=&quot;Replication Controller&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;gnuplot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;output:&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;html&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;iz5j0klu&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;terminal&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;svg&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;x*sin(1/x)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;font&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;,20&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;unset&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;unset&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-3&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;yrange&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-3&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;zeroaxis&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;lt&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;lw&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;xtics&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;ytics&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;samples&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-10&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;x*sin(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/x)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;如果之前不响应的Pod恢复了，现在就有4个Pod了，那么Replication Controller会将其中一个终止保持总数为3。如果在运行中将副本总数改为5，Replication Controller会立刻启动2个新Pod，保证总数为5。还可以按照这样的方式缩小Pod，这个特性在执行滚动升级时很有用。&lt;/p&gt;
+
+&lt;p&gt;当创建Replication Controller时，需要指定两个东西：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Pod模板：用来创建Pod副本的模板&lt;/li&gt;
+  &lt;li&gt;Label：Replication Controller需要监控的Pod的标签。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;现在已经创建了Pod的一些副本，那么在这些副本上如何均衡负载呢？我们需要的是Service。&lt;/p&gt;
+
+&lt;h2 id=&quot;service&quot;&gt;Service&lt;/h2&gt;
+&lt;p&gt;如果Pods是短暂的，那么重启时IP地址可能会改变，怎么才能从前端容器正确可靠地指向后台容器呢？&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://kubernetes.io/v1.1/docs/user-guide/services.html&quot;&gt;Service&lt;/a&gt;是定义一系列Pod以及访问这些Pod的策略的一层抽象。Service通过Label找到Pod组。因为Service是抽象的，所以在图表里通常看不到它们的存在，这也就让这一概念更难以理解。&lt;/p&gt;
+
+&lt;p&gt;现在，假定有2个后台Pod，并且定义后台Service的名称为‘backend-service’，lable选择器为（tier=backend, app=myapp）。backend-service 的Service会完成如下两件重要的事情：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;会为Service创建一个本地集群的DNS入口，因此前端Pod只需要DNS查找主机名为 ‘backend-service’，就能够解析出前端应用程序可用的IP地址。&lt;/li&gt;
+  &lt;li&gt;现在前端已经得到了后台服务的IP地址，但是它应该访问2个后台Pod的哪一个呢？Service在这2个后台Pod之间提供透明的负载均衡，会将请求分发给其中的任意一个（如下面的动画所示）。通过每个Node上运行的代理（kube-proxy）完成。这里有更多技术细节。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;下述动画展示了Service的功能。注意该图作了很多简化。如果不进入网络配置，那么达到透明的负载均衡目标所涉及的底层网络和路由相对先进。如果有兴趣，这里有更深入的介绍。
+&lt;img src=&quot;http://dockerone.com/uploads/article/20151230/125bbccce0b3bbf42abab0e520d9250b.gif&quot; alt=&quot;Service&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;有一个特别类型的Kubernetes Service，称为’&lt;a href=&quot;http://kubernetes.io/v1.1/docs/user-guide/services.html#type-loadbalancer&quot;&gt;LoadBalancer&lt;/a&gt;‘，作为外部负载均衡器使用，在一定数量的Pod之间均衡流量。比如，对于负载均衡Web流量很有用&lt;/p&gt;
+
+&lt;h2 id=&quot;node&quot;&gt;Node&lt;/h2&gt;
+&lt;p&gt;节点（上图橘色方框）是物理或者虚拟机器，作为Kubernetes worker，通常称为Minion。每个节点都运行如下Kubernetes关键组件：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Kubelet：是主节点代理。&lt;/li&gt;
+  &lt;li&gt;Kube-proxy：Service使用其将链接路由到Pod，如上文所述。&lt;/li&gt;
+  &lt;li&gt;Docker或Rocket：Kubernetes使用的容器技术来创建容器。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;kubernetes-master&quot;&gt;Kubernetes Master&lt;/h2&gt;
+
+&lt;p&gt;集群拥有一个Kubernetes Master（紫色方框）。Kubernetes Master提供集群的独特视角，并且拥有一系列组件，比如Kubernetes API Server。API Server提供可以用来和集群交互的REST端点。master节点包括用来创建和复制Pod的Replication Controller。&lt;/p&gt;
+
+&lt;h2 id=&quot;下一步&quot;&gt;下一步&lt;/h2&gt;
+
+&lt;p&gt;现在我们已经了解了Kubernetes核心概念的基本知识，你可以进一步阅读Kubernetes &lt;a href=&quot;http://kubernetes.io/v1.1/docs/user-guide/README.html&quot;&gt;用户手册&lt;/a&gt;。用户手册提供了快速并且完备的学习文档。
+如果迫不及待想要试试Kubernetes，可以使用&lt;a href=&quot;https://cloud.google.com/container-engine/docs/&quot;&gt;Google Container Engine&lt;/a&gt;。Google Container Engine是托管的Kubernetes容器环境。简单注册/登录之后就可以在上面尝试示例了。&lt;/p&gt;
+
+&lt;p&gt;原文链接：&lt;a href=&quot;http://omerio.com/2015/12/18/learn-the-kubernetes-key-concepts-in-10-minutes/&quot;&gt;Learn the Kubernetes Key Concepts in 10 Minutes&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Sat, 18 Feb 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/02/18/limit/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/02/18/limit/</guid>
+        <pubDate>Mon, 20 Feb 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/02/20/kubernets-key-concepts/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/02/20/kubernets-key-concepts/</guid>
         
-        <category>limit</category>
+        <category>Kubernetes</category>
         
+        <category>Docker</category>
         
-      </item>
-    
-      <item>
-        <title>Latex Math</title>
-        <description>&lt;h1 id=&quot;使用latex输入数学公式&quot;&gt;使用LaTeX输入数学公式&lt;/h1&gt;
-</description>
-        <pubDate>Sat, 18 Feb 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/02/18/latex-math/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/02/18/latex-math/</guid>
+        <category>Cloud</category>
         
         
       </item>
@@ -80,9 +143,8 @@ $ docker run -d -p 80:80 --name webserver nginx
 
 &lt;h3 id=&quot;下载制作镜像要用的代码&quot;&gt;下载制作镜像要用的代码&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$git clone https://github.com/wscherphof/oracle-12c
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$git clone https://github.com/wscherphof/oracle-12c
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;下载oracle数据库&quot;&gt;下载Oracle数据库&lt;/h3&gt;
 
@@ -96,7 +158,7 @@ $ docker run -d -p 80:80 --name webserver nginx
   &lt;li&gt;
     &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;# /tmp/install/install&lt;/code&gt; (大约5分钟)&lt;/p&gt;
 
-    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Tue Sep 16 08:48:00 UTC 2014
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Tue Sep 16 08:48:00 UTC 2014
  Starting Oracle Universal Installer...
 
  Checking Temp space: must be greater than 500 MB.   Actual 40142 MB    Passed
@@ -117,10 +179,9 @@ $ docker run -d -p 80:80 --name webserver nginx
 
   	Note:
      1. This script must be run on the same host from where installer was run.
-     2. This script needs a small password properties file &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;configuration assistants that require passwords &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;refer to install guide documentation&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.
+     2. This script needs a small password properties file &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;configuration assistants that require passwords &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;refer to install guide documentation&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; &amp;lt;enter&amp;gt;&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; # exit&lt;/code&gt;&lt;/li&gt;
@@ -134,7 +195,7 @@ $ docker run -d -p 80:80 --name webserver nginx
   &lt;li&gt;
     &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; # /tmp/create&lt;/code&gt; （大约需要15分钟）&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Tue Sep 16 11:07:30 UTC 2014
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; Tue Sep 16 11:07:30 UTC 2014
  Creating database...
 
  SQL*Plus: Release 12.1.0.2.0 Production on Tue Sep 16 11:07:30 2014
@@ -178,8 +239,7 @@ $ docker run -d -p 80:80 --name webserver nginx
 
  Tue Sep 16 11:19:38 UTC 2014
  Create is done; commit the container now
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; # exit&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ docker commit step2 oracle-12c:created&lt;/code&gt;&lt;/li&gt;
@@ -191,19 +251,17 @@ $ docker run -d -p 80:80 --name webserver nginx
 之后就生成了一个名为oracle-12c的docker image了，这时候可以把其他的中间使用的image都删掉了。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker images
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker images
 REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
 oracle-12c                  latest              17c7e6958ec3        12 hours ago        14.73 GB
 wscherphof/oracle-linux-7   latest              a07f8cc9627f        2 years ago         437.4 MB
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;运行&quot;&gt;运行&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run --shm-size=4g -dP --name orcl oracle-12c
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run --shm-size=4g -dP --name orcl oracle-12c
 989f1b41b1f00c53576ab85e773b60f2458a75c108c12d4ac3d70be4e801b563
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;默认密码&lt;/li&gt;
@@ -230,14 +288,13 @@ wscherphof/oracle-linux-7   latest              a07f8cc9627f        2 years ago 
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ORCL&lt;/code&gt; 数据库端口是 &lt;code class=&quot;highlighter-rouge&quot;&gt;1521&lt;/code&gt;, 通过下面的命令，可以查找主机的端口&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker port orcl 1521
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker port orcl 1521
 0.0.0.0:32770
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;这样就可以使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;sqlplus&lt;/code&gt; &lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 的命令连接Oracle&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sqlplus system/manager@localhost:32770/orcl
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sqlplus system/manager@localhost:32770/orcl
 
 SQL*Plus: Release 12.1.0.2.0 Production on Sun Dec 25 00:32:23 2016
 
@@ -250,42 +307,40 @@ Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
 With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
 
 SQL&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;###进入容器
 如果想进入容器进行操作，可以使用下面的命令：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker exec -it orcl /bin/bash
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker exec -it orcl /bin/bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;###安装Sample数据库
 默认情况下，sample数据库和对应的用户都没有创建。&lt;/p&gt;
 
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#进入容器&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; -it orcl /bin/bash
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#进入容器&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; orcl /bin/bash
 
 &lt;span class=&quot;c&quot;&gt;#安装git&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;yum install git
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;yum install git
 
 &lt;span class=&quot;c&quot;&gt;#进入demo schema目录&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /u01/app/oracle/product/12.1.0/dbhome_1/demo/schema/
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /u01/app/oracle/product/12.1.0/dbhome_1/demo/schema/
 
 &lt;span class=&quot;c&quot;&gt;#下载Sample schema&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git clone https://github.com/oracle/db-sample-schemas.git .
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/oracle/db-sample-schemas.git &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;#替换下载脚本中的目录&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;perl -p -i.bak -e &lt;span class=&quot;s1&quot;&gt;'s#__SUB__CWD__#'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'#g'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sql &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sql &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.dat
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;perl &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;.bak &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s#__SUB__CWD__#'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'#g'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sql &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sql &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.dat
 
 &lt;span class=&quot;c&quot;&gt;#创建log目录&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;mkdir log
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir log
 
 &lt;span class=&quot;c&quot;&gt;#更改权限&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;chown -R oracle:oinstall .
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;chown &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; oracle:oinstall &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;#连接数据库&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sqlplus sys/change_on_install@localhost/orcl as sysdb
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sqlplus sys/change_on_install@localhost/orcl as sysdb
 
 &lt;span class=&quot;c&quot;&gt;#执行安装脚本&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#格式为SQL&amp;gt; @?/demo/schema/mksample &amp;lt;SYSTEM_password&amp;gt; &amp;lt;SYS_password&amp;gt;&lt;/span&gt;
@@ -293,13 +348,13 @@ SQL&amp;gt;
 		&amp;lt;SH_password&amp;gt; &amp;lt;BI_password&amp;gt; EXAMPLE TEMP
 		&lt;span class=&quot;nv&quot;&gt;$ORACLE_HOME&lt;/span&gt;/demo/schema/log/ localhost:1521/pdb
 
-&lt;span class=&quot;gp&quot;&gt;SQL&amp;gt; &lt;/span&gt;@?/demo/schema/mksample manager change_on_install hr oe pm ix sh bi users temp &lt;span class=&quot;nv&quot;&gt;$ORACLE_HOME&lt;/span&gt;/demo/schema/log/ localhost:1521/orcl
+SQL&amp;gt; @?/demo/schema/mksample manager change_on_install hr oe pm ix sh bi users temp &lt;span class=&quot;nv&quot;&gt;$ORACLE_HOME&lt;/span&gt;/demo/schema/log/ localhost:1521/orcl
 
 &lt;span class=&quot;c&quot;&gt;#最后可以看到执行结果&lt;/span&gt;
 All named objects and stati
 
 OWNER  OBJECT_TYPE          OBJECT_NAME                    SUBOBJECT_NAME   STATUS
------- -------------------- ------------------------------ ---------------- --------
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;------------------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--------&lt;/span&gt;
 BI     SYNONYM              CHANNELS                                        VALID
 BI     SYNONYM              COSTS                                           VALID
 BI     SYNONYM              COUNTRIES                                       VALID
@@ -766,7 +821,7 @@ SH     VIEW                 PROFITS                                         VALI
 Data types used
 
 OWNER  DATA_TYPE                           DATA_TYPE_OWNER  DAT   COUNT&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
------- ----------------------------------- ---------------- --- ----------
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-----------------------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------&lt;/span&gt;
 PM     ADHEADER_TYP                        PM                            1
 IX     ANYDATA                             SYS                           7
 IX     AQ&lt;span class=&quot;nv&quot;&gt;$_SIG_PROP&lt;/span&gt;                        SYS                           4
@@ -809,7 +864,7 @@ OE     XMLTYPE                             SYS                           1
 XML tables
 
 OWNER  TABLE_NAME                     SCHEMA_OWNER     STORAGE_TYPE
------- ------------------------------ ---------------- --------------------
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;------------------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--------------------&lt;/span&gt;
 OE     PURCHASEORDER                  OE               OBJECT-RELATIONAL
 
 1 row selected.
@@ -818,7 +873,7 @@ OE     PURCHASEORDER                  OE               OBJECT-RELATIONAL
 All objects named &lt;span class=&quot;s1&quot;&gt;'SYS%'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;LOBs etc&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
 OWNER  OBJECT_TYPE          STATUS     COUNT&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
------- -------------------- -------- ----------
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------&lt;/span&gt;
 IX     INDEX                VALID            16
 OE     INDEX                VALID            19
 PM     INDEX                VALID             9
@@ -833,7 +888,7 @@ IX     TABLE                VALID             2
 All constraints
 
 OWNER  CONSTRAINT_TYPE      STATUS   VALIDATED        GENERATED          COUNT&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
------- -------------------- -------- ---------------- ---------------- ----------
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------&lt;/span&gt;
 IX     Check or Not Null    ENABLED  VALIDATED        GENERATED NAME            4
 OE     Check or Not Null    ENABLED  VALIDATED        GENERATED NAME            2
 SH     Check or Not Null    ENABLED  VALIDATED        GENERATED NAME          115
@@ -864,7 +919,7 @@ HR     Unique key           ENABLED  VALIDATED        USER NAME                 
 All dimensions
 
 OWNER  DIMENSION_NAME       I COMPILE_STATE
------- -------------------- - -------------
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--------------------&lt;/span&gt; - &lt;span class=&quot;nt&quot;&gt;-------------&lt;/span&gt;
 SH     CHANNELS_DIM         N VALID
 SH     CUSTOMERS_DIM        N VALID
 SH     PRODUCTS_DIM         N VALID
@@ -877,7 +932,7 @@ SH     TIMES_DIM            N VALID
 All granted roles
 
 GRANTED_ROLE              GRANTEE
-------------------------- -------
+&lt;span class=&quot;nt&quot;&gt;-------------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-------&lt;/span&gt;
 AQ_ADMINISTRATOR_ROLE     IX
 AQ_USER_ROLE              IX
 CONNECT                   IX
@@ -898,7 +953,7 @@ XDBADMIN                  OE
 All granted system privileges
 
 PRIVILEGE                 GRANTEE
-------------------------- -------
+&lt;span class=&quot;nt&quot;&gt;-------------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-------&lt;/span&gt;
 ALTER SESSION             BI
 ALTER SESSION             HR
 ALTER SESSION             IX
@@ -959,7 +1014,7 @@ UNLIMITED TABLESPACE      SH
 All granted object privileges
 
 OWNER  TABLE_NAME                     PRIVILEGE                 GRANTEE
------- ------------------------------ ------------------------- -------
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;------------------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-------------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-------&lt;/span&gt;
 HR     COUNTRIES                      REFERENCES                OE
 HR     COUNTRIES                      SELECT                    OE
 HR     DEPARTMENTS                    SELECT                    OE
@@ -1024,7 +1079,7 @@ SYS    SUBDIR                         WRITE                     OE
 Space usage
 
 OWNER  SEGMENT_TYPE         SUM&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;BYTES&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
------- -------------------- ----------
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------&lt;/span&gt;
 HR     INDEX                   1245184
 HR     TABLE                    393216
 HR                             1638400
@@ -1058,7 +1113,7 @@ SH                           836370432
 Table cardinality relational and object tables
 
 OWNER  TABLE_NAME                       NUM_ROWS
------- ------------------------------ ----------
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;------------------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------&lt;/span&gt;
 HR     COUNTRIES                              25
 HR     DEPARTMENTS                            27
 HR     EMPLOYEES                             107
@@ -1116,7 +1171,7 @@ SH     TIMES                                1826
 Index cardinality &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;without  LOB indexes&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
 OWNER  INDEX_NAME                DISTINCT_KEYS   NUM_ROWS
------- ------------------------- ------------- ----------
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-------------------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-------------&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;----------&lt;/span&gt;
 HR     COUNTRY_C_ID_PK                      25         25
 HR     DEPT_ID_PK                           27         27
 HR     DEPT_LOCATION_IX                      7         27
@@ -1183,8 +1238,7 @@ SH     TIMES_PK                           1826       1826
 
 SQL&amp;gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
@@ -1209,9 +1263,8 @@ SQL&amp;gt;
         <description>&lt;h1 id=&quot;mac下golang环境搭建&quot;&gt;Mac下Golang环境搭建&lt;/h1&gt;
 &lt;h2 id=&quot;下载安装homebrew&quot;&gt;下载安装Homebrew&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;安装golang&quot;&gt;安装Golang&lt;/h2&gt;
 
@@ -1230,10 +1283,9 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 &lt;h2 id=&quot;安装gocode&quot;&gt;安装GoCode&lt;/h2&gt;
 &lt;p&gt;为了支持后面Sublime的Go语言自动补全&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ go get github.com/nsf/gocode
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ go get github.com/nsf/gocode
 $ go install github.com/nsf/gocode
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;安装sublime-text3的gosublime插件&quot;&gt;安装Sublime Text3的GoSublime插件&lt;/h2&gt;
 
@@ -1320,9 +1372,8 @@ Swift 中的闭包与 C 和 Objective-C 中的代码块（blocks）以及其他�
 
 &lt;p&gt;下面的闭包表达式示例使用&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数对一个&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型的数组进行字母逆序排序，以下是初始数组值：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let names = [&quot;Chris&quot;, &quot;Alex&quot;, &quot;Ewa&quot;, &quot;Barry&quot;, &quot;Daniella&quot;]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let names = [&quot;Chris&quot;, &quot;Alex&quot;, &quot;Ewa&quot;, &quot;Barry&quot;, &quot;Daniella&quot;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数需要传入两个参数：&lt;/p&gt;
 
@@ -1335,13 +1386,12 @@ Swift 中的闭包与 C 和 Objective-C 中的代码块（blocks）以及其他�
 
 &lt;p&gt;提供排序闭包函数的一种方式是撰写一个符合其类型要求的普通函数，并将其作为&lt;code class=&quot;highlighter-rouge&quot;&gt;sort&lt;/code&gt;函数的第二个参数传入：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func backwards(s1: String, s2: String) -&amp;gt; Bool {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func backwards(s1: String, s2: String) -&amp;gt; Bool {
     return s1 &amp;gt; s2
 }
 var reversed = sorted(names, backwards)
 // reversed 为 [&quot;Ewa&quot;, &quot;Daniella&quot;, &quot;Chris&quot;, &quot;Barry&quot;, &quot;Alex&quot;]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;如果第一个字符串 (&lt;code class=&quot;highlighter-rouge&quot;&gt;s1&lt;/code&gt;) 大于第二个字符串 (&lt;code class=&quot;highlighter-rouge&quot;&gt;s2&lt;/code&gt;)，&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;函数返回&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;，表示在新的数组中&lt;code class=&quot;highlighter-rouge&quot;&gt;s1&lt;/code&gt;应该出现在&lt;code class=&quot;highlighter-rouge&quot;&gt;s2&lt;/code&gt;前。
 对于字符串中的字符来说，“大于” 表示 “按照字母顺序较晚出现”。
@@ -1356,11 +1406,10 @@ var reversed = sorted(names, backwards)
 
 &lt;p&gt;闭包表达式语法有如下一般形式：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(parameters)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;returnType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;statements&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{ (parameters) -&amp;gt; returnType in
+    statements
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;闭包表达式语法可以使用常量、变量和&lt;code class=&quot;highlighter-rouge&quot;&gt;inout&lt;/code&gt;类型作为参数，不提供默认值。
 也可以在参数列表的最后使用可变参数。
@@ -1368,11 +1417,10 @@ var reversed = sorted(names, backwards)
 
 &lt;p&gt;下面的例子展示了之前&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;函数对应的闭包表达式版本的代码：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { (s1: String, s2: String) -&amp;gt; Bool in
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { (s1: String, s2: String) -&amp;gt; Bool in
     return s1 &amp;gt; s2
 })
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;需要注意的是内联闭包参数和返回值类型声明与&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;函数类型声明相同。
 在这两种方式中，都写成了&lt;code class=&quot;highlighter-rouge&quot;&gt;(s1: String, s2: String) -&amp;gt; Bool&lt;/code&gt;。
@@ -1383,9 +1431,8 @@ var reversed = sorted(names, backwards)
 
 &lt;p&gt;因为这个闭包的函数体部分如此短以至于可以将其改写成一行代码：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { (s1: String, s2: String) -&amp;gt; Bool in return s1 &amp;gt; s2 } )
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { (s1: String, s2: String) -&amp;gt; Bool in return s1 &amp;gt; s2 } )
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;这说明&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数的整体调用保持不变，一对圆括号仍然包裹住了函数中整个参数集合。而其中一个参数现在变成了内联闭包（相比于&lt;code class=&quot;highlighter-rouge&quot;&gt;backwards&lt;/code&gt;版本的代码）。&lt;/p&gt;
 
@@ -1396,9 +1443,8 @@ var reversed = sorted(names, backwards)
 &lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;期望第二个参数是类型为&lt;code class=&quot;highlighter-rouge&quot;&gt;(String, String) -&amp;gt; Bool&lt;/code&gt;的函数，因此实际上&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型并不需要作为闭包表达式定义中的一部分。
 因为所有的类型都可以被正确推断，返回箭头 (&lt;code class=&quot;highlighter-rouge&quot;&gt;-&amp;gt;&lt;/code&gt;) 和围绕在参数周围的括号也可以被省略：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { s1, s2 in return s1 &amp;gt; s2 } )
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { s1, s2 in return s1 &amp;gt; s2 } )
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;实际上任何情况下，通过内联闭包表达式构造的闭包作为参数传递给函数时，都可以推断出闭包的参数和返回值类型，这意味着您几乎不需要利用完整格式构造任何内联闭包。&lt;/p&gt;
 
@@ -1407,9 +1453,8 @@ var reversed = sorted(names, backwards)
 
 &lt;p&gt;单行表达式闭包可以通过隐藏&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;关键字来隐式返回单行表达式的结果，如上版本的例子可以改写为：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { s1, s2 in s1 &amp;gt; s2 } )
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { s1, s2 in s1 &amp;gt; s2 } )
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;在这个例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数的第二个参数函数类型明确了闭包必须返回一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型值。
 因为闭包函数体只包含了一个单一表达式 (&lt;code class=&quot;highlighter-rouge&quot;&gt;s1 &amp;gt; s2&lt;/code&gt;)，该表达式返回&lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt;类型值，因此这里没有歧义，&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt;关键字可以省略。&lt;/p&gt;
@@ -1422,9 +1467,8 @@ var reversed = sorted(names, backwards)
 &lt;p&gt;如果您在闭包表达式中使用参数名称缩写，您可以在闭包参数列表中省略对其的定义，并且对应参数名称缩写的类型会通过函数类型进行推断。
 &lt;code class=&quot;highlighter-rouge&quot;&gt;in&lt;/code&gt;关键字也同样可以被省略，因为此时闭包表达式完全由闭包函数体构成：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { $0 &amp;gt; $1 } )
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, { $0 &amp;gt; $1 } )
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;在这个例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;$0&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;$1&lt;/code&gt;表示闭包中第一个和第二个&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型的参数。&lt;/p&gt;
 
@@ -1436,9 +1480,8 @@ Swift 的&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类�
 而这正好与&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数的第二个参数需要的函数类型相符合。
 因此，您可以简单地传递一个大于号，Swift可以自动推断出您想使用大于号的字符串函数实现：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, &amp;gt;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names, &amp;gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;更多关于运算符表达式的内容请查看 &lt;a href=&quot;../chapter2/23_Advanced_Operators.html#operator_functions&quot;&gt;运算符函数&lt;/a&gt;。&lt;/p&gt;
 
@@ -1448,7 +1491,7 @@ Swift 的&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类�
 &lt;p&gt;如果您需要将一个很长的闭包表达式作为最后一个参数传递给函数，可以使用尾随闭包来增强函数的可读性。
 尾随闭包是一个书写在函数括号之后的闭包表达式，函数支持将其作为最后一个参数调用。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func someFunctionThatTakesAClosure(closure: () -&amp;gt; ()) {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func someFunctionThatTakesAClosure(closure: () -&amp;gt; ()) {
     // 函数体部分
 }
 
@@ -1461,8 +1504,7 @@ someFunctionThatTakesAClosure({
 someFunctionThatTakesAClosure() {
   // 闭包主体部分
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;注意：
@@ -1471,9 +1513,8 @@ someFunctionThatTakesAClosure() {
 
 &lt;p&gt;在上例中作为&lt;code class=&quot;highlighter-rouge&quot;&gt;sorted&lt;/code&gt;函数参数的字符串排序闭包可以改写为：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names) { $0 &amp;gt; $1 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reversed = sorted(names) { $0 &amp;gt; $1 }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;当闭包非常长以至于不能在一行中进行书写时，尾随闭包变得非常有用。
 举例来说，Swift 的&lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt;类型有一个&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;方法，其获取一个闭包表达式作为其唯一参数。
@@ -1484,13 +1525,12 @@ someFunctionThatTakesAClosure() {
 
 &lt;p&gt;下例介绍了如何在&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;方法中使用尾随闭包将&lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt;类型数组&lt;code class=&quot;highlighter-rouge&quot;&gt;[16,58,510]&lt;/code&gt;转换为包含对应&lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;类型的数组&lt;code class=&quot;highlighter-rouge&quot;&gt;[&quot;OneSix&quot;, &quot;FiveEight&quot;, &quot;FiveOneZero&quot;]&lt;/code&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let digitNames = [
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let digitNames = [
     0: &quot;Zero&quot;, 1: &quot;One&quot;, 2: &quot;Two&quot;,   3: &quot;Three&quot;, 4: &quot;Four&quot;,
     5: &quot;Five&quot;, 6: &quot;Six&quot;, 7: &quot;Seven&quot;, 8: &quot;Eight&quot;, 9: &quot;Nine&quot;
 ]
 let numbers = [16, 58, 510]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;如上代码创建了一个数字位和它们名字映射的英文版本字典。
 同时定义了一个准备转换为字符串的整型数组。&lt;/p&gt;
@@ -1498,7 +1538,7 @@ let numbers = [16, 58, 510]
 &lt;p&gt;您现在可以通过传递一个尾随闭包给&lt;code class=&quot;highlighter-rouge&quot;&gt;numbers&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;方法来创建对应的字符串版本数组。
 需要注意的时调用&lt;code class=&quot;highlighter-rouge&quot;&gt;numbers.map&lt;/code&gt;不需要在&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;后面包含任何括号，因为其只需要传递闭包表达式这一个参数，并且该闭包表达式参数通过尾随方式进行撰写：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let strings = numbers.map {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let strings = numbers.map {
     (var number) -&amp;gt; String in
     var output = &quot;&quot;
     while number &amp;gt; 0 {
@@ -1509,8 +1549,7 @@ let numbers = [16, 58, 510]
 }
 // strings 常量被推断为字符串类型数组，即 String[]
 // 其值为 [&quot;OneSix&quot;, &quot;FiveEight&quot;, &quot;FiveOneZero&quot;]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;在数组中为每一个元素调用了闭包表达式。
 您不需要指定闭包的输入参数&lt;code class=&quot;highlighter-rouge&quot;&gt;number&lt;/code&gt;的类型，因为可以通过要映射的数组类型进行推断。&lt;/p&gt;
@@ -1552,7 +1591,7 @@ let numbers = [16, 58, 510]
 之后&lt;code class=&quot;highlighter-rouge&quot;&gt;makeIncrementor&lt;/code&gt;将&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;作为闭包返回。
 每次调用&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;时，其会以&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;作为增量增加&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;的值。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func makeIncrementor(forIncrement amount: Int) -&amp;gt; () -&amp;gt; Int {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func makeIncrementor(forIncrement amount: Int) -&amp;gt; () -&amp;gt; Int {
     var runningTotal = 0
     func incrementor() -&amp;gt; Int {
         runningTotal += amount
@@ -1560,8 +1599,7 @@ let numbers = [16, 58, 510]
     }
     return incrementor
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;makeIncrementor&lt;/code&gt;返回类型为&lt;code class=&quot;highlighter-rouge&quot;&gt;() -&amp;gt; Int&lt;/code&gt;。
 这意味着其返回的是一个函数，而不是一个简单类型值。
@@ -1578,12 +1616,11 @@ let numbers = [16, 58, 510]
 
 &lt;p&gt;如果我们单独看这个函数，会发现看上去不同寻常：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func incrementor() -&amp;gt; Int {
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func incrementor() -&amp;gt; Int {
     runningTotal += amount
     return runningTotal
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;函数并没有获取任何参数，但是在函数体内访问了&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;变量。这是因为其通过捕获在包含它的函数体内已经存在的&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;amount&lt;/code&gt;变量而实现。&lt;/p&gt;
 
@@ -1600,32 +1637,29 @@ Swift 同时也处理&lt;code class=&quot;highlighter-rouge&quot;&gt;runingTotal
 
 &lt;p&gt;下面代码为一个使用&lt;code class=&quot;highlighter-rouge&quot;&gt;makeIncrementor&lt;/code&gt;的例子：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let incrementByTen = makeIncrementor(forIncrement: 10)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let incrementByTen = makeIncrementor(forIncrement: 10)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;该例子定义了一个叫做&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementByTen&lt;/code&gt;的常量，该常量指向一个每次调用会加10的&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;函数。
 调用这个函数多次可以得到以下结果：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;incrementByTen()
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;incrementByTen()
 // 返回的值为10
 incrementByTen()
 // 返回的值为20
 incrementByTen()
 // 返回的值为30
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;如果您创建了另一个&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementor&lt;/code&gt;，其会有一个属于自己的独立的&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;变量的引用。
 下面的例子中，&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementBySevne&lt;/code&gt;捕获了一个新的&lt;code class=&quot;highlighter-rouge&quot;&gt;runningTotal&lt;/code&gt;变量，该变量和&lt;code class=&quot;highlighter-rouge&quot;&gt;incrementByTen&lt;/code&gt;中捕获的变量没有任何联系：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let incrementBySeven = makeIncrementor(forIncrement: 7)
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let incrementBySeven = makeIncrementor(forIncrement: 7)
 incrementBySeven()
 // 返回的值为7
 incrementByTen()
 // 返回的值为40
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;注意：
@@ -1644,11 +1678,10 @@ Swift 使用捕获列表来打破这种强引用环。更多信息，请参考 &
 
 &lt;p&gt;这也意味着如果您将闭包赋值给了两个不同的常量/变量，两个值都会指向同一个闭包：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let alsoIncrementByTen = incrementByTen
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let alsoIncrementByTen = incrementByTen
 alsoIncrementByTen()
 // 返回的值为50
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Tue, 09 Sep 2014 00:00:00 +0800</pubDate>
         <link>http://localhost:4000/mac/2014/09/09/Swift-Closures/</link>
@@ -1671,12 +1704,11 @@ alsoIncrementByTen()
 
 &lt;p&gt;到/Applications下找到IntelliJ IDEA 13，右键－&amp;gt;显示包内容－&amp;gt;Contents-&amp;gt;Info.plist，利用文本编辑器或是默认的xcode打开该文件，找到下列代码&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;key&amp;gt;JVMVersion&amp;lt;/key&amp;gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;key&amp;gt;JVMVersion&amp;lt;/key&amp;gt;
 &amp;lt;string&amp;gt;1.6*&amp;lt;/string&amp;gt;
 
 将&amp;lt;string&amp;gt;1.6*&amp;lt;/string&amp;gt;改为&amp;lt;string&amp;gt;1.7*&amp;lt;/string&amp;gt;保存。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;此时idea使用的jdk就是1.7及以上的版本了。&lt;/p&gt;
 </description>
@@ -1703,12 +1735,11 @@ alsoIncrementByTen()
 
 &lt;p&gt;到/Applications下找到IntelliJ IDEA 13，右键－&amp;gt;显示包内容－&amp;gt;Contents-&amp;gt;Info.plist，利用文本编辑器或是默认的xcode打开该文件，找到下列代码&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;key&amp;gt;JVMVersion&amp;lt;/key&amp;gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;key&amp;gt;JVMVersion&amp;lt;/key&amp;gt;
 &amp;lt;string&amp;gt;1.6*&amp;lt;/string&amp;gt;
 
 将&amp;lt;string&amp;gt;1.6*&amp;lt;/string&amp;gt;改为&amp;lt;string&amp;gt;1.7*&amp;lt;/string&amp;gt;保存。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;此时idea使用的jdk就是1.7及以上的版本了。&lt;/p&gt;
 </description>
@@ -1731,9 +1762,8 @@ alsoIncrementByTen()
         <title>Mac OSX下设置IntelliJ IDEA环境变量</title>
         <description>&lt;p&gt;配置InelliJ时候，发现自己在~/.profile中设置的环境变量都不好用，比如&lt;strong&gt;M2_HOME&lt;/strong&gt;, 后来找到了一个方法，只有这么设置，才能在GUI环境下使用环境变量，之前profile中的，只有在命令行中才有用&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;launchctl setenv MYPATH myvar
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;launchctl setenv MYPATH myvar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Thu, 17 Jul 2014 00:00:00 +0800</pubDate>
         <link>http://localhost:4000/mac/2014/07/17/setting-environment-variables/</link>
@@ -1793,47 +1823,41 @@ alsoIncrementByTen()
 &lt;h3 id=&quot;举例&quot;&gt;举例&lt;/h3&gt;
 &lt;p&gt;如下面例子，把数组中的String排序&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let names = [&quot;Chris&quot;,&quot;Alex&quot;, &quot;Ewa&quot;, &quot;Barry&quot;, &quot;Daniella&quot;]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let names = [&quot;Chris&quot;,&quot;Alex&quot;, &quot;Ewa&quot;, &quot;Barry&quot;, &quot;Daniella&quot;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;使用sorted函数&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func backwards(s1: String, s2: String)-&amp;gt; Bool {  
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func backwards(s1: String, s2: String)-&amp;gt; Bool {  
    return s1 &amp;gt; s2  
 }  
 var reversed = sorted(names, backwards)  
 // reversed 为 [&quot;Ewa&quot;,&quot;Daniella&quot;, &quot;Chris&quot;, &quot;Barry&quot;, &quot;Alex&quot;]  
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;下面开始逐步简化了&lt;/p&gt;
 
 &lt;h6 id=&quot;使用闭包表达式closure-expression&quot;&gt;使用闭包表达式（Closure Expression）&lt;/h6&gt;
 &lt;p&gt;语法形式如下：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;(parameters)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;returnType&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  
-   &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;statements&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{ (parameters) -&amp;gt; returnType in  
+   statements  
+}  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;则上面的代码可以简化成如下形式：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, {(s1:String, s2:String) -&amp;gt; Bool in return s1 &amp;gt; s2})
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, {(s1:String, s2:String) -&amp;gt; Bool in return s1 &amp;gt; s2})
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h6 id=&quot;根据上下文推断类型inferring-type-from-context&quot;&gt;根据上下文推断类型（Inferring Type From Context）&lt;/h6&gt;
 &lt;p&gt;因为排序闭包函数是作为sort函数的参数进行传入的，Swift可以推断其参数和返回值的类型。 sort期望第二个参数是类型为(String, String) -&amp;gt; Bool的函数，因此实际上String,String和Bool类型并不需要作为闭包表达式定义中的一部分。 因为所有的类型都可以被正确推断，返回箭头 (-&amp;gt;) 和围绕在参数周围的括号也可以被省略：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { s1, s2 in return s1 &amp;gt; s2 })
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { s1, s2 in return s1 &amp;gt; s2 })
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h5 id=&quot;单表达式闭包隐式返回implicit-return-from-single-expression-clossures&quot;&gt;单表达式闭包隐式返回（Implicit Return From Single-Expression Clossures）&lt;/h5&gt;
 &lt;p&gt;单行表达式闭包可以通过隐藏return关键字来隐式返回单行表达式的结果，如上版本的例子可以改写为：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { s1, s2 in s1 &amp;gt; s2 })
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { s1, s2 in s1 &amp;gt; s2 })
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;在这个例子中，sort函数的第二个参数函数类型明确了闭包必须返回一个Bool类型值。因为闭包函数体只包含了一个单一表达式 (s1 &amp;gt; s2)，该表达式返回Bool类型值，因此这里没有歧义，return关键字可以省略。&lt;/p&gt;
 
 &lt;h5 id=&quot;参数名称缩写shorthand-argument-names&quot;&gt;参数名称缩写（Shorthand Argument Names）&lt;/h5&gt;
@@ -1841,22 +1865,20 @@ var reversed = sorted(names, backwards)
 
 &lt;p&gt;如果您在闭包表达式中使用参数名称缩写，您可以在闭包参数列表中省略对其的定义，并且对应参数名称缩写的类型会通过函数类型进行推断。 in关键字也同样可以被省略，因为此时闭包表达式完全由闭包函数体构成：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { $0 &amp;gt; $1 })
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, { $0 &amp;gt; $1 })
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h5 id=&quot;运算符函数operator-functions&quot;&gt;运算符函数（Operator Functions）&lt;/h5&gt;
 &lt;p&gt;实际上还有一种更简短的方式来撰写上面例子中的闭包表达式。 Swift 的String类型定义了关于大于号 (&amp;gt;) 的字符串实现，其作为一个函数接受两个String类型的参数并返回Bool类型的值。而这正好与sort函数的第二个参数需要的函数类型相符合。因此，您可以简单地传递一个大于号，Swift可以自动推断出您想使用大于号的字符串函数实现：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, &amp;gt;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names, &amp;gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;怎么样，够简洁吧！&lt;/p&gt;
 
 &lt;h3 id=&quot;尾随闭包trailing-closures&quot;&gt;尾随闭包（Trailing Closures）&lt;/h3&gt;
 &lt;p&gt;如果您需要将一个很长的闭包表达式作为最后一个参数传递给函数，可以使用尾随闭包来增强函数的可读性。尾随闭包是一个书写在函数括号之后的闭包表达式，函数支持将其作为最后一个参数调用。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func someFunctionThatTakesAClosure(closure:() -&amp;gt; ()) {  
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func someFunctionThatTakesAClosure(closure:() -&amp;gt; ()) {  
    // 函数体部分  
 }  
    
@@ -1871,19 +1893,17 @@ someFunctionThatTakesAClosure({
 someFunctionThatTakesAClosure() {  
    // 闭包主体部分  
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt; 如果函数只需要闭包表达式一个参数，当您使用尾随闭包时，您甚至可以把()省略掉。&lt;/p&gt;
 
 &lt;p&gt;在上例中作为sort函数参数的字符串排序闭包可以改写为：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names) { $0 &amp;gt; $1 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var reversed = sorted(names) { $0 &amp;gt; $1 }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;当闭包非常长以至于不能在一行中进行书写时，尾随闭包变得非常有用&lt;/strong&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let digitNames = [
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let digitNames = [
     0: &quot;Zero&quot;, 1: &quot;One&quot;, 2: &quot;Two&quot;,   3: &quot;Three&quot;, 4: &quot;Four&quot;,
     5: &quot;Five&quot;, 6: &quot;Six&quot;, 7: &quot;Seven&quot;, 8:&quot;Eight&quot;, 9: &quot;Nine&quot;
 ]
@@ -1900,8 +1920,7 @@ let strings = numbers.map {
 }
 // strings 常量被推断为字符串类型数组，即String[]  
 // 其值为[&quot;OneSix&quot;, &quot;FiveEight&quot;, &quot;FiveOneZero&quot;]  
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;捕获值capturing-values&quot;&gt;捕获值（Capturing Values）&lt;/h3&gt;
 &lt;p&gt;闭包可以在其定义的上下文中捕获常量或变量。即使定义这些常量和变量的原域已经不存在，闭包仍然可以在闭包函数体内引用和修改这些值。&lt;/p&gt;
@@ -1910,7 +1929,7 @@ let strings = numbers.map {
 
 &lt;p&gt;下例为一个叫做makeIncrementor的函数，其包含了一个叫做incrementor嵌套函数。嵌套函数incrementor从上下文中捕获了两个值，runningTotal和amount。之后makeIncrementor将incrementor作为闭包返回。每次调用incrementor时，其会以amount作为增量增加runningTotal的值。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func makeIncrementor(forIncrement amount:Int) -&amp;gt; () -&amp;gt; Int {  
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func makeIncrementor(forIncrement amount:Int) -&amp;gt; () -&amp;gt; Int {  
    var runningTotal = 0  
    func incrementor() -&amp;gt; Int {  
        runningTotal += amount  
@@ -1932,17 +1951,15 @@ incrementBySeven()
 // 返回的值为7  
 incrementByTen()  
 // 返回的值为40 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;闭包是引用类型closures-are-reference-types&quot;&gt;闭包是引用类型（Closures Are Reference Types）&lt;/h3&gt;
 &lt;p&gt;上面的例子中，incrementBySeven和incrementByTen是常量，但是这些常量指向的闭包仍然可以增加其捕获的变量值。这是因为函数和闭包都是引用类型。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let alsoIncrementByTen = incrementByTen  
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let alsoIncrementByTen = incrementByTen  
 alsoIncrementByTen()  
 // 返回的值为50  
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 </description>
         <pubDate>Mon, 14 Jul 2014 00:00:00 +0800</pubDate>
@@ -1952,6 +1969,195 @@ alsoIncrementByTen()
         <category>Swift</category>
         
         <category>Closures</category>
+        
+        
+        <category>Mac</category>
+        
+      </item>
+    
+      <item>
+        <title>Sublime Text 2 实用快捷键[Mac OS X]</title>
+        <description>&lt;p&gt;From: &lt;a href=&quot;http://lucifr.com/2011/09/10/sublime-text-2-useful-shortcuts/&quot;&gt;http://lucifr.com/2011/09/10/sublime-text-2-useful-shortcuts/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gist.github.com/lucasfais&quot;&gt;lucasfais&lt;/a&gt; 总结了一些非常实用的 [Sublime Text][4] 2 [快捷键][5]，Lucifr 将它们翻译成了[中文][6]，以方便查阅。&lt;/p&gt;
+
+&lt;p&gt;[4]: http://lucifr.com/tags/sublime-text/ (Tag Archive for “sublime text” - Lucifr)
+   [5]: https://gist.github.com/1207002/
+   [6]: https://gist.github.com/1208100&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：修饰键（如⌘）后跟多个按键的情况表示在按住修饰键的情况下依次按下相应键。&lt;/p&gt;
+
+&lt;h3 id=&quot;打开前往&quot;&gt;打开/前往&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘T&lt;/strong&gt;
+前往文件&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌃P&lt;/strong&gt;
+前往项目&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘R&lt;/strong&gt;
+前往 method&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧P&lt;/strong&gt;
+命令提示&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃G&lt;/strong&gt;
+前往行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KB&lt;/strong&gt;
+开关侧栏&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃ `&lt;/strong&gt;
+python 控制台&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧N&lt;/strong&gt;
+新建窗口&lt;/p&gt;
+
+&lt;h3 id=&quot;编辑&quot;&gt;编辑&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘L&lt;/strong&gt;
+选择行 (重复按下将下一行加入选择)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘D&lt;/strong&gt;
+选择词 (重复按下时多重选择相同的词进行多重编辑)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃⇧M&lt;/strong&gt;
+选择括号内的内容&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧↩&lt;/strong&gt;
+在当前行前插入新行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘↩&lt;/strong&gt;
+在当前行后插入新行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃⇧K&lt;/strong&gt;
+删除行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KK&lt;/strong&gt;
+从光标处删除至行尾&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘K⌫&lt;/strong&gt;
+从光标处删除至行首&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧D&lt;/strong&gt;
+复制(多)行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘J&lt;/strong&gt;
+合并(多)行&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KU&lt;/strong&gt;
+改为大写&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KL&lt;/strong&gt;
+改为小写&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘ /&lt;/strong&gt;
+注释&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥ /&lt;/strong&gt;
+块注释&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘Y&lt;/strong&gt;
+恢复或重复&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧V&lt;/strong&gt;
+粘贴并自动缩进&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃ space&lt;/strong&gt;
+自动完成(重复按下选择下一个提示)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃M&lt;/strong&gt;
+跳转至对应的括号&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘U&lt;/strong&gt;
+软撤销（可撤销光标移动）&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧U&lt;/strong&gt;
+软重做（可重做光标移动）&lt;/p&gt;
+
+&lt;h3 id=&quot;xmlhtml&quot;&gt;XML/HTML&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧A&lt;/strong&gt;
+选择标签内的内容&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥ .&lt;/strong&gt;
+闭合当前标签&lt;/p&gt;
+
+&lt;h3 id=&quot;查找替换&quot;&gt;查找/替换&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘F&lt;/strong&gt;
+查找&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥F&lt;/strong&gt;
+替换&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥G&lt;/strong&gt;
+查找下一个符合当前所选的内容&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌃G&lt;/strong&gt;
+查找所有符合当前所选的内容进行多重编辑&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧F&lt;/strong&gt;
+在所有打开的文件中进行查找&lt;/p&gt;
+
+&lt;h3 id=&quot;拆分窗口标签页&quot;&gt;拆分窗口/标签页&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥1&lt;/strong&gt;
+单列&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥2&lt;/strong&gt;
+双列&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⌥5&lt;/strong&gt;
+网格 (4组)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃[1,2,3,4]&lt;/strong&gt;
+焦点移动至相应组&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌃⇧[1,2,3,4]&lt;/strong&gt;
+将当前文件移动至相应组&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘[1,2,3…]&lt;/strong&gt;
+选择相应标签页&lt;/p&gt;
+
+&lt;h3 id=&quot;书签&quot;&gt;书签&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘F2&lt;/strong&gt;
+添加/去除书签&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;F2&lt;/strong&gt;
+下一个书签&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⇧F2&lt;/strong&gt;
+前一个书签&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘⇧F2&lt;/strong&gt;
+清除书签&lt;/p&gt;
+
+&lt;h3 id=&quot;标记&quot;&gt;标记&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘K space&lt;/strong&gt;
+设置标记&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KW&lt;/strong&gt;
+从光标位置删除至标记&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KA&lt;/strong&gt;
+从光标位置选择至标记&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⌘KG&lt;/strong&gt;
+清除标记&lt;/p&gt;
+
+&lt;p&gt;This is a Chinese version of &lt;a href=&quot;https://gist.github.com/lucasfais&quot;&gt;lucasfais&lt;/a&gt;’s &lt;a href=&quot;https://gist.github.com/1207002/&quot;&gt;Sublime Text 2 – Useful Shortcuts (Mac OS X)&lt;/a&gt; translated by Lucifr&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 29 Oct 2013 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/mac/2013/10/29/sublime-text-2-useful-shortcuts/</link>
+        <guid isPermaLink="true">http://localhost:4000/mac/2013/10/29/sublime-text-2-useful-shortcuts/</guid>
+        
+        <category>sublime</category>
+        
+        <category>shortcut</category>
         
         
         <category>Mac</category>

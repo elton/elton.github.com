@@ -5,14 +5,16 @@ subtitle:   "十分钟带你理解Kubernetes核心概念"
 date:       2017-02-20
 author:     "Elton"
 header-img: "img/blog-bg-kubernets.jpg"
+header-mask:  0.3
 catalog: true
+multilingual: false
 tags:
     - Kubernetes
     - Docker
     - Cloud
 ---
 
-# 什么是Kubernetes？
+## 什么是Kubernetes？
 * Kubernetes 是 Google 团队发起并维护的基于Docker的开源容器集群管理系统。建于 Docker 之上的 Kubernetes 可以构建一个容器的调度服务，其目的是让用户透过Kubernetes集群来进行云端容器集群的管理，而无需用户进行复杂的设置工作。系统会自动选取合适的工作节点来执行具体的容器集群调度处理工作。
 * 其核心概念是```Container Pod（容器仓）```。一个```Pod```是有一组工作于同一物理工作节点的容器构成的。这些组容器拥有相同的网络命名空间VIP以及存储配额，可以根据实际情况对每一个Pod进行端口映射。此外，Kubernetes工作节点会由主系统进行管理，节点包含了能够运行Docker容器所用到的服务。
 * Kubernetes不仅仅支持Docker，还支持Rocket，这是另一种容器技术。
@@ -29,7 +31,7 @@ tags:
 $ kubectl create -f single-config-file.yaml
 ```
 
-# 集群
+## 集群
 集群是一组节点，这些节点可以是物理服务器或者虚拟机，之上安装了Kubernetes平台。下图展示这样的集群。注意该图为了强调核心概念有所简化。[这里](http://kubernetes.io/v1.1/docs/design/architecture.html)可以看到一个典型的Kubernetes架构图。
 ![Kubernetes架构图](http://dockerone.com/uploads/article/20151230/d56441427680948fb56a00af57bda690.png)
 
@@ -43,16 +45,16 @@ $ kubectl create -f single-config-file.yaml
 * Node（节点）
 * Kubernetes Master（Kubernetes主节点）
 
-# Pod
+## Pod
 [Pod](http://kubernetes.io/v1.1/docs/user-guide/pods.html)（上图绿色方框）安排在节点上，包含一组容器和卷。同一个Pod里的容器共享同一个网络命名空间，可以使用localhost互相通信。Pod是短暂的，不是持续性实体。你可能会有这些问题：
 * 如果Pod是短暂的，那么我怎么才能持久化容器数据使其能够跨重启而存在呢？ 是的，Kubernetes支持卷的概念，因此可以使用持久化的卷类型。
 * 是否手动创建Pod，如果想要创建同一个容器的多份拷贝，需要一个个分别创建出来么？可以手动创建单个Pod，但是也可以使用Replication Controller使用Pod模板创建出多份拷贝，下文会详细介绍。
 * 如果Pod是短暂的，那么重启时IP地址可能会改变，那么怎么才能从前端容器正确可靠地指向后台容器呢？这时可以使用Service，下文会详细介绍。
 
-# Lable
+## Lable
 正如图所示，一些Pod有Label（![label](http://omerio.com/wp-content/uploads/2015/12/label.png)）。一个Label是attach到Pod的一对键/值对，用来传递用户定义的属性。比如，你可能创建了一个"tier"和“app”标签，通过Label（tier=frontend, app=myapp）来标记前端Pod容器，使用Label（tier=backend, app=myapp）标记后台Pod。然后可以使用Selectors选择带有特定Label的Pod，并且将Service或者Replication Controller应用到上面
 
-# Replication Controller
+## Replication Controller
 > 是否手动创建Pod，如果想要创建同一个容器的多份拷贝，需要一个个分别创建出来么，能否将Pods划到逻辑组里？
 
 Replication Controller确保任意时间都有指定数量的Pod“副本”在运行。如果为某个Pod创建了Replication Controller并且指定3个副本，它会创建3个Pod，并且持续监控它们。如果某个Pod不响应，那么Replication Controller会替换它，保持总数为3.如下面的动画所示：
@@ -66,7 +68,7 @@ Replication Controller确保任意时间都有指定数量的Pod“副本”在�
 
 现在已经创建了Pod的一些副本，那么在这些副本上如何均衡负载呢？我们需要的是Service。
 
-# Service
+## Service
 如果Pods是短暂的，那么重启时IP地址可能会改变，怎么才能从前端容器正确可靠地指向后台容器呢？
 
 [Service](http://kubernetes.io/v1.1/docs/user-guide/services.html)是定义一系列Pod以及访问这些Pod的策略的一层抽象。Service通过Label找到Pod组。因为Service是抽象的，所以在图表里通常看不到它们的存在，这也就让这一概念更难以理解。
@@ -80,17 +82,17 @@ Replication Controller确保任意时间都有指定数量的Pod“副本”在�
 
 有一个特别类型的Kubernetes Service，称为'[LoadBalancer](http://kubernetes.io/v1.1/docs/user-guide/services.html#type-loadbalancer)'，作为外部负载均衡器使用，在一定数量的Pod之间均衡流量。比如，对于负载均衡Web流量很有用
 
-# Node
+## Node
 节点（上图橘色方框）是物理或者虚拟机器，作为Kubernetes worker，通常称为Minion。每个节点都运行如下Kubernetes关键组件：
 * Kubelet：是主节点代理。
 * Kube-proxy：Service使用其将链接路由到Pod，如上文所述。
 * Docker或Rocket：Kubernetes使用的容器技术来创建容器。
 
-# Kubernetes Master
+## Kubernetes Master
 
 集群拥有一个Kubernetes Master（紫色方框）。Kubernetes Master提供集群的独特视角，并且拥有一系列组件，比如Kubernetes API Server。API Server提供可以用来和集群交互的REST端点。master节点包括用来创建和复制Pod的Replication Controller。
 
-# 下一步
+## 下一步
 
 现在我们已经了解了Kubernetes核心概念的基本知识，你可以进一步阅读Kubernetes [用户手册](http://kubernetes.io/v1.1/docs/user-guide/README.html)。用户手册提供了快速并且完备的学习文档。
 如果迫不及待想要试试Kubernetes，可以使用[Google Container Engine](https://cloud.google.com/container-engine/docs/)。Google Container Engine是托管的Kubernetes容器环境。简单注册/登录之后就可以在上面尝试示例了。
