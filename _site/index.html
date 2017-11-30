@@ -53,6 +53,18 @@
     <!-- ga & ba script hoook -->
     <script></script>
     <!-- MathJax support-->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true
+        },
+        "HTML-CSS": { availableFonts: ["TeX"] }
+      });
+    </script>
     <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
@@ -206,18 +218,10 @@ Bayes’ theorem(贝叶斯法则)
 
 
 
-  
-    
-      
-        
-          P(A
-          B) – 在事件B下事件A发生的条件概率
-        
-      
-    
-  
-  
-...
+
+  $ P(A|B) $ – 在事件B下事件A发生的条件概率
+  $ P(B|A) $ –  在事件A下事件B发生的条件概率
+  $ P(A), P(B) $ – 独立事件A和独立事件B的边...
         </div>
     </a>
     <p class="post-meta">
