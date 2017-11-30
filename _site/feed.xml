@@ -5,13 +5,13 @@
     <description>关注电商全栈技术 | 郑振宇，Web &amp; Mobile Lover，Front-End &amp; Back-end Engineer，UX Designer, CTO &amp; CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 30 Nov 2017 12:03:21 +0800</pubDate>
-    <lastBuildDate>Thu, 30 Nov 2017 12:03:21 +0800</lastBuildDate>
+    <pubDate>Thu, 30 Nov 2017 12:30:46 +0800</pubDate>
+    <lastBuildDate>Thu, 30 Nov 2017 12:30:46 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
-        <title>Naive Bayes（朴素贝叶斯）</title>
-        <description>&lt;h2 id=&quot;naive-bayes&quot;&gt;Naive Bayes&lt;/h2&gt;
+        <title>Naïve Bayes（朴素贝叶斯）</title>
+        <description>&lt;h2 id=&quot;naïve-bayes&quot;&gt;Naïve Bayes&lt;/h2&gt;
 
 &lt;h3 id=&quot;bayes-theorem贝叶斯法则&quot;&gt;Bayes’ theorem(贝叶斯法则)&lt;/h3&gt;
 
@@ -153,7 +153,7 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h3 id=&quot;naive-bayes-classifiers朴素贝叶斯分类器&quot;&gt;Naive Bayes Classifiers(朴素贝叶斯分类器)&lt;/h3&gt;
+&lt;h3 id=&quot;naïve-bayes-classifiers朴素贝叶斯分类器&quot;&gt;Naïve Bayes Classifiers(朴素贝叶斯分类器)&lt;/h3&gt;
 
 &lt;p&gt;在机器学习中，朴素贝叶斯分类器是一个基于贝叶斯定理的比较简单的概率分类器，其中 naive（朴素）是指的对于模型中各个 feature（特征） 有强独立性的假设，并未将 feature 间的相关性纳入考虑中。&lt;/p&gt;
 
@@ -390,7 +390,7 @@ plt.show()
         <link>http://localhost:4000/2017/11/30/naive-bayes/</link>
         <guid isPermaLink="true">http://localhost:4000/2017/11/30/naive-bayes/</guid>
         
-        <category>Naive Bayes</category>
+        <category>Naïve Bayes</category>
         
         <category>algorithm</category>
         
