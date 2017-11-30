@@ -5,8 +5,8 @@
     <description>关注电商全栈技术 | 郑振宇，Web &amp; Mobile Lover，Front-End &amp; Back-end Engineer，UX Designer, CTO &amp; CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 30 Nov 2017 20:12:23 +0800</pubDate>
-    <lastBuildDate>Thu, 30 Nov 2017 20:12:23 +0800</lastBuildDate>
+    <pubDate>Thu, 30 Nov 2017 20:41:43 +0800</pubDate>
+    <lastBuildDate>Thu, 30 Nov 2017 20:41:43 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -23,9 +23,9 @@ P(A|B)=\frac{P(B|A)P(A)}{P(B)}
 \end{equation}&lt;/script&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;$ P(A|B) $ – 在事件B下事件A发生的条件概率&lt;/li&gt;
-  &lt;li&gt;$ P(B|A) $ –  在事件A下事件B发生的条件概率&lt;/li&gt;
-  &lt;li&gt;$ P(A), P(B) $ – 独立事件A和独立事件B的边缘概率&lt;/li&gt;
+  &lt;li&gt;\( P(A|B) \) – 在事件B下事件A发生的条件概率&lt;/li&gt;
+  &lt;li&gt;\( P(B|A) \) –  在事件A下事件B发生的条件概率&lt;/li&gt;
+  &lt;li&gt;\( P(A), P(B) \) – 独立事件A和独立事件B的边缘概率&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;bayesian-inferenc贝叶斯推断&quot;&gt;Bayesian inferenc(贝叶斯推断)&lt;/h3&gt;
@@ -62,14 +62,7 @@ P(H_1|E) &amp; = \frac{P(E|H_1)}{P(E|H_1)P(H_1)+P(E|H_2)P(H_2)}\\
   &lt;li&gt;$P(E|H_1)P(H_1) + P(E|H_2)P(H_2)$ – 表示拿到普通饼干的概率&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;在我们拿到饼干前，我们会选到一号碗的概率是先验概率 P(H1)，在拿到了饼干后，我们要得到是后验概率 P(H1&lt;/td&gt;
-      &lt;td&gt;E)&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;在我们拿到饼干前，我们会选到一号碗的概率是先验概率 $P(H_1)$，在拿到了饼干后，我们要得到是后验概率 $P(H_1|E)$&lt;/p&gt;
 
 &lt;h3 id=&quot;naïve-bayes-classifiers朴素贝叶斯分类器&quot;&gt;Naïve Bayes Classifiers(朴素贝叶斯分类器)&lt;/h3&gt;
 
