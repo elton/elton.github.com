@@ -5,8 +5,8 @@
     <description>关注电商全栈技术 | 郑振宇，Web &amp; Mobile Lover，Front-End &amp; Back-end Engineer，UX Designer, CTO &amp; CIO | 这里是 @Elton郑振宇 的个人博客，与你一起发现更大的世界。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 30 Nov 2017 21:54:04 +0800</pubDate>
-    <lastBuildDate>Thu, 30 Nov 2017 21:54:04 +0800</lastBuildDate>
+    <pubDate>Sun, 03 Dec 2017 13:38:02 +0800</pubDate>
+    <lastBuildDate>Sun, 03 Dec 2017 13:38:02 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -15,17 +15,17 @@
 
 &lt;h3 id=&quot;bayes-theorem贝叶斯法则&quot;&gt;Bayes’ theorem(贝叶斯法则)&lt;/h3&gt;
 
-&lt;p&gt;在概率论和统计学中，Bayes’ theorem（贝叶斯法则）根据事件的先验知识描述事件的概率。贝叶斯法则表达式如下所示：&lt;/p&gt;
+&lt;p&gt;在概率论和统计学中，Bayes’ theorem（贝叶斯法则）根据事件的先验知识描述事件的概率。贝叶斯法则表达式如下所示$\eqref{eq:Bayes_theorem}$：&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation}
 P(A|B)=\frac{P(B|A)P(A)}{P(B)}
-\label{eq:Bayes' theorem}
+\label{eq:Bayes_theorem}
 \end{equation}&lt;/script&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;\( P(A|B) \) – 在事件B下事件A发生的条件概率&lt;/li&gt;
-  &lt;li&gt;\( P(B|A) \) –  在事件A下事件B发生的条件概率&lt;/li&gt;
-  &lt;li&gt;\( P(A), P(B) \) – 独立事件A和独立事件B的边缘概率&lt;/li&gt;
+  &lt;li&gt;$ P(A|B) $ – 在事件B下事件A发生的条件概率&lt;/li&gt;
+  &lt;li&gt;$ P(B|A) $ –  在事件A下事件B发生的条件概率&lt;/li&gt;
+  &lt;li&gt;$ P(A), P(B) $ – 独立事件A和独立事件B的边缘概率&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;bayesian-inferenc贝叶斯推断&quot;&gt;Bayesian inferenc(贝叶斯推断)&lt;/h3&gt;
@@ -34,7 +34,9 @@ P(A|B)=\frac{P(B|A)P(A)}{P(B)}
 
 &lt;p&gt;贝叶斯推断根据 prior probability(先验概率) 和统计模型导出的“likelihood function(似然函数)”的结果，再由贝叶斯定理计算 posterior probability(后验概率)：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(H|E)=\frac{P(E|H)P(H)}{P(E)}&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation}
+P(H|E)=\frac{P(E|H)P(H)}{P(E)}
+\end{equation}&lt;/script&gt;
 
 &lt;ul&gt;
   &lt;li&gt;$P(H)$ – 已知的先验概率&lt;/li&gt;
@@ -52,9 +54,11 @@ P(A|B)=\frac{P(B|A)P(A)}{P(B)}
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
 \begin{align}
+\begin{split}
 P(H_1|E) &amp; = \frac{P(E|H_1)}{P(E|H_1)P(H_1)+P(E|H_2)P(H_2)}\\
  &amp; = \frac{0.75\times 0.5}{0.75\times 0.5+0.5\times 0.5}\\
  &amp; = 0.6
+\end{split}
 \end{align} %]]&gt;&lt;/script&gt;
 
 &lt;ul&gt;
@@ -76,11 +80,15 @@ P(H_1|E) &amp; = \frac{P(E|H_1)}{P(E|H_1)P(H_1)+P(E|H_2)P(H_2)}\\
 
 &lt;p&gt;我们用 $S$ 表示垃圾邮件（spam），$H$ 表示正常邮件（healthy）。两者的先验概率都是50%，即：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(S)=P(H)=50%&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation}
+P(S)=P(H)=50%
+\end{equation}&lt;/script&gt;
 
 &lt;p&gt;我们用 $W$ 表示这个词，那么问题就变成了计算 $P(S|W)$ 的值，根据贝叶斯定理我们可以得到：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(S|W)=\frac{P(W|S)P(S)}{P(W|S)P(S)+P(W|H)P(H)}&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation}
+P(S|W)=\frac{P(W|S)P(S)}{P(W|S)P(S)+P(W|H)P(H)}
+\end{equation}&lt;/script&gt;
 
 &lt;p&gt;$P(W|S)$和$P(W|H)$的含义是，这个词语在垃圾邮件和正常邮件中，分别出现的概率。通过计算可以得到 $P(S|W) = 99.0%$，说明“sex”的判断能力很强，将50%的先验概率提高到了99%的后验概率。&lt;/p&gt;
 
@@ -88,7 +96,9 @@ P(H_1|E) &amp; = \frac{P(E|H_1)}{P(E|H_1)P(H_1)+P(E|H_2)P(H_2)}\\
 
 &lt;p&gt;大多数贝叶斯垃圾邮件分类器基于这样的假设：邮件中的单词是独立的事件，实际上这种条件一般不被满足，这也是为什么被称作朴素贝叶斯。这是对于应用情景的理想化，在此基础上，我们可以通过贝叶斯定理得到以下公式：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p=\frac{p_1p_2\dots p_N}{p_1p_2\dots p_N+(1−p_1)(1−p_2)\dots (1−p_N)}&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation}
+p=\frac{p_1p_2\dots p_N}{p_1p_2\dots p_N+(1−p_1)(1−p_2)\dots (1−p_N)}
+\end{equation}&lt;/script&gt;
 
 &lt;ul&gt;
   &lt;li&gt;$p$是可疑邮件是垃圾邮件的概率&lt;/li&gt;
@@ -107,21 +117,27 @@ P(H_1|E) &amp; = \frac{P(E|H_1)}{P(E|H_1)P(H_1)+P(E|H_2)P(H_2)}\\
 
 &lt;p&gt;处理连续数据的时候，一个比较典型的假设是与每个分类相关的连续值是按照高斯分布分布的。假设训练集中包含连续值 $x$，我们按照类别将数据分类，并计算每个分类的均值和偏差。$\mu_k$是对应类别 $C_k$ 下 $x$ 值的均值，$\sigma_k^2$是方差。假设我们已经收集到一些观测值 $v$。在给定分类 $C_k$ 下 $v$ 的概率分布 $p(x = v | C_k)$ 可以通过将 $v $带入到由 $\mu_k$ 和 $\sigma_k^2$ 决定的高斯分布公式中得到。&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(x = v | C_k) = \frac{1}{\sqrt{2\pi \sigma_k^2}}\mathrm{e}^{-\frac{(v-\mu_k)^2}{2\sigma_k^2}}&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation}
+p(x = v | C_k) = \frac{1}{\sqrt{2\pi \sigma_k^2}}\mathrm{e}^{-\frac{(v-\mu_k)^2}{2\sigma_k^2}}
+\end{equation}&lt;/script&gt;
 
 &lt;h4 id=&quot;multinomial-naïve-bayes多项式朴素贝叶斯&quot;&gt;Multinomial Naïve Bayes（多项式朴素贝叶斯）&lt;/h4&gt;
 
 &lt;p&gt;对于一个多项分布事件模型，样本表示了一个特定事件出现的频率，由多项分布$(p_1, p_2, \dots, p_n)$产生，其中，$p_i$ 表示事件 $i$ 发生的频率。特征向量 $X = (x_1, \dots , x_n)$可以用直方图来表示，其中 $x_i$ 表示事件 $i$ 在特定特定情境下被观察到的次数。这是个典型的用于文档分类的事件模型，其中事件表示在单个文档中某个单词的出现。观察到特征向量的可能性为：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(x|C_k) = \frac{(\sum_ix_i)!}{\prod_ix_i!}\prod_ip_{ki}^{x_i}&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation}
+p(x|C_k) = \frac{(\sum_ix_i)!}{\prod_ix_i!}\prod_ip_{ki}^{x_i}
+\end{equation}&lt;/script&gt;
 
 &lt;p&gt;在对数空间中，多项朴素贝叶斯分类器变成了线性分类器：&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
 \begin{align}
+\begin{split}
 log\ p(C_k|x) &amp; \propto log\Biggl(p(C_k)\prod_i^np_{ki}^{x_i}\Biggr)\\
 &amp; = log\ p(C_k) + \sum_{i=1}^n x_i\cdot log\ p_{ki}\\
 &amp; = b + w_k^\top
+\end{split}
 \end{align} %]]&gt;&lt;/script&gt;
 
 &lt;p&gt;其中 $b = log\ p(C_k), w_{ki} = log\ p_{ki}$&lt;/p&gt;
@@ -132,7 +148,9 @@ log\ p(C_k|x) &amp; \propto log\Biggl(p(C_k)\prod_i^np_{ki}^{x_i}\Biggr)\\
 
 &lt;p&gt;在多元伯努利事件模型中，特征是描述输入的二元变量。和多项式模型一样，这个模型通常用于文本分类，其中使用的是二项出现特征而不是词频。如果 $x_i$ 是用于描述词表中第 $i$ 个单词是否出现的二元变量， 文档中给定分类 $C_k$ 的可能性为：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(x|C_k) = \prod_{i=1}^np_{ki}^{x_i}(1-p_{ki})^{1-x_i}&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{equation}
+p(x|C_k) = \prod_{i=1}^np_{ki}^{x_i}(1-p_{ki})^{1-x_i}
+\end{equation}&lt;/script&gt;
 
 &lt;p&gt;其中 $p_{ki}$ 表示分类 $C_k$ 产生单词 $x_i$的可能性。这个事件模型特别适合用于短文本分类。&lt;/p&gt;
 
