@@ -35,6 +35,7 @@
   <!-- Hux change font-awesome CDN to qiniu -->
   <!-- <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
   <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 
 
   <!-- Hux Delete, sad but pending in China
@@ -55,26 +56,17 @@
   <script></script>
   <!-- MathJax support-->
   <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        TeX: { equationNumbers: { autoNumber: "AMS" } },
-        extensions: ["tex2jax.js"],
-        jax: ["input/TeX", "output/HTML-CSS"],
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-          processEscapes: true
-        },
-        "HTML-CSS": { availableFonts: ["TeX"] }
-      });
-    </script>
-    <!-- <script type="text/javascript" async
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "AMS" } }, extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true
+    }, "HTML-CSS": { availableFonts: ["TeX"] } });
+  </script>
+  <!-- <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
   </script> -->
   <!-- <script data-cfasync='true' type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.2/latest.js?config=TeX-MML-AM_HTMLorMML">
 </script> -->
-<script  data-cfasync='false' src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+  <script data-cfasync='false' src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
 </head>
-
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
@@ -15066,7 +15058,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Elton's Blog 2017
+                    Copyright &copy; Elton's Blog 2018
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> |
                     <iframe
