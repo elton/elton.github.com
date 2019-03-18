@@ -372,3 +372,204 @@ $$
 >提醒：我们导出$f'(x)= f(x)* (1 - f(x))$我们之前的Sigmoid激活函数。
 
 这告诉我们如果我们要增加$w_1$，损失函数$L$会增加非常小部分。
+
+### 训练：随机梯度下降（Stochastic Gradient Descent）
+
+我们现在拥有训练神经网络所需的所有工具！我们将使用一种称为随机梯度下降（SGD）的优化算法，该算法告诉我们如何改变我们的权重和偏差以最小化损失。它基本上就是这个更新等式：
+
+$$
+w_1 \gets w_1 - \eta \frac{\partial L}{\partial w_1}
+$$
+
+$\eta$是一个常数，称为学习率（learning rate），它决定了我们训练网络速率的快慢。将$w_1$减去$\eta \frac{\partial L}{\partial w_1}$，就等到了新的权重$w_1$。
+
+* 如果 $\frac{\partial L}{\partial w_1}$为正，$w_1$就会减少，这会使$L$减少。
+* 如果 $\frac{\partial L}{\partial w_1}$为负，$w_1$就会增加，这会使$L$增加。
+
+如果我们用这种方法去逐步改变网络的权重w和偏置b，损失函数会缓慢地降低，从而改进我们的神经网络。
+
+训练整体流程如下：
+
+1. 从数据集中选择一个样本，这就是随机梯度下降的原因 - 我们一次只对一个样本进行操作。；
+2. 计算损失函数对所有权重和偏置的偏导数，如$\frac{\partial L}{\partial w_1}, \frac{\partial L}{\partial w_2}$等；
+3. 使用更新公式更新每个权重和偏置；
+4. 回到第1步。
+
+### 编码：完整的神经网络
+现在终于实现了一个完整的神经网络：
+
+Name | Weight(-135 lb) | Height(-66 in) | Gender
+:--:|:--:|:--:|:--:
+Alice|-2|-1|1
+Bob|25|6|0
+Charlie|17|4|0
+Diana|-15|-6|1
+
+![](https://victorzhou.com/media/neural-network-post/network3.svg)
+
+```python
+import numpy as np
+
+def sigmoid(x):
+  # Sigmoid activation function: f(x) = 1 / (1 + e^(-x))
+  return 1 / (1 + np.exp(-x))
+
+def deriv_sigmoid(x):
+  # Derivative of sigmoid: f'(x) = f(x) * (1 - f(x))
+  fx = sigmoid(x)
+  return fx * (1 - fx)
+
+def mse_loss(y_true, y_pred):
+  # y_true and y_pred are numpy arrays of the same length.
+  return ((y_true - y_pred) ** 2).mean()
+
+class OurNeuralNetwork:
+  '''
+  A neural network with:
+    - 2 inputs
+    - a hidden layer with 2 neurons (h1, h2)
+    - an output layer with 1 neuron (o1)
+
+  *** DISCLAIMER ***:
+  The code below is intended to be simple and educational, NOT optimal.
+  Real neural net code looks nothing like this. DO NOT use this code.
+  Instead, read/run it to understand how this specific network works.
+  '''
+  def __init__(self):
+    # Weights
+    self.w1 = np.random.normal()
+    self.w2 = np.random.normal()
+    self.w3 = np.random.normal()
+    self.w4 = np.random.normal()
+    self.w5 = np.random.normal()
+    self.w6 = np.random.normal()
+
+    # Biases
+    self.b1 = np.random.normal()
+    self.b2 = np.random.normal()
+    self.b3 = np.random.normal()
+
+  def feedforward(self, x):
+    # x is a numpy array with 2 elements.
+    h1 = sigmoid(self.w1 * x[0] + self.w2 * x[1] + self.b1)
+    h2 = sigmoid(self.w3 * x[0] + self.w4 * x[1] + self.b2)
+    o1 = sigmoid(self.w5 * h1 + self.w6 * h2 + self.b3)
+    return o1
+
+  def train(self, data, all_y_trues):
+    '''
+    - data is a (n x 2) numpy array, n = # of samples in the dataset.
+    - all_y_trues is a numpy array with n elements.
+      Elements in all_y_trues correspond to those in data.
+    '''
+    learn_rate = 0.1
+    epochs = 1000 # number of times to loop through the entire dataset
+
+    for epoch in range(epochs):
+      for x, y_true in zip(data, all_y_trues):
+        # --- Do a feedforward (we'll need these values later)
+        sum_h1 = self.w1 * x[0] + self.w2 * x[1] + self.b1
+        h1 = sigmoid(sum_h1)
+
+        sum_h2 = self.w3 * x[0] + self.w4 * x[1] + self.b2
+        h2 = sigmoid(sum_h2)
+
+        sum_o1 = self.w5 * h1 + self.w6 * h2 + self.b3
+        o1 = sigmoid(sum_o1)
+        y_pred = o1
+
+        # --- Calculate partial derivatives.
+        # --- Naming: d_L_d_w1 represents "partial L / partial w1"
+        d_L_d_ypred = -2 * (y_true - y_pred)
+
+        # Neuron o1
+        d_ypred_d_w5 = h1 * deriv_sigmoid(sum_o1)
+        d_ypred_d_w6 = h2 * deriv_sigmoid(sum_o1)
+        d_ypred_d_b3 = deriv_sigmoid(sum_o1)
+
+        d_ypred_d_h1 = self.w5 * deriv_sigmoid(sum_o1)
+        d_ypred_d_h2 = self.w6 * deriv_sigmoid(sum_o1)
+
+        # Neuron h1
+        d_h1_d_w1 = x[0] * deriv_sigmoid(sum_h1)
+        d_h1_d_w2 = x[1] * deriv_sigmoid(sum_h1)
+        d_h1_d_b1 = deriv_sigmoid(sum_h1)
+
+        # Neuron h2
+        d_h2_d_w3 = x[0] * deriv_sigmoid(sum_h2)
+        d_h2_d_w4 = x[1] * deriv_sigmoid(sum_h2)
+        d_h2_d_b2 = deriv_sigmoid(sum_h2)
+
+        # --- Update weights and biases
+        # Neuron h1
+        self.w1 -= learn_rate * d_L_d_ypred * d_ypred_d_h1 * d_h1_d_w1
+        self.w2 -= learn_rate * d_L_d_ypred * d_ypred_d_h1 * d_h1_d_w2
+        self.b1 -= learn_rate * d_L_d_ypred * d_ypred_d_h1 * d_h1_d_b1
+
+        # Neuron h2
+        self.w3 -= learn_rate * d_L_d_ypred * d_ypred_d_h2 * d_h2_d_w3
+        self.w4 -= learn_rate * d_L_d_ypred * d_ypred_d_h2 * d_h2_d_w4
+        self.b2 -= learn_rate * d_L_d_ypred * d_ypred_d_h2 * d_h2_d_b2
+
+        # Neuron o1
+        self.w5 -= learn_rate * d_L_d_ypred * d_ypred_d_w5
+        self.w6 -= learn_rate * d_L_d_ypred * d_ypred_d_w6
+        self.b3 -= learn_rate * d_L_d_ypred * d_ypred_d_b3
+
+      # --- Calculate total loss at the end of each epoch
+      if epoch % 10 == 0:
+        y_preds = np.apply_along_axis(self.feedforward, 1, data)
+        loss = mse_loss(all_y_trues, y_preds)
+        print("Epoch %d loss: %.3f" % (epoch, loss))
+
+# Define dataset
+data = np.array([
+  [-2, -1],  # Alice
+  [25, 6],   # Bob
+  [17, 4],   # Charlie
+  [-15, -6], # Diana
+])
+all_y_trues = np.array([
+  1, # Alice
+  0, # Bob
+  0, # Charlie
+  1, # Diana
+])
+
+# Train our neural network!
+network = OurNeuralNetwork()
+network.train(data, all_y_trues)
+```
+
+完整的代码在[github](https://github.com/vzhou842/neural-network-from-scratch)
+
+随着网络的学习，我们的损失稳步下降：
+
+![](https://victorzhou.com/media/neural-network-post/loss.png)
+
+我们现在可以使用网络来预测性别：
+
+```python
+# Make some predictions
+emily = np.array([-7, -3]) # 128 pounds, 63 inches
+frank = np.array([20, 2])  # 155 pounds, 68 inches
+print("Emily: %.3f" % network.feedforward(emily)) # 0.951 - F
+print("Frank: %.3f" % network.feedforward(frank)) # 0.039 - M
+```
+
+### 更多
+这篇教程只是万里长征第一步，后面还有很多知识需要学习：
+
+1、用更大更好的机器学习库搭建神经网络，如Tensorflow、Keras、PyTorch
+
+2、在浏览器中的直观理解神经网络：https://playground.tensorflow.org/
+
+3、学习sigmoid以外的其他激活函数：https://keras.io/activations/
+
+4、学习SGD以外的其他优化器：https://keras.io/optimizers/
+
+5、学习卷积神经网络（CNN）
+
+6、学习递归神经网络（RNN）
+
+[翻译原文](https://victorzhou.com/blog/intro-to-neural-networks/)
