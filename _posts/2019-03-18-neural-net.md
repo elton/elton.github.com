@@ -235,3 +235,30 @@ print(mse_loss(y_true, y_pred)) # 0.5
 ## 4.训练一个神经网络（第二部分）
 我们现在有一个明确的目标：**尽量减少神经网络的损失**。我们知道我们可以改变网络的权重和偏差以影响其预测，但我们如何以减少损失呢？
 >本节使用了一些多变量微积分。如果您对微积分不感兴趣，请跳过数学部分。
+
+为了简单起见，我们把数据集缩减到只包含Alice一个人的数据。
+
+Name | Weight(-135 lb) | Height(-66 in) | Gender
+:--:|:--:|:--:|:--:
+Alice|-2|-1|1
+
+于是损失函数就剩下Alice一个人的方差：
+
+$$
+\begin{aligned}
+         MSE &= \frac{1}{1}\sum_{i=1}^1(y_{true}-y_{pred})^2 \\
+             &= (y_{true}-y_{pred})^2\\
+             &= (1-y_{pred})^2
+\end{aligned}
+$$
+
+考虑损失的另一种方式是权重和偏差。让我们在网络中标出每个权重和偏见：
+![](https://victorzhou.com/media/neural-network-post/network3.svg)
+
+然后，我们可以将损失写为多变量函数：
+
+$$
+L(w_1,w_2,w_3,w_4,w_5,w_6,b_1,b_2,b_3)
+$$
+
+想象一下，我们想要调整$w_1$ 。如果我们改变了$w_1$，L损失函数的值会如何改变 ？这是[偏导数](https://zh.wikipedia.org/wiki/%E5%81%8F%E5%AF%BC%E6%95%B0)$\frac {\partial L}{\partial w_1}$可以回答的问题。我们如何计算呢？
