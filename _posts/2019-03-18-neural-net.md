@@ -178,6 +178,7 @@ Diana|120|60|F
 现在我们的目标是训练一个网络，根据体重和身高来推测某人的性别。
 ![](https://victorzhou.com/media/neural-network-post/network2.svg)
 为了简便起见，我们将每个人的身高、体重减去一个固定数值，把性别男定义为1、性别女定义为0。
+
 Name | Weight(-135 lb) | Height(-66 in) | Gender
 :--:|:--:|:--:|:--:
 Alice|-2|-1|1
