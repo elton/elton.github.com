@@ -31,10 +31,13 @@ $$
 $$
 (x_1 ∗ w_1)+(x_2 ∗ w_2)+b
 $$
+
 最后将它们经过激活函数（activation function）处理得到输出(黄色部分)：
+
 $$
 y=f(x_1*w_1+x_2*w_2+b)
 $$
+
 激活函数的作用是将无限制的输入转换为可预测形式的输出。一种常用的激活函数是[sigmoid](https://en.wikipedia.org/wiki/Sigmoid_function)函数：
 ![](https://victorzhou.com/media/neural-network-post/sigmoid.png)
 
@@ -49,7 +52,9 @@ $$
    b&=4
 \end{aligned}
 $$
+
 $w=[0,1]$是$w_1=0$、$w_2=1$的向量形式写法。给神经元一个输入$x=[2,3]$，可以用向量[点积](https://simple.wikipedia.org/wiki/Dot_product)的形式把神经元的输出计算出来：
+
 $$
 \begin{aligned}
    (w \cdot x)+b &=((w_1*x_1)+(w_2*x_2))+b \\
@@ -58,6 +63,7 @@ $$
 \end{aligned}\\
 y=f(w\cdot x+b) =f(7)=0.999
 $$
+
 给定输入$x = [2,3] $，神经元输出$0.999$。给与输入然后得到输出的过程称为**前馈**(feedforward)。
 
 ### 编码一个神经网络
