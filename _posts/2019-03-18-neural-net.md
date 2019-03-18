@@ -167,12 +167,14 @@ print(network.feedforward(x)) # 0.7216325609518421
 ## 3. 训练一个神经网络（第一部分）
 现在我们已经学会了如何搭建神经网络，现在我们来学习如何训练它，其实这就是一个优化的过程。
 假设我们有以下测量值，包含4个人的身高、体重和性别：
+
 Name | Weight(lb) | Height(in) | Gender
 :--:|:--:|:--:|:--:
 Alice|133|65|F
 Bob|160|72|M
 Charlie|152|70|M
 Diana|120|60|F
+
 现在我们的目标是训练一个网络，根据体重和身高来推测某人的性别。
 ![](https://victorzhou.com/media/neural-network-post/network2.svg)
 为了简便起见，我们将每个人的身高、体重减去一个固定数值，把性别男定义为1、性别女定义为0。
