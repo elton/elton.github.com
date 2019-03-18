@@ -262,3 +262,113 @@ L(w_1,w_2,w_3,w_4,w_5,w_6,b_1,b_2,b_3)
 $$
 
 想象一下，我们想要调整$w_1$ 。如果我们改变了$w_1$，L损失函数的值会如何改变 ？这是[偏导数](https://zh.wikipedia.org/wiki/%E5%81%8F%E5%AF%BC%E6%95%B0)$\frac {\partial L}{\partial w_1}$可以回答的问题。我们如何计算呢？
+
+>这里数学开始变得更复杂。**不要气馁**！我建议让笔和纸一起跟进 - 它会帮助你理解。
+
+首先，让我们用$\frac {\partial y_{pred}}{\partial w_1}$重写偏导数：
+
+$$
+\frac{\partial L}{\partial w_1} = \frac{\partial L}{\partial y_{pred}} * \frac{\partial y_{pred}}{\partial w_1}
+$$
+
+可以这样写是因为[链式求导法则](https://zh.wikipedia.org/wiki/%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99)。
+
+我们可以计算$\frac {\partial L} {\partial y_{pred}}$，因为我们在上面已经计算了$ L =（1 - y_{pred})^2 $：
+
+$$
+\frac{\partial L}{\partial y_{pred}} = \frac{\partial (1-y_{pred})^2}{\partial y_{pred}} = -2(1-y_{pred})
+$$
+
+接下来我们要想办法获得$y_{pred}$和$w_1$的关系，我们已经知道神经元$h_1$、$h_2$和$o_1$的数学运算规则：
+
+$$
+y_{pred} = o_1 = f(w_5h_1+w_6h_2+b_3)
+$$
+
+因为$w_1$只影响神经元$h_1$，所以我们再次运用链式求导法则：
+
+$$
+\frac{\partial y_{perd}}{\partial w_1} = \frac{\partial y_{perd}}{\partial h_1}*\frac{\partial h_1}{\partial w_1}\\
+\frac{\partial y_{perd}}{\partial h_1} = w_5*f’(w_5h_1+w_6h_2+b_3)
+$$
+
+用同样的方法计算$\frac{\partial h_1}{\partial w_1}$:
+
+$$
+h_1 = f(w_1x_1+w_2x_2+b_1)\\
+\frac{\partial h_1}{\partial w_1} = x_1 * f'(w_1x_1+w_2x_2+b_1)
+$$
+
+$x_1$这是重量，和$x_2$是高度。这是我们第二次看到$f'(x)$（sigmoid函数的导数）现在！让我们推导出来：
+
+$$
+f(x) = \frac{1}{1+e^{-x}}\\
+f'(x) = \frac{e^{-x}}{(1+e^{-x})^2} = f(x)*(1-f(x))
+$$
+
+我们后面使用$f'(x)$这个漂亮的形式
+
+我们完成了！我们已经设法将$\frac {\partial L}{\partial w_1}$分解成几个部分：
+
+$$
+\frac {\partial L}{\partial w_1} = \frac{\partial L}{\partial y_{pred}} * \frac{\partial y_{pred}}{\partial h_1} * \frac{\partial h_1}{\partial w_1}
+$$
+
+这种通过向后计算偏导数的系统称为**反向传播**（backpropagation）或“反向传播”。
+
+上面的数学符号太多，下面我们带入实际数值来计算一下。$h_1$、$h_2$和$o_1$
+
+### 例子：计算偏导数
+
+我们将继续假设只有Alice在我们的数据集中：
+
+Name | Weight(-135 lb) | Height(-66 in) | Gender
+:--:|:--:|:--:|:--:
+Alice|-2|-1|1
+
+让我们将所有权重初始化为$1$，将所有偏差初始化为$0$.如果我们通过神经网络进行前馈传递，我们得到：
+
+$$
+\begin{aligned}
+h_1 &= f(w_1x_1+w_2x_2+b_1)\\
+    &= f(-2+-1+0)\\
+    &= 0.0474
+\end{aligned}\\
+h_2 = f(w_3x_1+w_4x_2+b_2)= 0.0474\\
+\begin{aligned}
+o_1 &= f(w_5h_1+w_6h_2+b_3)\\
+    &= f(0.0474+0.0474+0)\\
+    &= 0.524
+\end{aligned}
+$$
+
+神经网络的输出$y=0.524$，没有显示出强烈的是男（1）是女（0）的证据。现在的预测效果还很不好。现在计算$\frac{\partial L}{\partial w_1}$:
+
+$$
+\frac{\partial L}{\partial w_1} =  \frac{\partial L}{\partial y_{pred}} * \frac{\partial y_{pred}}{\partial h_1} * \frac{\partial h_1}{\partial w_1}\\
+\begin{aligned}
+\frac{\partial L}{\partial y_{pred}} &= -2(1-y_{pred})\\
+                                     &= -2(1-0.524)\\
+                                     &= -0.952
+\end{aligned}\\
+\begin{aligned}
+\frac{\partial y_{pred}}{\partial h_1} &=  w_5*f’(w_5h_1+w_6h_2+b_3)\\
+                                     &= 1* f'(0.0474+0.0474+0)\\
+                                     &= f(0.0948)*(1-f(0.0948))\\
+                                     &= 0.249
+\end{aligned}\\
+\begin{aligned}
+\frac{\partial h_1}{\partial w_1} &= x_1 * f'(w_1x_1+w_2x_2+b_1)\\
+                                  &= -2* f'(-2+-1+0)\\
+                                  &= -2* f(-3)*(1-f(-3))\\
+                                  &= -0.0904
+\end{aligned}\\
+\begin{aligned}
+\frac{\partial L}{\partial w_1} &= -0.952 * 0.249 * -0.0904\\
+                                  &= 0.0214
+\end{aligned}
+$$
+
+>提醒：我们导出$f'(x)= f(x)* (1 - f(x))$我们之前的Sigmoid激活函数。
+
+这告诉我们如果我们要增加$w_1$，损失函数$L$会增加非常小部分。
